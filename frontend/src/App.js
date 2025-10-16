@@ -10,6 +10,7 @@ import Team from "./components/Team";
 import ContactForm from "./components/ContactForm";
 import AIChat from "./components/AIChat";
 import Footer from "./components/Footer";
+import StickyCTA from "./components/StickyCTA";
 
 function App() {
   const handleServiceClick = (serviceId) => {
@@ -23,6 +24,7 @@ function App() {
     <div className="App bg-[#0b0f17] min-h-screen">
       <Toaster position="top-center" />
       <Header />
+      <StickyCTA />
       
       <main>
         <Hero onServiceClick={handleServiceClick} />
