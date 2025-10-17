@@ -53,12 +53,18 @@ const ContactForm = () => {
           viewport={{ once: true }}
           className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4">
-            Получить консультацию
+          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+            <span className="animated-gradient-text text-glow">Получить консультацию</span>
           </h2>
-          <p className="text-lg md:text-xl text-white/60">
-            Ответим в течение 15 минут
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl text-white/60"
+          >
+            Ответим в течение <span className="color-pulse font-semibold">15 минут</span>
+          </motion.p>
         </motion.div>
 
         <motion.form
