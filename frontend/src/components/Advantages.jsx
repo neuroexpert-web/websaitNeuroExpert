@@ -4,8 +4,10 @@ import { mockAdvantages } from '../mock';
 
 const Advantages = () => {
   return (
-    <section className="relative py-20 px-6 bg-[#0b0f17]">
-      <div className="max-w-7xl mx-auto">
+    <section className="cosmic-bg relative py-20 px-6 bg-[#0b0f17] overflow-hidden">
+      <div className="neural-lines" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
