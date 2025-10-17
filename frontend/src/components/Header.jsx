@@ -59,9 +59,22 @@ const Header = () => {
           href="#contact"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="hidden md:block px-4 lg:px-6 py-2 lg:py-3 bg-[#7dd3fc] text-black font-semibold text-sm lg:text-base rounded-xl hover:bg-white transition-all duration-400"
+          className="hidden md:flex items-center gap-2 px-5 lg:px-7 py-2.5 lg:py-3.5 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-sm lg:text-base rounded-xl hover:shadow-xl hover:shadow-[#7dd3fc]/50 transition-all duration-400 breathing-glow relative overflow-hidden group"
         >
-          Начать
+          {/* Animated shine effect */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            animate={{
+              x: ['-100%', '100%']
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 1
+            }}
+          />
+          <span className="relative z-10">🚀</span>
+          <span className="relative z-10">Начать</span>
         </motion.a>
 
         {/* Mobile Menu Button */}
