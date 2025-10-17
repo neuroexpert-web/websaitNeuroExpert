@@ -40,17 +40,50 @@ const AIChat = () => {
 
   const handleQuickAction = async (action) => {
     const serviceMessages = {
-      audit: 'Отличный выбор! Цифровой аудит поможет найти точки роста. Как мне к вам обращаться?',
-      'ai-bot': 'AI-ассистент работает 24/7 и обработает 80% вопросов. Как вас зовут?',
-      website: 'Создадим премиум сайт за 10-14 дней. Как мне к вам обращаться?',
-      support: 'Техподдержка с SLA 99.9% uptime. Как вас зовут?'
+      audit: 'Расскажите о цифровом аудите',
+      'ai-bot': 'Интересует AI-ассистент 24/7',
+      website: 'Хочу заказать сайт под ключ',
+      support: 'Нужна техподдержка'
     };
 
-    setMessages(prev => [
-      ...prev,
-      { role: 'assistant', content: serviceMessages[action] }
-    ]);
-    setStep('name');
+    // Send as user message to AI
+    const message = serviceMessages[action];
+    setMessages(prev => [...prev, { role: 'user', content: message }]);
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+          message: message,
+          user_data: userData.contact ? userData : null
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: data.response }
+      ]);
+
+    } catch (error) {
+      console.error('Error sending quick action:', error);
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: 'Извините, произошла ошибка. Попробуйте еще раз.' }
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSend = async () => {
