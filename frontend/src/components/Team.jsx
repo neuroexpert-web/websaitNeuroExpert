@@ -11,9 +11,6 @@ const Team = () => {
 
   return (
     <section className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 overflow-hidden">
-      {/* Video Background */}
-      <VideoBackground />
-      
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
