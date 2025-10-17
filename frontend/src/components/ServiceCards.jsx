@@ -735,14 +735,14 @@ const ServiceCards = () => {
                 {selectedService.id === 2 && (
                   <>
                     {/* Subtitle */}
-                    <div className="mb-12">
-                      <p className="text-2xl text-[#7dd3fc] font-semibold text-center">{aiAssistantContent.subtitle}</p>
+                    <div className="mb-8 sm:mb-10 md:mb-12">
+                      <p className="text-xl sm:text-xl md:text-2xl text-[#7dd3fc] font-semibold text-center">{aiAssistantContent.subtitle}</p>
                     </div>
 
                     {/* Intro */}
-                    <section className="mb-12">
-                      <div className="p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
-                        <h3 className="text-2xl font-bold text-white mb-4">Что такое AI-ассистент простыми словами?</h3>
+                    <section className="mb-8 sm:mb-10 md:mb-12">
+                      <div className="p-4 sm:p-5 md:p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
+                        <h3 className="text-xl sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">Что такое AI-ассистент простыми словами?</h3>
                         {aiAssistantContent.intro.split('\n\n').map((paragraph, idx) => (
                           <p key={idx} className="text-white/80 text-lg leading-relaxed mb-4 last:mb-0">{paragraph}</p>
                         ))}
