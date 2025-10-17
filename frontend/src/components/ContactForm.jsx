@@ -45,8 +45,10 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="relative py-12 md:py-20 px-4 md:px-6 bg-[#0b0f17]">
-      <div className="max-w-4xl mx-auto">
+    <section id="contact" className="cosmic-bg relative py-12 md:py-20 px-4 md:px-6 bg-[#0b0f17] overflow-hidden">
+      <div className="neural-lines" />
+      
+      <div className="relative z-10 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
