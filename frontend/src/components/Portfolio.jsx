@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { mockPortfolio } from '../mock';
-import VideoBackground from './VideoBackground';
 
 const Portfolio = () => {
   return (
