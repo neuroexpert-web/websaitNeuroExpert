@@ -810,6 +810,225 @@ const ServiceCards = () => {
                     </div>
                   </>
                 )}
+
+                {/* Support Content */}
+                {selectedService.id === 4 && (
+                  <>
+                    {/* Subtitle */}
+                    <div className="mb-12">
+                      <p className="text-2xl text-[#7dd3fc] font-semibold text-center">{supportContent.subtitle}</p>
+                    </div>
+
+                    {/* Intro */}
+                    <section className="mb-12">
+                      <div className="p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
+                        <h3 className="text-2xl font-bold text-white mb-4">Что такое техподдержка простыми словами?</h3>
+                        <p className="text-white/80 text-lg leading-relaxed mb-6">{supportContent.intro.text}</p>
+                        
+                        <div className="grid md:grid-cols-2 gap-6 mt-6">
+                          <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                            <p className="text-white/60 font-semibold mb-2">Без техподдержки:</p>
+                            <p className="text-white/80">{supportContent.intro.without}</p>
+                          </div>
+                          <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                            <p className="text-white/60 font-semibold mb-2">С техподдержкой:</p>
+                            <p className="text-white/80">{supportContent.intro.with}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* Real Stories */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Реальные истории клиентов, которые отказались от поддержки</h3>
+                      <div className="space-y-6">
+                        {supportContent.stories.map((story, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="p-6 bg-white/5 rounded-lg border border-white/10"
+                          >
+                            <h4 className="text-xl font-semibold text-[#7dd3fc] mb-4">История {idx + 1}: {story.title}</h4>
+                            <div className="space-y-3">
+                              <div>
+                                <span className="text-white/60 font-semibold">Проблема: </span>
+                                <span className="text-white/80">{story.problem}</span>
+                              </div>
+                              {story.consequences && (
+                                <div>
+                                  <span className="text-white/60 font-semibold">Последствия: </span>
+                                  <span className="text-white/80">{story.consequences}</span>
+                                </div>
+                              )}
+                              <div>
+                                <span className="text-white/60 font-semibold">Причина: </span>
+                                <span className="text-white/80">{story.reason}</span>
+                              </div>
+                              <div className="pt-3 border-t border-white/10">
+                                <span className="text-red-400 font-semibold">Потери: </span>
+                                <span className="text-red-400">{story.losses}</span>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Problems */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Что происходит без техподдержки?</h3>
+                      <div className="space-y-3">
+                        {supportContent.problems.map((problem, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg"
+                          >
+                            <span className="text-red-400 text-xl flex-shrink-0">❌</span>
+                            <span className="text-white/80">{problem}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Packages */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Пакеты технической поддержки</h3>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        {supportContent.packages.map((pkg, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className={`p-6 rounded-lg border ${pkg.recommended ? 'bg-[#7dd3fc]/10 border-[#7dd3fc]' : 'bg-white/5 border-white/10'}`}
+                          >
+                            <div className="text-center mb-6">
+                              <div className="text-4xl mb-2">{pkg.emoji}</div>
+                              <h4 className="text-2xl font-bold text-white mb-2">{pkg.name}</h4>
+                              <div className="text-3xl font-bold text-[#7dd3fc] mb-2">{pkg.price}</div>
+                              <p className="text-white/60 text-sm">{pkg.forWhom}</p>
+                              {pkg.recommended && (
+                                <div className="mt-3 inline-block px-3 py-1 bg-[#7dd3fc] text-black text-xs font-bold rounded-full">
+                                  РЕКОМЕНДУЕМ
+                                </div>
+                              )}
+                            </div>
+                            <div className="space-y-2 mb-6">
+                              {pkg.features.map((feature, fIdx) => (
+                                <div key={fIdx} className="flex items-start gap-2 text-sm">
+                                  <span className="text-green-400 flex-shrink-0">✅</span>
+                                  <span className="text-white/80">{feature}</span>
+                                </div>
+                              ))}
+                            </div>
+                            <div className="pt-4 border-t border-white/10 space-y-2 text-sm">
+                              <div>
+                                <span className="text-white/60">Реакция: </span>
+                                <span className="text-[#7dd3fc] font-semibold">{pkg.sla.reaction}</span>
+                              </div>
+                              <div>
+                                <span className="text-white/60">Uptime: </span>
+                                <span className="text-[#7dd3fc] font-semibold">{pkg.sla.uptime}</span>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* ROI */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Ожидаемая экономия: ROI техподдержки</h3>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="p-6 bg-red-500/10 border border-red-500/20 rounded-lg">
+                          <h4 className="text-xl font-semibold text-white mb-4">Без техподдержки (типичный год)</h4>
+                          <div className="space-y-2 mb-4">
+                            <div className="flex justify-between">
+                              <span className="text-white/70">Простои:</span>
+                              <span className="text-white">{supportContent.roi.withoutSupport.downtime.toLocaleString()} ₽</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-white/70">Взлом:</span>
+                              <span className="text-white">{supportContent.roi.withoutSupport.hack.toLocaleString()} ₽</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-white/70">Баги:</span>
+                              <span className="text-white">{supportContent.roi.withoutSupport.bugs.toLocaleString()} ₽</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-white/70">Срочный ремонт:</span>
+                              <span className="text-white">{supportContent.roi.withoutSupport.emergency.toLocaleString()} ₽</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-white/70">Потеря данных:</span>
+                              <span className="text-white">{supportContent.roi.withoutSupport.dataLoss.toLocaleString()} ₽</span>
+                            </div>
+                          </div>
+                          <div className="pt-4 border-t border-red-500/20">
+                            <div className="flex justify-between text-lg font-bold">
+                              <span className="text-white">Итого убытков:</span>
+                              <span className="text-red-400">{supportContent.roi.withoutSupport.total.toLocaleString()} ₽</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="p-6 bg-green-500/10 border border-green-500/20 rounded-lg">
+                          <h4 className="text-xl font-semibold text-white mb-4">С техподдержкой (Стандартный пакет)</h4>
+                          <div className="space-y-4 mb-4">
+                            <div>
+                              <span className="text-white/70">Предотвращено убытков:</span>
+                              <div className="text-2xl font-bold text-green-400">{supportContent.roi.withSupport.saved.toLocaleString()} ₽</div>
+                            </div>
+                            <div>
+                              <span className="text-white/70">Стоимость подписки за год:</span>
+                              <div className="text-xl text-white">{supportContent.roi.withSupport.cost.toLocaleString()} ₽</div>
+                            </div>
+                          </div>
+                          <div className="pt-4 border-t border-green-500/20 space-y-2">
+                            <div className="flex justify-between text-lg font-bold">
+                              <span className="text-white">Экономия:</span>
+                              <span className="text-green-400">{supportContent.roi.withSupport.profit.toLocaleString()} ₽</span>
+                            </div>
+                            <div className="flex justify-between text-lg font-bold">
+                              <span className="text-white">ROI:</span>
+                              <span className="text-[#7dd3fc]">+{supportContent.roi.withSupport.roi}%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* CTA */}
+                    <div className="text-center py-8">
+                      <p className="text-white/60 mb-4">🎁 Первый месяц — тестовый со скидкой 50%!</p>
+                      <p className="text-white/60 mb-8 text-lg">Убедитесь, что это работает, прежде чем платить полную стоимость</p>
+                      <div className="flex flex-wrap gap-4 justify-center">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-8 py-4 bg-[#7dd3fc] text-black font-bold text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
+                        >
+                          ПОДКЛЮЧИТЬ ПОДДЕРЖКУ
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
+                        >
+                          РАССЧИТАТЬ СТОИМОСТЬ
+                        </motion.button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
