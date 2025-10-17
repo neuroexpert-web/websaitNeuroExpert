@@ -60,17 +60,22 @@ class ChatResponse(BaseModel):
 async def send_telegram_notification(message: str):
     """Send notification to Telegram bot"""
     try:
+        if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+            logger.warning("Telegram not configured")
+            return
+            
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json={
-                "chat_id": TELEGRAM_BOT_TOKEN.split(':')[0],
+                "chat_id": TELEGRAM_CHAT_ID,
                 "text": message,
                 "parse_mode": "HTML"
             }) as response:
                 if response.status == 200:
-                    logger.info("Telegram notification sent")
+                    logger.info("✅ Telegram notification sent successfully")
                 else:
-                    logger.warning(f"Telegram status: {response.status}")
+                    text = await response.text()
+                    logger.warning(f"Telegram status: {response.status}, Response: {text}")
     except Exception as e:
         logger.error(f"Telegram error: {str(e)}")
 
