@@ -58,29 +58,29 @@ const Team = () => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f17] via-[#0b0f17]/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-bold text-white mb-1">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                       {member.name}
                     </h3>
-                    <p className="text-[#7dd3fc] font-semibold mb-2">
+                    <p className="text-[#7dd3fc] font-semibold mb-2 text-sm sm:text-base">
                       {member.role}
                     </p>
-                    <p className="text-white/70 text-sm">{member.strength}</p>
+                    <p className="text-white/70 text-xs sm:text-sm">{member.strength}</p>
                   </div>
                 </div>
 
                 {/* Back */}
                 <div
-                  className="absolute inset-0 backface-hidden p-6 bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center rounded-none"
+                  className="absolute inset-0 backface-hidden p-4 sm:p-6 bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center rounded-none"
                   style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
                   <div className="text-center">
-                    <div className="text-4xl mb-4">💪</div>
-                    <h3 className="text-xl font-bold text-white mb-3">
+                    <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">💪</div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
                       {member.name}
                     </h3>
-                    <p className="text-[#7dd3fc] mb-4">{member.role}</p>
-                    <p className="text-white/70 leading-relaxed">
+                    <p className="text-[#7dd3fc] mb-3 sm:mb-4 text-sm sm:text-base">{member.role}</p>
+                    <p className="text-white/70 leading-relaxed text-xs sm:text-sm">
                       {member.bio}
                     </p>
                   </div>
