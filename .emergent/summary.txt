@@ -1,0 +1,62 @@
+<analysis>
+The AI engineer, E1, developed the NeuroExpert application with React, FastAPI, and MongoDB, adhering to a premium, conversion-optimized dark-themed design based on the green-dark-theme playbook. Initial work involved frontend mock-ups, backend setup with Claude Sonnet 4 and Telegram integration. The project iteratively incorporated user feedback, including page flow restructuring, detailed content integration for four service modals (Audit, Websites, AI Assistant, Technical Support), and dynamic, neon-animated service cards. After an attempt at a CSS-animated cosmic background was deemed unsatisfactory, the user planned to provide new video backgrounds. The current focus is on responsive mobile adaptation, addressing specific UI issues like oversized text in the Hero section and incorrect padding in the Portfolio section, with the next immediate task being header optimization.
+</analysis>
+
+<product_requirements>
+The user's vision for NeuroExpert is a premium, professional application with a rich social colors and life aesthetic, featuring a main page video background. It must include an immediate AI chat assistant (Claude Sonnet 4), Telegram bot integration, and SEO optimization. The design should be conversion-optimized, agency-quality, with layered elements, glass-morphism, and smooth animations.
+
+Key features and content integrated so far:
+-   A dynamic landing page structure: Hero section with video background, followed by four interactive service cards.
+-   Each service card opens a full-screen modal with detailed descriptions for:
+    1.  **Digital Audit**: Problem identification, consequences of inaction, ordering process, bonuses, FAQs, guarantees, and CTAs.
+    2.  **Websites Turnkey**: Product types, common problems solved, NeuroExpert's approach, and CTAs.
+    3.  **AI Assistant Implementation**: Core definition, problems solved, benefits, three detailed scenarios of operation, and CTAs.
+    4.  **Technical Support**: Definition, real client stories, risks without support, detailed service inclusions (monitoring, backups, updates, bug fixing, small enhancements, consultations, scaling), package comparisons (Basic, Standard, Premium), ROI calculation, guarantees, and FAQs.
+-   Integrated AI chat within each service modal for client interaction, collecting data, and sending requests to Telegram.
+-   Global components: Portfolio/Cases, Why Us section, Team section, Contact Form, Header, Footer, and a Sticky CTA button.
+-   Interactive service cards with rounded corners, neon lighting, and dynamic hover animations.
+-   A planned unified video background for all sections (excluding the Hero) to replace a less effective CSS animation.
+-   Comprehensive mobile adaptation across various devices.
+</product_requirements>
+
+<key_technical_concepts>
+-   **Frontend**: React.js,  for routing.
+-   **Backend**: FastAPI for API endpoints.
+-   **Database**: MongoDB (via  and ).
+-   **Styling**: Tailwind CSS, Shadcn UI components, custom CSS for dark theme, typography (KodeMono font), neon effects, glass-morphism.
+-   **API Communication**: .
+-   **AI/LLM**: Claude Sonnet 4 integrated via Emergent LLM Key ().
+-   **Animations**:  for complex UI animations, custom CSS for hover effects and background.
+-   **3D**:  (installed, but alternative video background favored).
+</key_technical_concepts>
+
+<code_architecture>
+
+
+
+-   : The central component managing the application's structure and routing. It orchestrates the display of , , , , , , , , , and . It has been frequently updated to reflect changes in page flow and component inclusion/exclusion.
+-   : Defines global styles, including Tailwind CSS imports and the custom green-dark-theme variables for colors (, ), and typography ( font). It also previously contained the CSS for the experimental cosmic animation, which is to be removed.
+-   : Renders the prominent top section of the landing page. It now features a video background () and main headline, removing previously housed service cards.
+-   : This is a critical and heavily modified component. It displays the four main service offerings as interactive, neon-animated cards. It also manages the full-screen modal for each service, which contains detailed text content (Audit, Websites, AI Assistant, Technical Support) and an integrated AI chat. Recent changes include: extensive content integration for all four services, fixing modal scrolling and AI chat overlap, adding a text-clear button, and implementing rounded corners, neon glow, and 3D hover animations for the cards. It temporarily had a video background, then a CSS cosmic animation, now awaiting a new video background.
+-   : Handles user inquiries. It's integrated with the backend for form submissions and likely received styling updates for backgrounds.
+-   : A global component for the sticky AI chat button. It's integrated with the FastAPI backend to interact with Claude Sonnet 4, replacing mock functionality.
+-   : The application's navigation bar. It has received styling for the dark theme and is currently being adapted for mobile responsiveness.
+-   : The FastAPI backend. It includes API routes for status checks, AI chat, and contact form submissions. It connects to MongoDB for data persistence and uses  to interface with Claude Sonnet 4. An  is used for authentication.
+-   : Updated to include SEO meta tags.
+</code_architecture>
+
+<pending_tasks>
+-   Receive and apply the new video background for all sections except the Hero, replacing the current CSS cosmic animation.
+-   Complete the mobile adaptation and responsive design fixes, specifically:
+    -   Adjusting text size and layout in the mobile Hero section.
+    -   Improving padding in the mobile Portfolio section.
+    -   General optimization for tablet devices.
+</pending_tasks>
+
+<current_work>
+Immediately prior to this summary, the AI engineer was working on mobile adaptation and responsive design. An initial review of the site on different devices was performed, identifying issues such as oversized text in the Hero section and incorrect padding in the Portfolio section on mobile, along with general optimization needs for tablets. The last action recorded was an edit to the Header component to improve its mobile responsiveness.
+</current_work>
+
+<optional_next_step>
+I will continue working on mobile adaptation, specifically fixing the Header for mobile responsiveness, then address the Hero text and Portfolio padding.
+</optional_next_step>
