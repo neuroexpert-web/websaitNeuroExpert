@@ -59,18 +59,18 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="relative py-20 px-6 bg-[#0b0f17]">
+    <section id="contact" className="relative py-12 md:py-20 px-4 md:px-6 bg-[#0b0f17]">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4">
             Получить консультацию
           </h2>
-          <p className="text-xl text-white/60">
+          <p className="text-lg md:text-xl text-white/60">
             Ответим в течение 15 минут
           </p>
         </motion.div>
@@ -80,7 +80,7 @@ const ContactForm = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           onSubmit={handleSubmit}
-          className="p-8 rounded-none bg-white/5 backdrop-blur-xl border border-white/10 space-y-6"
+          className="p-4 md:p-8 rounded-none bg-white/5 backdrop-blur-xl border border-white/10 space-y-4 md:space-y-6"
         >
           <div className="grid md:grid-cols-2 gap-6">
             <div>
