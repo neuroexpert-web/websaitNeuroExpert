@@ -60,7 +60,7 @@ const Portfolio = () => {
               className="group relative cursor-pointer overflow-hidden rounded-none"
             >
               {/* Image */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-56 sm:h-64 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
