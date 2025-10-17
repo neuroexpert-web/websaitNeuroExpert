@@ -145,28 +145,28 @@ const ServiceCards = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#0b0f17] overflow-y-auto"
+            className="fixed inset-0 z-50 bg-[#0b0f17] overflow-hidden flex flex-col"
           >
-            <div className="min-h-screen">
-              {/* Header */}
-              <div className="sticky top-0 z-20 bg-[#0b0f17]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <span className="text-4xl">{selectedService.id === 1 ? auditContent.icon : selectedService.icon}</span>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white">{selectedService.id === 1 ? auditContent.title : selectedService.title}</h2>
-                    <p className="text-[#7dd3fc]">{selectedService.id === 1 ? auditContent.price : selectedService.price}</p>
-                  </div>
+            {/* Header */}
+            <div className="flex-shrink-0 bg-[#0b0f17]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <span className="text-4xl">{selectedService.id === 1 ? auditContent.icon : selectedService.icon}</span>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{selectedService.id === 1 ? auditContent.title : selectedService.title}</h2>
+                  <p className="text-[#7dd3fc]">{selectedService.id === 1 ? auditContent.price : selectedService.price}</p>
                 </div>
-                <button
-                  onClick={() => setSelectedService(null)}
-                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  <X className="w-6 h-6 text-white" />
-                </button>
               </div>
+              <button
+                onClick={() => setSelectedService(null)}
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+            </div>
 
-              {/* Content */}
-              <div className="max-w-5xl mx-auto px-6 py-12 pb-32">
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="max-w-5xl mx-auto px-6 py-12 pb-64">
                 {selectedService.id === 1 && (
                   <>
                     {/* For Whom */}
@@ -320,52 +320,62 @@ const ServiceCards = () => {
                   </>
                 )}
               </div>
+            </div>
 
-              {/* AI Chat at bottom */}
-              <div className="fixed bottom-0 left-0 right-0 bg-[#121826] border-t border-white/10 p-4">
-                <div className="max-w-5xl mx-auto">
-                  {/* Chat Messages */}
-                  {chatMessages.length > 0 && (
-                    <div className="mb-4 max-h-40 overflow-y-auto space-y-2">
-                      {chatMessages.map((msg, idx) => (
+            {/* AI Chat at bottom - Fixed */}
+            <div className="flex-shrink-0 bg-[#121826] border-t border-white/10 p-4">
+              <div className="max-w-5xl mx-auto">
+                {/* Chat Messages */}
+                {chatMessages.length > 0 && (
+                  <div className="mb-4 max-h-40 overflow-y-auto space-y-2">
+                    {chatMessages.map((msg, idx) => (
+                      <div
+                        key={idx}
+                        className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
                         <div
-                          key={idx}
-                          className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                          className={`max-w-[70%] p-3 rounded-lg ${
+                            msg.role === 'user'
+                              ? 'bg-[#7dd3fc] text-black'
+                              : 'bg-white/10 text-white'
+                          }`}
                         >
-                          <div
-                            className={`max-w-[70%] p-3 rounded-lg ${
-                              msg.role === 'user'
-                                ? 'bg-[#7dd3fc] text-black'
-                                : 'bg-white/10 text-white'
-                            }`}
-                          >
-                            {msg.content}
-                          </div>
+                          {msg.content}
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-                  {/* Input */}
-                  <div className="flex gap-2">
+                {/* Input */}
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
                     <Input
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                       placeholder="Задайте вопрос AI-ассистенту..."
-                      className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none"
+                      className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none pr-10"
                       disabled={chatLoading}
                     />
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleSendMessage}
-                      disabled={chatLoading}
-                      className="px-6 py-2 bg-[#7dd3fc] text-black rounded-none hover:bg-white transition-colors disabled:opacity-50"
-                    >
-                      <Send className="w-5 h-5" />
-                    </motion.button>
+                    {chatInput && (
+                      <button
+                        onClick={() => setChatInput('')}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/10 rounded transition-colors"
+                      >
+                        <X className="w-4 h-4 text-white/60" />
+                      </button>
+                    )}
                   </div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleSendMessage}
+                    disabled={chatLoading}
+                    className="px-6 py-2 bg-[#7dd3fc] text-black rounded-none hover:bg-white transition-colors disabled:opacity-50"
+                  >
+                    <Send className="w-5 h-5" />
+                  </motion.button>
                 </div>
               </div>
             </div>
