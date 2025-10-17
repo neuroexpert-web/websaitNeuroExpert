@@ -41,7 +41,7 @@ const Hero = ({ onServiceClick }) => {
         </motion.div>
 
         {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-0">
           {mockServices.map((service, index) => (
             <motion.div
               key={service.id}
@@ -49,34 +49,45 @@ const Hero = ({ onServiceClick }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onServiceClick(service.id)}
               className="group relative cursor-pointer"
             >
               {/* Glassmorphism Card */}
-              <div className="relative p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/20 hover:border-[#7dd3fc] transition-all duration-400 h-full">
+              <div className="relative p-4 md:p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/20 hover:border-[#7dd3fc] transition-all duration-400 h-full min-h-[200px] md:min-h-[240px]">
                 {/* Icon */}
-                <div className="text-5xl mb-4">{service.icon}</div>
+                <div className="text-3xl md:text-5xl mb-3 md:mb-4">{service.icon}</div>
                 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-white mb-2">
+                <h3 className="text-lg md:text-xl font-semibold text-white mb-2">
                   {service.title}
                 </h3>
                 
                 {/* Price */}
-                <div className="text-[#7dd3fc] font-bold text-lg mb-3">
+                <div className="text-[#7dd3fc] font-bold text-base md:text-lg mb-2 md:mb-3">
                   {service.price}
                 </div>
                 
                 {/* Description */}
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/70 text-xs md:text-sm leading-relaxed">
                   {service.shortDesc}
                 </p>
 
-                {/* Hover Benefit */}
+                {/* Mobile: Always show benefit, Desktop: Show on hover */}
+                <motion.div
+                  initial={{ opacity: 1, height: 'auto' }}
+                  className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-white/10 block md:hidden"
+                >
+                  <p className="text-[#7dd3fc] text-xs font-medium">
+                    ✓ {service.benefits[0]}
+                  </p>
+                </motion.div>
+
+                {/* Desktop Hover Benefit */}
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   whileHover={{ opacity: 1, height: 'auto' }}
-                  className="mt-4 pt-4 border-t border-white/10 overflow-hidden"
+                  className="mt-4 pt-4 border-t border-white/10 overflow-hidden hidden md:block"
                 >
                   <p className="text-[#7dd3fc] text-sm font-medium">
                     ✓ {service.benefits[0]}
