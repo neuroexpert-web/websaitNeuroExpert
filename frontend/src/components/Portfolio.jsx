@@ -5,7 +5,7 @@ import VideoBackground from './VideoBackground';
 
 const Portfolio = () => {
   return (
-    <section className="relative py-20 px-6 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 overflow-hidden">
       {/* Video Background */}
       <VideoBackground />
       
@@ -14,18 +14,18 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-14 md:mb-16"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             Наши клиенты зарабатывают больше
           </h2>
-          <p className="text-xl text-white/60">
+          <p className="text-lg sm:text-xl text-white/60">
             Результаты говорят сами за себя
           </p>
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-14 md:mb-16">
           {[
             { value: '50+', label: 'Завершенных проектов' },
             { value: '98%', label: 'Довольных клиентов' },
@@ -37,18 +37,18 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="text-center p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/10"
+              className="text-center p-4 sm:p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/10"
             >
-              <div className="text-5xl font-bold text-[#7dd3fc] mb-2">
+              <div className="text-4xl sm:text-5xl font-bold text-[#7dd3fc] mb-2">
                 {stat.value}
               </div>
-              <div className="text-white/70 text-lg">{stat.label}</div>
+              <div className="text-white/70 text-base sm:text-lg">{stat.label}</div>
             </motion.div>
           ))}
         </div>
 
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {mockPortfolio.map((project, idx) => (
             <motion.div
               key={project.id}
