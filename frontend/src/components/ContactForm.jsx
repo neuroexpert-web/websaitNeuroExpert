@@ -70,8 +70,17 @@ const ContactForm = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           onSubmit={handleSubmit}
-          className="p-4 md:p-8 rounded-none bg-white/5 backdrop-blur-xl border border-white/10 space-y-4 md:space-y-6"
+          className="relative overflow-hidden rounded-xl"
         >
+          {/* Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#7dd3fc]/10 via-[#764ba2]/10 to-[#7dd3fc]/10" />
+          <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/20" />
+          
+          {/* Neon glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#7dd3fc]/0 to-[#764ba2]/0 hover:from-[#7dd3fc]/5 hover:to-[#764ba2]/5 transition-all duration-500" />
+          
+          {/* Form Content */}
+          <div className="relative z-10 p-6 md:p-8 space-y-4 md:space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
               <label className="block text-white mb-2 text-sm font-medium">
