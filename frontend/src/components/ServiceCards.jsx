@@ -326,22 +326,10 @@ const ServiceCards = () => {
 
   return (
     <>
-      <section id="services" className="relative py-20 px-6 bg-[#121826] overflow-hidden">
-        {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://customer-assets.emergentagent.com/job_digital-breakthrough/artifacts/pz8mc000_2%20%D0%B1%D0%BB%D0%BE%D0%BA%20%D1%84%D0%BE%D0%BD%20.mp4" type="video/mp4" />
-          </video>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#121826]/80 via-[#121826]/70 to-[#121826]" />
-        </div>
-
+      <section id="services" className="cosmic-bg relative py-20 px-6 bg-[#121826] overflow-hidden">
+        {/* Neural network lines overlay */}
+        <div className="neural-lines" />
+        
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
