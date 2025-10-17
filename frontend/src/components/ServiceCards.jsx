@@ -540,6 +540,140 @@ const ServiceCards = () => {
                     </div>
                   </>
                 )}
+
+                {/* AI Assistant Content */}
+                {selectedService.id === 2 && (
+                  <>
+                    {/* Subtitle */}
+                    <div className="mb-12">
+                      <p className="text-2xl text-[#7dd3fc] font-semibold text-center">{aiAssistantContent.subtitle}</p>
+                    </div>
+
+                    {/* Intro */}
+                    <section className="mb-12">
+                      <div className="p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
+                        <h3 className="text-2xl font-bold text-white mb-4">Что такое AI-ассистент простыми словами?</h3>
+                        {aiAssistantContent.intro.split('\n\n').map((paragraph, idx) => (
+                          <p key={idx} className="text-white/80 text-lg leading-relaxed mb-4 last:mb-0">{paragraph}</p>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Problems and Benefits */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Зачем вашему бизнесу AI-ассистент?</h3>
+                      
+                      {/* Problems */}
+                      <div className="mb-8">
+                        <p className="text-white/60 mb-6 text-lg">Проблемы, которые он решает:</p>
+                        <div className="space-y-3">
+                          {aiAssistantContent.problems.map((problem, idx) => (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: idx * 0.1 }}
+                              className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg"
+                            >
+                              <span className="text-red-400 text-xl flex-shrink-0">❌</span>
+                              <span className="text-white/80">{problem}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Benefits */}
+                      <div>
+                        <p className="text-white/60 mb-6 text-lg">Что даёт AI-ассистент:</p>
+                        <div className="space-y-3">
+                          {aiAssistantContent.benefits.map((benefit, idx) => (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: idx * 0.1 }}
+                              className="flex items-start gap-3 p-4 bg-green-500/10 border border-green-500/20 rounded-lg"
+                            >
+                              <span className="text-green-400 text-xl flex-shrink-0">✅</span>
+                              <span className="text-white/80">{benefit}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* Scenarios */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Как работает AI-ассистент? Простыми словами</h3>
+                      <div className="space-y-8">
+                        {aiAssistantContent.scenarios.map((scenario, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="p-6 bg-white/5 rounded-lg border border-white/10"
+                          >
+                            <h4 className="text-2xl font-semibold text-[#7dd3fc] mb-6">{scenario.title}</h4>
+                            
+                            {/* Without AI */}
+                            <div className="mb-6">
+                              <p className="text-white/60 font-semibold mb-3">Без AI:</p>
+                              <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                                <p className="text-white/80">{scenario.without}</p>
+                              </div>
+                            </div>
+
+                            {/* With AI */}
+                            <div className="mb-6">
+                              <p className="text-white/60 font-semibold mb-3">С AI-ассистентом:</p>
+                              <div className="space-y-2">
+                                {scenario.with.map((step, stepIdx) => (
+                                  <div key={stepIdx} className="flex items-start gap-3 p-3 bg-[#7dd3fc]/10 rounded-lg">
+                                    <div className="flex-shrink-0 w-6 h-6 bg-[#7dd3fc] rounded-full flex items-center justify-center text-black font-bold text-sm">
+                                      {stepIdx + 1}
+                                    </div>
+                                    <span className="text-white/80">{step}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Result */}
+                            <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                              <p className="text-white/60 font-semibold mb-2">Результат:</p>
+                              <p className="text-white/80">{scenario.result}</p>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* CTA */}
+                    <div className="text-center py-8">
+                      <p className="text-white/60 mb-8 text-lg">Готовы автоматизировать работу с клиентами?</p>
+                      <div className="flex flex-wrap gap-4 justify-center">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-8 py-4 bg-[#7dd3fc] text-black font-bold text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
+                        >
+                          ЗАПУСТИТЬ AI-АССИСТЕНТА
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
+                        >
+                          ДЕМО-ВЕРСИЯ
+                        </motion.button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
