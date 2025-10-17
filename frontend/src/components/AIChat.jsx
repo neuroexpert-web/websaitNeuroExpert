@@ -170,7 +170,11 @@ const AIChat = () => {
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            className="fixed bottom-24 right-6 w-96 h-[600px] bg-[#121826] backdrop-blur-xl border border-white/20 rounded-none shadow-2xl z-50 flex flex-col overflow-hidden"
+            className={`fixed z-50 bg-[#121826] backdrop-blur-xl border border-white/20 rounded-none shadow-2xl flex flex-col overflow-hidden ${
+              isMobile 
+                ? 'inset-0 w-full h-full' 
+                : 'bottom-20 md:bottom-24 right-4 md:right-6 w-80 md:w-96 h-[500px] md:h-[600px]'
+            }`}
           >
             {/* Header */}
             <div className="p-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] flex items-center justify-between">
