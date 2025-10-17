@@ -108,9 +108,10 @@ const Header = () => {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-6 py-3 bg-[#7dd3fc] text-black font-semibold text-center rounded-xl mt-4"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-center rounded-xl mt-4 shadow-lg shadow-[#7dd3fc]/30"
             >
-              Начать
+              <span>🚀</span>
+              <span>Начать</span>
             </a>
           </nav>
         </motion.div>
