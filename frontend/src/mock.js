@@ -140,33 +140,42 @@ export const mockServices = [
 export const mockPortfolio = [
   {
     id: 1,
-    icon: '📊',
-    title: 'SaaS стартап',
-    description: 'Аналитическая платформа для маркетологов',
-    result: '+420%',
-    metric: 'рост конверсии',
-    testimonial: 'Окупили вложения за первый месяц',
-    image: 'https://customer-assets.emergentagent.com/job_digital-breakthrough/artifacts/3gmt7exs_Lucid_Origin_Abstract_digital_transformation_journey_video_for_0.jpg'
+    icon: '🏭',
+    title: 'Arsenal Platform',
+    company: 'Платформа дистрибьютер герметиков',
+    description: 'B2B платформа для продажи профессиональных герметиков и строительных материалов',
+    result: '+350%',
+    metric: 'рост онлайн-заказов',
+    testimonial: 'Автоматизировали весь процесс закупок для наших клиентов',
+    services: ['Веб-платформа', 'Каталог продуктов', 'Система заказов'],
+    link: 'https://arsenal-platform.vercel.app/',
+    gradient: 'from-blue-500/20 to-cyan-500/20'
   },
   {
     id: 2,
-    icon: '🛒',
-    title: 'E-commerce магазин',
-    description: 'Интернет-магазин электроники',
-    result: '+287%',
-    metric: 'увеличение продаж',
-    testimonial: 'Бот обрабатывает 80% вопросов клиентов',
-    image: 'https://customer-assets.emergentagent.com/job_digital-breakthrough/artifacts/nlwgbyzh_Lucid_Origin_Splitscreen_comparison_image_LEFT_side__messy_out_0.jpg'
+    icon: '🚀',
+    title: 'NeuroExpert Platform',
+    company: 'Платформа для профессионального бизнеса',
+    description: 'Комплексная платформа для цифровой трансформации бизнеса с AI-инструментами',
+    result: '+420%',
+    metric: 'увеличение конверсии',
+    testimonial: 'Современное решение для масштабирования бизнеса',
+    services: ['AI-интеграция', 'Автоматизация', 'Аналитика'],
+    link: 'https://neuro-expert.vercel.app/',
+    gradient: 'from-purple-500/20 to-pink-500/20'
   },
   {
     id: 3,
-    icon: '🏢',
-    title: 'Корпоративный портал',
-    description: 'B2B платформа для логистики',
-    result: '-60%',
-    metric: 'снижение нагрузки на саппорт',
-    testimonial: 'AI-ассистент работает лучше живых менеджеров',
-    image: 'https://customer-assets.emergentagent.com/job_digital-breakthrough/artifacts/hp3y7qjb_Lucid_Origin_Cinematic_tech_company_cover_video_Dark_futuristi_3.jpg'
+    icon: '💼',
+    title: 'Скоро...',
+    company: 'Новый проект в разработке',
+    description: 'Следите за обновлениями наших кейсов',
+    result: 'Soon',
+    metric: 'новый кейс',
+    testimonial: 'Скоро расскажем о новом успешном проекте',
+    services: ['В разработке'],
+    link: '#',
+    gradient: 'from-green-500/20 to-emerald-500/20'
   }
 ];
 
