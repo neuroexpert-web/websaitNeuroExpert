@@ -332,9 +332,9 @@ const ServiceCards = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 sm:mb-14 md:mb-16"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 sm:mb-14 md:mb-16"
           >
-            Наши услуги
+            <span className="animated-gradient-text text-glow">Наши услуги</span>
           </motion.h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
