@@ -54,38 +54,57 @@ const AIChat = () => {
   };
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
 
     const userMessage = input;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
 
-    // Simulate AI response with step logic
-    setTimeout(() => {
-      if (step === 'name') {
-        setUserData(prev => ({ ...prev, name: userMessage }));
-        setMessages(prev => [
-          ...prev,
-          { role: 'assistant', content: `Приятно познакомиться, ${userMessage}! Оставьте ваш телефон или Telegram:` }
-        ]);
-        setStep('contact');
-      } else if (step === 'contact') {
-        setUserData(prev => ({ ...prev, contact: userMessage }));
-        setMessages(prev => [
-          ...prev,
-          { role: 'assistant', content: 'Спасибо! Мы свяжемся с вами в течение 15 минут 🚀' }
-        ]);
-        toast.success('Заявка отправлена!');
-        setStep('done');
-      } else {
-        setMessages(prev => [
-          ...prev,
-          { role: 'assistant', content: 'Спасибо за сообщение! Чем ещё могу помочь?' }
-        ]);
+    try {
+      // Call real AI API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+          message: userMessage,
+          user_data: userData.contact ? userData : null
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+
+      const data = await response.json();
+      
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: data.response }
+      ]);
+
+      // Check if user provided contact info in the message
+      const phoneRegex = /(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}/;
+      const telegramRegex = /@\w+/;
+      
+      if (phoneRegex.test(userMessage) || telegramRegex.test(userMessage)) {
+        setUserData(prev => ({ ...prev, contact: userMessage }));
+        toast.success('Контакт сохранен! Мы свяжемся с вами в течение 15 минут');
+      }
+
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: 'Извините, произошла ошибка. Попробуйте еще раз или свяжитесь с нами напрямую.' }
+      ]);
+      toast.error('Ошибка отправки сообщения');
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
