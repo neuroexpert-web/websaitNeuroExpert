@@ -28,19 +28,19 @@ const Advantages = () => {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               whileHover={{ rotate: 2, scale: 1.05 }}
-              className="p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#7dd3fc] transition-all duration-400 text-center group"
+              className="p-4 sm:p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#7dd3fc] transition-all duration-400 text-center group"
             >
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
-                className="text-5xl mb-4 inline-block"
+                className="text-4xl sm:text-5xl mb-3 sm:mb-4 inline-block"
               >
                 {advantage.icon}
               </motion.div>
-              <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-[#7dd3fc] transition-colors">
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-[#7dd3fc] transition-colors">
                 {advantage.title}
               </h3>
-              <p className="text-white/70 text-sm leading-relaxed">
+              <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                 {advantage.description}
               </p>
             </motion.div>
