@@ -3,6 +3,7 @@ import "./App.css";
 import { Toaster } from "./components/ui/sonner";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import ServiceCards from "./components/ServiceCards";
 import ServiceDetails from "./components/ServiceDetails";
 import Portfolio from "./components/Portfolio";
 import Advantages from "./components/Advantages";
@@ -13,13 +14,6 @@ import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 
 function App() {
-  const handleServiceClick = (serviceId) => {
-    const element = document.getElementById(`service-${serviceId}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <div className="App bg-[#0b0f17] min-h-screen">
       <Toaster position="top-center" />
@@ -27,9 +21,11 @@ function App() {
       <StickyCTA />
       
       <main>
-        <Hero onServiceClick={handleServiceClick} />
+        <Hero />
         
-        <section id="services">
+        <ServiceCards />
+        
+        <section id="services-detail">
           <ServiceDetails />
         </section>
         
