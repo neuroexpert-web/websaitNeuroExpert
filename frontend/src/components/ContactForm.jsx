@@ -90,7 +90,7 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Иван Петров"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none h-12"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-lg h-12 focus:border-[#7dd3fc] focus:ring-2 focus:ring-[#7dd3fc]/20 transition-all"
               />
             </div>
             <div>
@@ -101,7 +101,7 @@ const ContactForm = () => {
                 value={formData.contact}
                 onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                 placeholder="+7 (999) 123-45-67"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none h-12"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-lg h-12 focus:border-[#7dd3fc] focus:ring-2 focus:ring-[#7dd3fc]/20 transition-all"
               />
             </div>
           </div>
@@ -111,14 +111,14 @@ const ContactForm = () => {
               Выберите услугу *
             </label>
             <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
-              <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-none h-12">
+              <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-lg h-12 focus:border-[#7dd3fc] focus:ring-2 focus:ring-[#7dd3fc]/20 transition-all">
                 <SelectValue placeholder="Выберите услугу" />
               </SelectTrigger>
-              <SelectContent className="bg-[#121826] border-white/20">
-                <SelectItem value="Цифровой аудит" className="text-white">💎 Цифровой аудит</SelectItem>
-                <SelectItem value="AI-ассистент 24/7" className="text-white">🤖 AI-ассистент 24/7</SelectItem>
-                <SelectItem value="Сайты под ключ" className="text-white">🚀 Сайты под ключ</SelectItem>
-                <SelectItem value="Техподдержка" className="text-white">🛡️ Техподдержка</SelectItem>
+              <SelectContent className="bg-[#121826] border-white/20 rounded-lg">
+                <SelectItem value="Цифровой аудит" className="text-white focus:bg-[#7dd3fc]/20">💎 Цифровой аудит</SelectItem>
+                <SelectItem value="AI-ассистент 24/7" className="text-white focus:bg-[#7dd3fc]/20">🤖 AI-ассистент 24/7</SelectItem>
+                <SelectItem value="Сайты под ключ" className="text-white focus:bg-[#7dd3fc]/20">🚀 Сайты под ключ</SelectItem>
+                <SelectItem value="Техподдержка" className="text-white focus:bg-[#7dd3fc]/20">🛡️ Техподдержка</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -132,7 +132,7 @@ const ContactForm = () => {
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder="Расскажите о вашем проекте..."
               rows={4}
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none resize-none"
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-lg resize-none focus:border-[#7dd3fc] focus:ring-2 focus:ring-[#7dd3fc]/20 transition-all"
             />
           </div>
 
@@ -141,38 +141,68 @@ const ContactForm = () => {
             disabled={loading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full px-8 py-4 bg-[#7dd3fc] text-black font-semibold text-lg rounded-none transition-all duration-400 hover:bg-white hover:shadow-lg hover:shadow-[#7dd3fc]/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+            className="w-full px-8 py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-black font-semibold text-lg rounded-lg transition-all duration-400 hover:shadow-xl hover:shadow-[#7dd3fc]/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 relative overflow-hidden group"
           >
-            {loading ? (
-              <>
-                <div className="animate-spin h-5 w-5 border-2 border-black border-t-transparent rounded-full" />
-                Отправка...
-              </>
-            ) : (
-              <>
-                <Send className="w-5 h-5" />
-                Получить консультацию
-              </>
-            )}
+            {/* Button glow effect */}
+            <motion.div
+              className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0, 0.3, 0]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity
+              }}
+            />
+            
+            <span className="relative z-10">
+              {loading ? (
+                <>
+                  <div className="animate-spin h-5 w-5 border-2 border-black border-t-transparent rounded-full inline-block mr-2" />
+                  Отправка...
+                </>
+              ) : (
+                <>
+                  <Send className="w-5 h-5 inline-block mr-2" />
+                  Получить консультацию
+                </>
+              )}
+            </span>
           </motion.button>
 
           {/* Social Links */}
           <div className="flex justify-center gap-6 pt-6 border-t border-white/10">
-            <a href="#" className="text-white/60 hover:text-[#7dd3fc] transition-colors">
+            <motion.a 
+              href="https://t.me/neuroexpert" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, y: -2 }}
+              className="text-white/60 hover:text-[#7dd3fc] transition-colors"
+            >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.885 8.414l-1.97 9.281c-.148.655-.537.816-1.084.508l-3-2.211-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.334-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.585-4.463c.537-.196 1.006.128.831.953z"/>
               </svg>
-            </a>
-            <a href="#" className="text-white/60 hover:text-[#7dd3fc] transition-colors">
+            </motion.a>
+            <motion.a 
+              href="#" 
+              whileHover={{ scale: 1.1, y: -2 }}
+              className="text-white/60 hover:text-[#7dd3fc] transition-colors"
+            >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
-            </a>
-            <a href="#" className="text-white/60 hover:text-[#7dd3fc] transition-colors">
+            </motion.a>
+            <motion.a 
+              href="#" 
+              whileHover={{ scale: 1.1, y: -2 }}
+              className="text-white/60 hover:text-[#7dd3fc] transition-colors"
+            >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z"/>
+                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
               </svg>
-            </a>
+            </motion.a>
+          </div>
           </div>
         </motion.form>
       </div>
