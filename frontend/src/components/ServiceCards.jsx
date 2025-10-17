@@ -373,6 +373,107 @@ const ServiceCards = () => {
                     </div>
                   </>
                 )}
+
+                {/* Website Content */}
+                {selectedService.id === 3 && (
+                  <>
+                    {/* Intro */}
+                    <section className="mb-12">
+                      <div className="p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
+                        <h3 className="text-2xl font-bold text-white mb-4">Что мы создаём? Просто о сложном</h3>
+                        <p className="text-white/80 text-lg leading-relaxed">{websiteContent.intro}</p>
+                      </div>
+                    </section>
+
+                    {/* Types */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Мы создаём digital-продукты трёх типов:</h3>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        {websiteContent.types.map((type, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="p-6 bg-white/5 rounded-lg border border-white/10 hover:border-[#7dd3fc] transition-all"
+                          >
+                            <h4 className="text-xl font-semibold text-[#7dd3fc] mb-3">{type.title}</h4>
+                            <p className="text-white/70">{type.desc}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Problems */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Почему ваш сайт не работает?</h3>
+                      <p className="text-white/60 mb-8">Типичные проблемы, которые мы решаем:</p>
+                      <div className="space-y-4">
+                        {websiteContent.problems.map((problem, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="p-6 bg-red-500/10 border border-red-500/20 rounded-lg"
+                          >
+                            <div className="flex items-start gap-3">
+                              <span className="text-red-400 text-xl flex-shrink-0">❌</span>
+                              <div>
+                                <h4 className="text-lg font-semibold text-white mb-2">{problem.title}</h4>
+                                <p className="text-white/70">{problem.desc}</p>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Approach */}
+                    <section className="mb-12">
+                      <h3 className="text-3xl font-bold text-white mb-6">Наш подход: технологии + бизнес-логика</h3>
+                      <p className="text-white/80 text-lg mb-8">Мы не просто "рисуем сайты". Каждый проект — это инженерное решение бизнес-задачи:</p>
+                      <div className="space-y-4">
+                        {websiteContent.approach.map((step, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="flex items-start gap-4 p-4 bg-white/5 rounded-lg"
+                          >
+                            <span className="text-green-400 text-xl flex-shrink-0">✅</span>
+                            <span className="text-white/80">{step}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* CTA */}
+                    <div className="text-center py-8">
+                      <p className="text-white/60 mb-8 text-lg">Готовы начать свой digital-проект?</p>
+                      <div className="flex flex-wrap gap-4 justify-center">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-8 py-4 bg-[#7dd3fc] text-black font-bold text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
+                        >
+                          ПОЛУЧИТЬ РАСЧЁТ
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
+                        >
+                          ПОРТФОЛИО
+                        </motion.button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
