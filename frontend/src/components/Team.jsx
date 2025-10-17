@@ -11,7 +11,7 @@ const Team = () => {
   };
 
   return (
-    <section className="relative py-20 px-6 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 overflow-hidden">
       {/* Video Background */}
       <VideoBackground />
       
@@ -20,17 +20,17 @@ const Team = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-14 md:mb-16"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             Кто мы
           </h2>
-          <p className="text-xl text-white/60">
+          <p className="text-lg sm:text-xl text-white/60">
             Команда экспертов с проверенным опытом
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {mockTeam.map((member, idx) => (
             <motion.div
               key={member.id}
