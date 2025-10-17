@@ -31,15 +31,18 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         {/* Logo */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer"
-        >
-          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full flex items-center justify-center">
+        <a href="#" className="flex items-center gap-2 sm:gap-3 cursor-pointer group">
+          <motion.div
+            whileHover={{ rotate: 360, scale: 1.1 }}
+            transition={{ duration: 0.6 }}
+            className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full flex items-center justify-center shadow-lg shadow-[#7dd3fc]/30"
+          >
             <span className="text-lg sm:text-xl font-bold text-white">N</span>
-          </div>
-          <span className="text-lg sm:text-xl font-bold text-white">NeuroExpert</span>
-        </motion.div>
+          </motion.div>
+          <span className="text-lg sm:text-xl font-bold text-white group-hover:text-[#7dd3fc] transition-colors">
+            NeuroExpert
+          </span>
+        </a>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">
