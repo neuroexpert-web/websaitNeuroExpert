@@ -391,20 +391,23 @@ const ServiceCards = () => {
                 <span className="text-4xl">
                   {selectedService.id === 1 ? auditContent.icon : 
                    selectedService.id === 2 ? aiAssistantContent.icon :
-                   selectedService.id === 3 ? websiteContent.icon : 
+                   selectedService.id === 3 ? websiteContent.icon :
+                   selectedService.id === 4 ? supportContent.icon :
                    selectedService.icon}
                 </span>
                 <div>
                   <h2 className="text-2xl font-bold text-white">
                     {selectedService.id === 1 ? auditContent.title : 
                      selectedService.id === 2 ? aiAssistantContent.title :
-                     selectedService.id === 3 ? websiteContent.title : 
+                     selectedService.id === 3 ? websiteContent.title :
+                     selectedService.id === 4 ? supportContent.title :
                      selectedService.title}
                   </h2>
                   <p className="text-[#7dd3fc]">
                     {selectedService.id === 1 ? auditContent.price : 
                      selectedService.id === 2 ? aiAssistantContent.price :
-                     selectedService.id === 3 ? websiteContent.price : 
+                     selectedService.id === 3 ? websiteContent.price :
+                     selectedService.id === 4 ? supportContent.price :
                      selectedService.price}
                   </p>
                 </div>
