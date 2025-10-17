@@ -4,8 +4,10 @@ import { mockPortfolio } from '../mock';
 
 const Portfolio = () => {
   return (
-    <section className="relative py-20 px-6 bg-[#121826]">
-      <div className="max-w-7xl mx-auto">
+    <section className="cosmic-bg relative py-20 px-6 bg-[#121826] overflow-hidden">
+      <div className="neural-lines" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
