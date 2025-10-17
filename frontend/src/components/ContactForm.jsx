@@ -30,29 +30,15 @@ const ContactForm = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
+      const response = await axios.post(`${API}/contact`, formData);
       
-      if (data.success) {
-        toast.success(data.message || 'Спасибо! Мы свяжемся с вами в течение 15 минут');
+      if (response.data.success) {
+        toast.success(response.data.message || 'Спасибо! Мы свяжемся с вами в течение 15 минут');
         setFormData({ name: '', contact: '', service: '', message: '' });
-      } else {
-        throw new Error(data.message || 'Ошибка отправки');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      toast.error('Ошибка отправки заявки. Попробуйте ещё раз');
+      console.error('Form submission error:', error);
+      toast.error('Ошибка. Попробуйте ещё раз');
     } finally {
       setLoading(false);
     }
