@@ -608,19 +608,31 @@ const ServiceCards = () => {
                       <p className="text-red-400 mb-6 sm:mb-8 text-sm sm:text-base">Цена актуальна до 31 октября 2025. С 1 ноября стоимость — 12 000₽.</p>
                       <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
                         <motion.button
+                          onClick={() => {
+                            setSelectedService(null);
+                            setTimeout(() => {
+                              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                            }, 300);
+                          }}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#7dd3fc] text-black font-bold text-base sm:text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#7dd3fc]/50 transition-all breathing-glow"
                         >
-                          ОСТАВИТЬ ЗАЯВКУ
+                          📝 ОСТАВИТЬ ЗАЯВКУ
                         </motion.button>
-                        <motion.button
+                        <motion.a
+                          href="https://t.me/AineuroRu"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all flex items-center justify-center gap-2"
                         >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.885 8.414l-1.97 9.281c-.148.655-.537.816-1.084.508l-3-2.211-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.334-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.585-4.463c.537-.196 1.006.128.831.953z"/>
+                          </svg>
                           НАПИСАТЬ В TELEGRAM
-                        </motion.button>
+                        </motion.a>
                       </div>
                     </div>
                   </>
