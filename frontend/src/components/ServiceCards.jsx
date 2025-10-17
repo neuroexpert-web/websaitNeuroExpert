@@ -607,21 +607,21 @@ const ServiceCards = () => {
                     </section>
 
                     {/* CTA */}
-                    <div className="text-center py-8">
-                      <p className="text-white/60 mb-4">⏰ Осталось 3 места по акции в октябре</p>
-                      <p className="text-red-400 mb-8">Цена актуальна до 31 октября 2025. С 1 ноября стоимость — 12 000₽.</p>
-                      <div className="flex flex-wrap gap-4 justify-center">
+                    <div className="text-center py-6 sm:py-8">
+                      <p className="text-white/60 mb-3 sm:mb-4 text-sm sm:text-base">⏰ Осталось 3 места по акции в октябре</p>
+                      <p className="text-red-400 mb-6 sm:mb-8 text-sm sm:text-base">Цена актуальна до 31 октября 2025. С 1 ноября стоимость — 12 000₽.</p>
+                      <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="px-8 py-4 bg-[#7dd3fc] text-black font-bold text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#7dd3fc] text-black font-bold text-base sm:text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
                         >
                           ОСТАВИТЬ ЗАЯВКУ
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
                         >
                           НАПИСАТЬ В TELEGRAM
                         </motion.button>
