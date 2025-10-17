@@ -146,20 +146,20 @@ const AIChat = () => {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50"
       >
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="relative w-16 h-16 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full shadow-lg shadow-[#7dd3fc]/50 flex items-center justify-center"
+          className="relative w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full shadow-lg shadow-[#7dd3fc]/50 flex items-center justify-center"
         >
           <motion.div
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ repeat: Infinity, duration: 2 }}
             className="absolute inset-0 rounded-full bg-[#7dd3fc]/30"
           />
-          <span className="text-3xl relative z-10">🤖</span>
+          <span className="text-2xl md:text-3xl relative z-10">🤖</span>
         </motion.button>
       </motion.div>
 
