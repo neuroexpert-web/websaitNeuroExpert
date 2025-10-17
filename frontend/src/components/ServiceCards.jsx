@@ -151,7 +151,7 @@ const ServiceCards = () => {
               {/* Header */}
               <div className="sticky top-0 z-20 bg-[#0b0f17]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <span className="text-4xl">{selectedService.id === 1 ? auditContent.icon : selected Service.icon}</span>
+                  <span className="text-4xl">{selectedService.id === 1 ? auditContent.icon : selectedService.icon}</span>
                   <div>
                     <h2 className="text-2xl font-bold text-white">{selectedService.id === 1 ? auditContent.title : selectedService.title}</h2>
                     <p className="text-[#7dd3fc]">{selectedService.id === 1 ? auditContent.price : selectedService.price}</p>
