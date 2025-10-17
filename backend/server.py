@@ -72,7 +72,7 @@ async def send_telegram_notification(message: str):
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json={
-                "chat_id": "YOUR_CHAT_ID",  # Replace with actual chat ID
+                "chat_id": "-1002345678901",  # Replace with your actual chat ID
                 "text": message,
                 "parse_mode": "HTML"
             }) as response:
