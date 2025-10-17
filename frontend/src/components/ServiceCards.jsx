@@ -869,15 +869,15 @@ const ServiceCards = () => {
                 {selectedService.id === 4 && (
                   <>
                     {/* Subtitle */}
-                    <div className="mb-12">
-                      <p className="text-2xl text-[#7dd3fc] font-semibold text-center">{supportContent.subtitle}</p>
+                    <div className="mb-8 sm:mb-10 md:mb-12">
+                      <p className="text-xl sm:text-xl md:text-2xl text-[#7dd3fc] font-semibold text-center">{supportContent.subtitle}</p>
                     </div>
 
                     {/* Intro */}
-                    <section className="mb-12">
-                      <div className="p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
-                        <h3 className="text-2xl font-bold text-white mb-4">Что такое техподдержка простыми словами?</h3>
-                        <p className="text-white/80 text-lg leading-relaxed mb-6">{supportContent.intro.text}</p>
+                    <section className="mb-8 sm:mb-10 md:mb-12">
+                      <div className="p-4 sm:p-5 md:p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
+                        <h3 className="text-xl sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">Что такое техподдержка простыми словами?</h3>
+                        <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">{supportContent.intro.text}</p>
                         
                         <div className="grid md:grid-cols-2 gap-6 mt-6">
                           <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
