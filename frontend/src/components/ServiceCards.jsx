@@ -327,7 +327,7 @@ const ServiceCards = () => {
 
   return (
     <>
-      <section id="services" className="relative py-20 px-6 overflow-hidden">
+      <section id="services" className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 overflow-hidden">
         {/* Video Background */}
         <VideoBackground />
         
@@ -336,12 +336,12 @@ const ServiceCards = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl font-bold text-white text-center mb-16"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 sm:mb-14 md:mb-16"
           >
             Наши услуги
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {mockServices.map((service, index) => (
               <motion.div
                 key={service.id}
