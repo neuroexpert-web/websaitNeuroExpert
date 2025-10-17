@@ -30,14 +30,29 @@ const ContactForm = () => {
     setLoading(true);
     
     try {
-      // Mock API call - will be replaced with real backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
       
-      toast.success('Спасибо! Мы свяжемся с вами в течение 15 минут');
-      
-      setFormData({ name: '', contact: '', service: '', message: '' });
+      if (data.success) {
+        toast.success(data.message || 'Спасибо! Мы свяжемся с вами в течение 15 минут');
+        setFormData({ name: '', contact: '', service: '', message: '' });
+      } else {
+        throw new Error(data.message || 'Ошибка отправки');
+      }
     } catch (error) {
-      toast.error('Ошибка. Попробуйте ещё раз');
+      console.error('Error submitting form:', error);
+      toast.error('Ошибка отправки заявки. Попробуйте ещё раз');
     } finally {
       setLoading(false);
     }
