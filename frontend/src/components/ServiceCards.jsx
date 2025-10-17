@@ -634,16 +634,16 @@ const ServiceCards = () => {
                 {selectedService.id === 3 && (
                   <>
                     {/* Intro */}
-                    <section className="mb-12">
-                      <div className="p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
-                        <h3 className="text-2xl font-bold text-white mb-4">Что мы создаём? Просто о сложном</h3>
-                        <p className="text-white/80 text-lg leading-relaxed">{websiteContent.intro}</p>
+                    <section className="mb-8 sm:mb-10 md:mb-12">
+                      <div className="p-4 sm:p-5 md:p-6 bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30 rounded-lg">
+                        <h3 className="text-xl sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">Что мы создаём? Просто о сложном</h3>
+                        <p className="text-white/80 text-base sm:text-lg leading-relaxed">{websiteContent.intro}</p>
                       </div>
                     </section>
 
                     {/* Types */}
-                    <section className="mb-12">
-                      <h3 className="text-3xl font-bold text-white mb-6">Мы создаём digital-продукты трёх типов:</h3>
+                    <section className="mb-8 sm:mb-10 md:mb-12">
+                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">Мы создаём digital-продукты трёх типов:</h3>
                       <div className="grid md:grid-cols-3 gap-6">
                         {websiteContent.types.map((type, idx) => (
                           <motion.div
