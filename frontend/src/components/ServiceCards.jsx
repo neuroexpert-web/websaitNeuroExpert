@@ -327,9 +327,9 @@ const ServiceCards = () => {
 
   return (
     <>
-      <section id="services" className="cosmic-bg relative py-20 px-6 bg-[#121826] overflow-hidden">
-        {/* Neural network lines overlay */}
-        <div className="neural-lines" />
+      <section id="services" className="relative py-20 px-6 overflow-hidden">
+        {/* Video Background */}
+        <VideoBackground />
         
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.h2
