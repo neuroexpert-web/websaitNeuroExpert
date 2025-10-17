@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { mockTeam } from '../mock';
+import VideoBackground from './VideoBackground';
 
 const Team = () => {
   const [flipped, setFlipped] = useState({});
