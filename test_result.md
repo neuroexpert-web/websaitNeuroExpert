@@ -119,15 +119,18 @@ backend:
 
   - task: "Contact Form API endpoint"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "medium"
+    stuck_count: 1
+    priority: "high"
     needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Backend API already implemented, not modified in this iteration"
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL ISSUE: Contact Form API works partially - API endpoint returns correct response (200 OK, success: true) and saves data to MongoDB successfully. However, Telegram integration is BROKEN due to incorrect chat_id configuration. Backend uses bot token as chat_id which causes 401 Unauthorized errors. Telegram notifications are NOT being sent to users. This is a high-priority integration issue that needs immediate fix."
 
 frontend:
   - task: "Video Background Component"
