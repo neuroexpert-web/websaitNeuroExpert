@@ -10,9 +10,24 @@ const AIChat = () => {
     { role: 'assistant', content: 'Привет! Помогу выбрать услугу 👋' }
   ]);
   const [input, setInput] = useState('');
-  const [step, setStep] = useState('services');
+  const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
   const [userData, setUserData] = useState({ name: '', contact: '' });
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const quickButtons = {
     services: [
