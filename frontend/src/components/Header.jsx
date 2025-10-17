@@ -44,13 +44,16 @@ const Header = () => {
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {navItems.map((item) => (
-            <a
+            <motion.a
               key={item.href}
               href={item.href}
-              className="text-white/70 hover:text-[#7dd3fc] transition-colors text-base lg:text-lg font-medium"
+              whileHover={{ y: -2 }}
+              className="text-white/70 hover:text-[#7dd3fc] transition-all duration-300 text-base lg:text-lg font-medium relative group"
             >
               {item.label}
-            </a>
+              {/* Underline animation */}
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] group-hover:w-full transition-all duration-300" />
+            </motion.a>
           ))}
         </nav>
 
