@@ -775,7 +775,7 @@ const ServiceCards = () => {
 
                       {/* Benefits */}
                       <div>
-                        <p className="text-white/60 mb-6 text-lg">Что даёт AI-ассистент:</p>
+                        <p className="text-white/60 mb-4 sm:mb-6 text-base sm:text-lg">Что даёт AI-ассистент:</p>
                         <div className="space-y-3">
                           {aiAssistantContent.benefits.map((benefit, idx) => (
                             <motion.div
