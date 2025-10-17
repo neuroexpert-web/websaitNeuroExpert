@@ -70,23 +70,23 @@ const Portfolio = () => {
               </div>
 
               {/* Content */}
-              <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <div className="text-4xl mb-3">{project.icon}</div>
-                <h3 className="text-2xl font-bold text-white mb-2">
+              <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-end">
+                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">{project.icon}</div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                   {project.title}
                 </h3>
-                <p className="text-white/70 mb-4">{project.description}</p>
+                <p className="text-white/70 mb-3 sm:mb-4 text-sm sm:text-base">{project.description}</p>
                 
                 {/* Result */}
-                <div className="flex items-center gap-4 mb-3">
-                  <div className="text-4xl font-bold text-[#7dd3fc]">
+                <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+                  <div className="text-3xl sm:text-4xl font-bold text-[#7dd3fc]">
                     {project.result}
                   </div>
-                  <div className="text-white/70">{project.metric}</div>
+                  <div className="text-white/70 text-sm sm:text-base">{project.metric}</div>
                 </div>
 
                 {/* Testimonial */}
-                <div className="text-sm text-white/60 italic border-l-2 border-[#7dd3fc] pl-3">
+                <div className="text-xs sm:text-sm text-white/60 italic border-l-2 border-[#7dd3fc] pl-3">
                   "{project.testimonial}"
                 </div>
 
