@@ -225,11 +225,13 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Contact Form API endpoint"
     - "Video Background Component"
     - "Mobile Responsive - Hero Section"
     - "Mobile Responsive - Portfolio Section"
     - "Mobile Responsive - ServiceCards Section"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Contact Form API endpoint"
   test_all: false
   test_priority: "high_first"
 
