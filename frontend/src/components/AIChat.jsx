@@ -196,7 +196,7 @@ const AIChat = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
@@ -205,7 +205,7 @@ const AIChat = () => {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
+                    className={`max-w-[85%] md:max-w-[80%] p-2 md:p-3 rounded-lg text-sm md:text-base ${
                       msg.role === 'user'
                         ? 'bg-[#7dd3fc] text-black'
                         : 'bg-white/10 text-white'
@@ -217,7 +217,7 @@ const AIChat = () => {
               ))}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 text-white p-3 rounded-lg">
+                  <div className="bg-white/10 text-white p-2 md:p-3 rounded-lg">
                     <div className="flex gap-1">
                       <div className="w-2 h-2 bg-white rounded-full animate-bounce" />
                       <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
@@ -226,6 +226,7 @@ const AIChat = () => {
                   </div>
                 </div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Quick Buttons */}
