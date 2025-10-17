@@ -688,9 +688,9 @@ const ServiceCards = () => {
                     </section>
 
                     {/* Approach */}
-                    <section className="mb-12">
-                      <h3 className="text-3xl font-bold text-white mb-6">Наш подход: технологии + бизнес-логика</h3>
-                      <p className="text-white/80 text-lg mb-8">Мы не просто "рисуем сайты". Каждый проект — это инженерное решение бизнес-задачи:</p>
+                    <section className="mb-8 sm:mb-10 md:mb-12">
+                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">Наш подход: технологии + бизнес-логика</h3>
+                      <p className="text-white/80 text-base sm:text-lg mb-6 sm:mb-8">Мы не просто "рисуем сайты". Каждый проект — это инженерное решение бизнес-задачи:</p>
                       <div className="space-y-4">
                         {websiteContent.approach.map((step, idx) => (
                           <motion.div
