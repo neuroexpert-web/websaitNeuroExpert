@@ -26,16 +26,16 @@ const Hero = ({ onServiceClick }) => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight">
             Ваш цифровой прорыв —
-            <br />
+            <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7dd3fc] to-[#764ba2]">
               с ИИ и командой NeuroExpert
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-3xl mx-auto px-4">
             Превращаем технологии в деньги. Быстро. Эффективно. С гарантией.
           </p>
         </motion.div>
