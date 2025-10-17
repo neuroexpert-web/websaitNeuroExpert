@@ -82,7 +82,7 @@ const ContactForm = () => {
           onSubmit={handleSubmit}
           className="p-4 md:p-8 rounded-none bg-white/5 backdrop-blur-xl border border-white/10 space-y-4 md:space-y-6"
         >
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
               <label className="block text-white mb-2 text-sm font-medium">
                 Ваше имя *
@@ -91,7 +91,7 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Иван Петров"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none h-12"
               />
             </div>
             <div>
@@ -102,7 +102,7 @@ const ContactForm = () => {
                 value={formData.contact}
                 onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                 placeholder="+7 (999) 123-45-67"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none h-12"
               />
             </div>
           </div>
