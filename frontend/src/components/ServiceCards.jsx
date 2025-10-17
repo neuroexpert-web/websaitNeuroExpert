@@ -440,24 +440,24 @@ const ServiceCards = () => {
             className="fixed inset-0 z-50 bg-[#0b0f17] overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="flex-shrink-0 bg-[#0b0f17]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <span className="text-4xl">
+            <div className="flex-shrink-0 bg-[#0b0f17]/95 backdrop-blur-xl border-b border-white/10 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
+                <span className="text-2xl sm:text-3xl md:text-4xl flex-shrink-0">
                   {selectedService.id === 1 ? auditContent.icon : 
                    selectedService.id === 2 ? aiAssistantContent.icon :
                    selectedService.id === 3 ? websiteContent.icon :
                    selectedService.id === 4 ? supportContent.icon :
                    selectedService.icon}
                 </span>
-                <div>
-                  <h2 className="text-2xl font-bold text-white">
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white truncate">
                     {selectedService.id === 1 ? auditContent.title : 
                      selectedService.id === 2 ? aiAssistantContent.title :
                      selectedService.id === 3 ? websiteContent.title :
                      selectedService.id === 4 ? supportContent.title :
                      selectedService.title}
                   </h2>
-                  <p className="text-[#7dd3fc]">
+                  <p className="text-[#7dd3fc] text-sm sm:text-base">
                     {selectedService.id === 1 ? auditContent.price : 
                      selectedService.id === 2 ? aiAssistantContent.price :
                      selectedService.id === 3 ? websiteContent.price :
@@ -468,15 +468,15 @@ const ServiceCards = () => {
               </div>
               <button
                 onClick={() => setSelectedService(null)}
-                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                className="p-1.5 sm:p-2 hover:bg-white/10 rounded-lg transition-colors flex-shrink-0"
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </button>
             </div>
 
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
-              <div className="max-w-5xl mx-auto px-6 py-12 pb-64">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12 pb-48 sm:pb-56 md:pb-64">
                 {selectedService.id === 1 && (
                   <>
                     {/* For Whom */}
