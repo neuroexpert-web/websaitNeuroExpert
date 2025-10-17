@@ -12,12 +12,18 @@ const Portfolio = () => {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-14 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
-            Наши клиенты зарабатывают больше
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+            <span className="animated-gradient-text text-glow">Наши клиенты зарабатывают больше</span>
           </h2>
-          <p className="text-lg sm:text-xl text-white/60">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg sm:text-xl text-white/60"
+          >
             Результаты говорят сами за себя
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Stats */}
