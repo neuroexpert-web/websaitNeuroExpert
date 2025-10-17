@@ -112,14 +112,14 @@ const ContactForm = () => {
               Выберите услугу *
             </label>
             <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
-              <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-none">
+              <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-none h-12">
                 <SelectValue placeholder="Выберите услугу" />
               </SelectTrigger>
               <SelectContent className="bg-[#121826] border-white/20">
-                <SelectItem value="audit" className="text-white">💎 Цифровой аудит</SelectItem>
-                <SelectItem value="ai-assistant" className="text-white">🤖 AI-ассистент 24/7</SelectItem>
-                <SelectItem value="website" className="text-white">🚀 Сайты под ключ</SelectItem>
-                <SelectItem value="support" className="text-white">🛡️ Техподдержка</SelectItem>
+                <SelectItem value="Цифровой аудит" className="text-white">💎 Цифровой аудит</SelectItem>
+                <SelectItem value="AI-ассистент 24/7" className="text-white">🤖 AI-ассистент 24/7</SelectItem>
+                <SelectItem value="Сайты под ключ" className="text-white">🚀 Сайты под ключ</SelectItem>
+                <SelectItem value="Техподдержка" className="text-white">🛡️ Техподдержка</SelectItem>
               </SelectContent>
             </Select>
           </div>
