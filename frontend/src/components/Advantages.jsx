@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { mockAdvantages } from '../mock';
+import VideoBackground from './VideoBackground';
 
 const Advantages = () => {
   return (
