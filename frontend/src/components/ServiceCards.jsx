@@ -347,31 +347,81 @@ const ServiceCards = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative"
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.03,
+                  rotateY: 5,
+                  rotateX: 5
+                }}
+                className="group relative perspective-1000"
               >
-                <div className="relative p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/20 hover:border-[#7dd3fc] transition-all duration-400 h-full flex flex-col">
-                  <div className="text-5xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-                  <div className="text-[#7dd3fc] font-bold text-lg mb-3">{service.price}</div>
-                  <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">{service.shortDesc}</p>
+                <div className="relative p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/20 hover:border-transparent transition-all duration-500 h-full flex flex-col shadow-lg hover:shadow-2xl">
+                  {/* Neon glow on hover */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#7dd3fc] via-[#764ba2] to-[#7dd3fc] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#7dd3fc] group-hover:shadow-[0_0_30px_rgba(125,211,252,0.5)] transition-all duration-500" />
                   
-                  {/* Neon Button */}
-                  <motion.button
-                    onClick={() => setSelectedService(service)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative w-full px-6 py-3 bg-transparent border-2 border-[#7dd3fc] text-[#7dd3fc] font-semibold rounded-none overflow-hidden group-hover:text-black transition-colors duration-300"
-                  >
-                    <span className="relative z-10">AI консультация</span>
-                    <motion.div
-                      className="absolute inset-0 bg-[#7dd3fc]"
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    {/* Neon glow */}
-                    <div className="absolute inset-0 bg-[#7dd3fc] blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
-                  </motion.button>
+                  {/* Animated gradient background */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#7dd3fc]/0 via-[#764ba2]/0 to-[#7dd3fc]/0 group-hover:from-[#7dd3fc]/10 group-hover:via-[#764ba2]/10 group-hover:to-[#7dd3fc]/10 transition-all duration-500" />
+                  
+                  <div className="relative z-10">
+                    {/* Animated Icon */}
+                    <motion.div 
+                      className="text-5xl mb-4"
+                      animate={{ 
+                        rotateZ: [0, -10, 10, -10, 0],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ 
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 3
+                      }}
+                    >
+                      {service.icon}
+                    </motion.div>
+                    
+                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-[#7dd3fc] transition-colors duration-300">
+                      {service.title}
+                    </h3>
+                    
+                    <div className="text-[#7dd3fc] font-bold text-lg mb-3 group-hover:scale-110 transition-transform duration-300">
+                      {service.price}
+                    </div>
+                    
+                    <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow group-hover:text-white/90 transition-colors duration-300">
+                      {service.shortDesc}
+                    </p>
+                    
+                    {/* Neon Button */}
+                    <motion.button
+                      onClick={() => setSelectedService(service)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative w-full px-6 py-3 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-semibold rounded-xl overflow-hidden group/btn"
+                    >
+                      <span className="relative z-10">AI консультация</span>
+                      
+                      {/* Button glow effect */}
+                      <motion.div
+                        className="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-20"
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [0, 0.3, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity
+                        }}
+                      />
+                      
+                      {/* Button neon shadow */}
+                      <div className="absolute inset-0 rounded-xl shadow-[0_0_20px_rgba(125,211,252,0.5)] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+                    </motion.button>
+                  </div>
+                  
+                  {/* Particle effect corners */}
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-[#7dd3fc] rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
+                  <div className="absolute bottom-2 left-2 w-2 h-2 bg-[#764ba2] rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping" style={{ animationDelay: '0.5s' }} />
                 </div>
               </motion.div>
             ))}
