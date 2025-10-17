@@ -41,8 +41,10 @@ const Portfolio = () => {
               transition={{ delay: idx * 0.1 }}
               className="text-center p-4 sm:p-6 rounded-none bg-white/5 backdrop-blur-xl border border-white/10"
             >
-              <div className="text-4xl sm:text-5xl font-bold text-[#7dd3fc] mb-2">
-                {stat.value}
+              <div className="text-4xl sm:text-5xl font-bold mb-2">
+                <span className="animated-gradient-text text-glow">
+                  {stat.value}
+                </span>
               </div>
               <div className="text-white/70 text-base sm:text-lg">{stat.label}</div>
             </motion.div>
