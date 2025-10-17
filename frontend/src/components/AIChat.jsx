@@ -95,8 +95,9 @@ const AIChat = () => {
     setLoading(true);
 
     try {
-      // Call real AI API
-      const response = await fetch('/api/chat', {
+      // Call backend API
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${BACKEND_URL}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
