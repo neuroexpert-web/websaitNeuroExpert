@@ -230,13 +230,14 @@ const AIChat = () => {
             </div>
 
             {/* Quick Buttons */}
-            {step === 'services' && (
-              <div className="p-4 border-t border-white/10 grid grid-cols-2 gap-2">
+            {messages.length <= 1 && (
+              <div className="p-3 md:p-4 border-t border-white/10 grid grid-cols-2 gap-2">
                 {quickButtons.services.map((btn) => (
                   <button
                     key={btn.value}
                     onClick={() => handleQuickAction(btn.value)}
-                    className="p-2 bg-white/10 hover:bg-white/20 text-white rounded text-sm transition-colors"
+                    disabled={loading}
+                    className="p-2 bg-white/10 hover:bg-white/20 text-white rounded text-xs md:text-sm transition-colors disabled:opacity-50"
                   >
                     {btn.label}
                   </button>
