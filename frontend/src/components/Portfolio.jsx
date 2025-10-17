@@ -56,42 +56,76 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.15 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="group relative cursor-pointer overflow-hidden rounded-none"
+              whileHover={{ y: -10, scale: 1.03 }}
+              className="group relative overflow-hidden rounded-xl"
             >
-              {/* Image */}
-              <div className="relative h-56 sm:h-64 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f17] via-[#0b0f17]/60 to-transparent" />
-              </div>
+              {/* Gradient Background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} backdrop-blur-sm`} />
+              <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/20 group-hover:border-[#7dd3fc]/50 transition-all duration-500" />
+              
+              {/* Neon glow on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#7dd3fc]/0 via-[#764ba2]/0 to-[#7dd3fc]/0 group-hover:from-[#7dd3fc]/10 group-hover:via-[#764ba2]/10 group-hover:to-[#7dd3fc]/10 transition-all duration-500" />
 
               {/* Content */}
-              <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-end">
-                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">{project.icon}</div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-white/70 mb-3 sm:mb-4 text-sm sm:text-base">{project.description}</p>
+              <div className="relative z-10 p-6 sm:p-8 flex flex-col h-full min-h-[420px] sm:min-h-[450px]">
+                {/* Icon & Title */}
+                <div className="mb-4">
+                  <div className="text-5xl sm:text-6xl mb-4">{project.icon}</div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-[#7dd3fc] transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-[#7dd3fc] font-semibold text-sm sm:text-base mb-3">
+                    {project.company}
+                  </p>
+                  <p className="text-white/70 text-sm sm:text-base leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Services Tags */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.services.map((service, sIdx) => (
+                    <span 
+                      key={sIdx}
+                      className="px-3 py-1 bg-white/10 text-white/80 text-xs rounded-full border border-white/20"
+                    >
+                      {service}
+                    </span>
+                  ))}
+                </div>
                 
-                {/* Result */}
-                <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
-                  <div className="text-3xl sm:text-4xl font-bold text-[#7dd3fc]">
-                    {project.result}
+                {/* Result - Pushed to bottom with margin-top auto */}
+                <div className="mt-auto">
+                  <div className="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
+                    <div className="text-4xl sm:text-5xl font-bold text-[#7dd3fc]">
+                      {project.result}
+                    </div>
+                    <div className="text-white/70 text-sm sm:text-base">{project.metric}</div>
                   </div>
-                  <div className="text-white/70 text-sm sm:text-base">{project.metric}</div>
-                </div>
 
-                {/* Testimonial */}
-                <div className="text-xs sm:text-sm text-white/60 italic border-l-2 border-[#7dd3fc] pl-3">
-                  "{project.testimonial}"
-                </div>
+                  {/* Testimonial */}
+                  <div className="text-sm text-white/60 italic border-l-2 border-[#7dd3fc] pl-3 mb-4">
+                    "{project.testimonial}"
+                  </div>
 
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7dd3fc]/0 to-[#764ba2]/0 group-hover:from-[#7dd3fc]/20 group-hover:to-[#764ba2]/20 transition-all duration-500 pointer-events-none" />
+                  {/* View Button */}
+                  {project.link !== '#' ? (
+                    <motion.a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="block w-full px-6 py-3 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-center rounded-lg hover:shadow-xl hover:shadow-[#7dd3fc]/50 transition-all duration-300"
+                    >
+                      Смотреть проект →
+                    </motion.a>
+                  ) : (
+                    <div className="w-full px-6 py-3 bg-white/5 text-white/50 font-semibold text-center rounded-lg border border-white/10">
+                      Скоро...
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
