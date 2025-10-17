@@ -265,14 +265,23 @@ const ServiceCards = () => {
             <div className="flex-shrink-0 bg-[#0b0f17]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <span className="text-4xl">
-                  {selectedService.id === 1 ? auditContent.icon : selectedService.id === 3 ? websiteContent.icon : selectedService.icon}
+                  {selectedService.id === 1 ? auditContent.icon : 
+                   selectedService.id === 2 ? aiAssistantContent.icon :
+                   selectedService.id === 3 ? websiteContent.icon : 
+                   selectedService.icon}
                 </span>
                 <div>
                   <h2 className="text-2xl font-bold text-white">
-                    {selectedService.id === 1 ? auditContent.title : selectedService.id === 3 ? websiteContent.title : selectedService.title}
+                    {selectedService.id === 1 ? auditContent.title : 
+                     selectedService.id === 2 ? aiAssistantContent.title :
+                     selectedService.id === 3 ? websiteContent.title : 
+                     selectedService.title}
                   </h2>
                   <p className="text-[#7dd3fc]">
-                    {selectedService.id === 1 ? auditContent.price : selectedService.id === 3 ? websiteContent.price : selectedService.price}
+                    {selectedService.id === 1 ? auditContent.price : 
+                     selectedService.id === 2 ? aiAssistantContent.price :
+                     selectedService.id === 3 ? websiteContent.price : 
+                     selectedService.price}
                   </p>
                 </div>
               </div>
