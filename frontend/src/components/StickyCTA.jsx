@@ -27,7 +27,7 @@ const StickyCTA = () => {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
-          className="fixed top-20 left-1/2 transform -translate-x-1/2 z-40"
+          className="fixed top-16 sm:top-20 left-1/2 transform -translate-x-1/2 z-40 px-4 w-full sm:w-auto"
         >
           <motion.button
             onClick={scrollToContact}
@@ -35,14 +35,15 @@ const StickyCTA = () => {
             whileTap={{ scale: 0.95 }}
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="px-8 py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-lg rounded-none shadow-lg shadow-[#7dd3fc]/50 hover:shadow-xl hover:shadow-[#7dd3fc]/70 transition-all duration-400 flex items-center gap-3"
+            className="w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-sm sm:text-base md:text-lg rounded-none shadow-lg shadow-[#7dd3fc]/50 hover:shadow-xl hover:shadow-[#7dd3fc]/70 transition-all duration-400 flex items-center justify-center gap-2 sm:gap-3"
           >
-            🚀 Заказать за 5 минут
+            <span className="truncate">🚀 Заказать за 5 минут</span>
             <motion.div
               animate={{ y: [0, -5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
+              className="flex-shrink-0"
             >
-              <ArrowUp className="w-5 h-5" />
+              <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.div>
           </motion.button>
         </motion.div>
