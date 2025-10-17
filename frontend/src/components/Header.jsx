@@ -98,27 +98,33 @@ const Header = () => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-[#0b0f17] border-t border-white/10"
+          className="md:hidden bg-[#0b0f17]/95 backdrop-blur-xl border-t border-white/10"
         >
-          <nav className="px-4 sm:px-6 py-4 space-y-4">
-            {navItems.map((item) => (
-              <a
+          <nav className="px-4 sm:px-6 py-4 space-y-2">
+            {navItems.map((item, idx) => (
+              <motion.a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-white/70 hover:text-[#7dd3fc] transition-colors text-lg py-2"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="block text-white/70 hover:text-[#7dd3fc] hover:bg-white/5 transition-all duration-300 text-lg py-3 px-4 rounded-lg"
               >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
-            <a
+            <motion.a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: navItems.length * 0.1 }}
               className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-center rounded-xl mt-4 shadow-lg shadow-[#7dd3fc]/30"
             >
               <span>🚀</span>
               <span>Начать</span>
-            </a>
+            </motion.a>
           </nav>
         </motion.div>
       )}
