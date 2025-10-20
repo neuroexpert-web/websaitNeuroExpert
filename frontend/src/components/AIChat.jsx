@@ -220,6 +220,44 @@ const AIChat = () => {
               </div>
             </div>
 
+            {/* Model Menu */}
+            <AnimatePresence>
+              {showModelMenu && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="bg-[#1a1f2e]/95 border-b border-white/10 overflow-hidden"
+                >
+                  <div className="p-3 space-y-2">
+                    {models.map((model) => (
+                      <button
+                        key={model.id}
+                        onClick={() => {
+                          setSelectedModel(model.id);
+                          setShowModelMenu(false);
+                        }}
+                        className={`w-full p-3 rounded-lg transition-all flex items-center gap-3 ${
+                          selectedModel === model.id
+                            ? 'bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30'
+                            : 'bg-white/5 hover:bg-white/10 border border-transparent'
+                        }`}
+                      >
+                        <span className="text-2xl">{model.icon}</span>
+                        <div className="flex-1 text-left">
+                          <div className="text-white font-semibold text-sm">{model.name}</div>
+                          <div className="text-white/60 text-xs">{model.description}</div>
+                        </div>
+                        {selectedModel === model.id && (
+                          <span className="text-[#7dd3fc]">✓</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
               {messages.map((msg, idx) => (
