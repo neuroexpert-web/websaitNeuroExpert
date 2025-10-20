@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const GlobalVideoBackground = () => {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
   return (
     <>
       {/* Global Fixed Video Background */}
@@ -10,7 +12,11 @@ const GlobalVideoBackground = () => {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          preload="auto"
+          onLoadedData={() => setVideoLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <source src="https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/n4lspsre_AI_Neural_Network_Visualization_Generated.mp4" type="video/mp4" />
         </video>
