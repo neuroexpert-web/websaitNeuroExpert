@@ -497,7 +497,7 @@ const ServiceCards = () => {
 
                     {/* Risks */}
                     <section className="mb-8 sm:mb-10 md:mb-12">
-                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">Что будет, если не делать аудит?</h3>
+                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">💭 С какими вызовами вы можете столкнуться?</h3>
                       <div className="space-y-3">
                         {auditContent.risks.map((item, idx) => (
                           <motion.div
@@ -506,9 +506,9 @@ const ServiceCards = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg"
+                            className="flex items-start gap-3 p-4 bg-orange-500/10 border border-orange-500/20 rounded-lg"
                           >
-                            <span className="text-red-400 text-xl">❌</span>
+                            <span className="text-orange-400 text-xl flex-shrink-0">⚠️</span>
                             <span className="text-white/80">{item}</span>
                           </motion.div>
                         ))}
