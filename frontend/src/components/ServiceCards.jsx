@@ -671,8 +671,8 @@ const ServiceCards = () => {
 
                     {/* Problems */}
                     <section className="mb-8 sm:mb-10 md:mb-12">
-                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">Почему ваш сайт не работает?</h3>
-                      <p className="text-white/60 mb-6 sm:mb-8 text-sm sm:text-base">Типичные проблемы, которые мы решаем:</p>
+                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">💡 Какие задачи мы решаем?</h3>
+                      <p className="text-white/60 mb-6 sm:mb-8 text-sm sm:text-base">Типичные ситуации наших клиентов:</p>
                       <div className="space-y-4">
                         {websiteContent.problems.map((problem, idx) => (
                           <motion.div
@@ -681,10 +681,10 @@ const ServiceCards = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            className="p-6 bg-red-500/10 border border-red-500/20 rounded-lg"
+                            className="p-6 bg-blue-500/10 border border-blue-500/20 rounded-lg"
                           >
                             <div className="flex items-start gap-3">
-                              <span className="text-red-400 text-xl flex-shrink-0">❌</span>
+                              <span className="text-blue-400 text-xl flex-shrink-0">🎯</span>
                               <div>
                                 <h4 className="text-lg font-semibold text-white mb-2">{problem.title}</h4>
                                 <p className="text-white/70">{problem.desc}</p>
