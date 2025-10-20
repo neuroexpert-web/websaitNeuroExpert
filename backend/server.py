@@ -239,7 +239,7 @@ async def chat_with_ai(chat_request: ChatMessage):
         model_config = {
             "claude-sonnet": ("anthropic", "claude-3-7-sonnet-20250219"),
             "gpt-4o": ("openai", "gpt-4o"),
-            "gemini-pro": ("google", "gemini-2.0-flash-exp")
+            "gemini-pro": ("google", "gemini-pro")
         }
         
         selected_model = chat_request.model or "claude-sonnet"
