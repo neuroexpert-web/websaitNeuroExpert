@@ -161,17 +161,26 @@ const AIChat = () => {
       >
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.15, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
+          animate={{ 
+            y: [0, -10, 0],
+          }}
+          transition={{ 
+            y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
           data-ai-chat-button="true"
-          className="relative w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full shadow-lg shadow-[#7dd3fc]/50 flex items-center justify-center"
+          className="relative w-16 h-16 md:w-18 md:h-18 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full shadow-2xl flex items-center justify-center"
+          style={{
+            boxShadow: '0 20px 40px -10px rgba(125, 211, 252, 0.6), 0 0 0 4px rgba(125, 211, 252, 0.2)'
+          }}
         >
-          <motion.div
+          <span className="text-3xl md:text-4xl">💬</span>
+          <motion.span 
             animate={{ scale: [1, 1.2, 1] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="absolute inset-0 rounded-full bg-[#7dd3fc]/30"
-          />
-          <span className="text-2xl md:text-3xl relative z-10">🤖</span>
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-4 border-[#0b0f17] shadow-lg"
+          ></motion.span>
         </motion.button>
       </motion.div>
 
