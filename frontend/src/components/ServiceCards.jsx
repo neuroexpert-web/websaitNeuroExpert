@@ -867,19 +867,28 @@ const ServiceCards = () => {
                       <p className="text-white/60 mb-6 sm:mb-8 text-base sm:text-lg">Готовы автоматизировать работу с клиентами?</p>
                       <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
                         <motion.button
+                          onClick={() => {
+                            setSelectedService(null);
+                            setTimeout(() => {
+                              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                            }, 300);
+                          }}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#7dd3fc] text-black font-bold text-base sm:text-lg rounded-none hover:shadow-2xl hover:shadow-[#7dd3fc]/50"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#7dd3fc]/50 breathing-glow"
                         >
-                          ЗАПУСТИТЬ AI-АССИСТЕНТА
+                          🤖 ЗАПУСТИТЬ AI-АССИСТЕНТА
                         </motion.button>
-                        <motion.button
+                        <motion.a
+                          href="https://t.me/AineuroRu"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-none border border-white/20 hover:bg-white hover:text-black"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all flex items-center justify-center gap-2"
                         >
-                          ДЕМО-ВЕРСИЯ
-                        </motion.button>
+                          🎮 ДЕМО-ВЕРСИЯ
+                        </motion.a>
                       </div>
                     </div>
                   </>
