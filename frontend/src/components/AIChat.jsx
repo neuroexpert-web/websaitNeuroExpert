@@ -7,12 +7,14 @@ import { toast } from 'sonner';
 const AIChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Привет! Помогу выбрать услугу 👋' }
+    { role: 'assistant', content: 'Привет! Я AI-консультант NeuroExpert. Расскажите, какая задача перед вами стоит, и я помогу найти оптимальное решение! 🚀' }
   ]);
   const [input, setInput] = useState('');
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
   const [userData, setUserData] = useState({ name: '', contact: '' });
   const [loading, setLoading] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('claude-sonnet');
+  const [showModelMenu, setShowModelMenu] = useState(false);
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
