@@ -359,13 +359,15 @@ const AIChat = () => {
             )}
 
             {/* Input */}
-            <div className="p-3 md:p-4 border-t border-white/10 flex gap-2">
+            <div className={`p-3 md:p-4 border-t border-white/10 bg-gradient-to-t from-[#0b0f17]/80 to-transparent backdrop-blur-sm flex gap-2 ${
+              isMobile ? 'rounded-none' : 'rounded-b-3xl'
+            }`}>
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
                 placeholder="Напишите сообщение..."
-                className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-none text-sm md:text-base"
+                className="flex-1 bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-white placeholder:text-white/40 rounded-2xl text-sm md:text-base focus:border-[#7dd3fc]/50 focus:shadow-lg focus:shadow-[#7dd3fc]/20 transition-all backdrop-blur-sm"
                 disabled={loading}
               />
               <motion.button
@@ -373,7 +375,7 @@ const AIChat = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleSend}
                 disabled={loading || !input.trim()}
-                className="px-3 md:px-4 py-2 bg-[#7dd3fc] text-black rounded-none hover:bg-white transition-colors disabled:opacity-50"
+                className="px-4 md:px-6 py-2 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white rounded-2xl hover:shadow-xl hover:shadow-[#7dd3fc]/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-bold text-lg shadow-lg"
               >
                 <Send className="w-4 h-4 md:w-5 md:h-5" />
               </motion.button>
