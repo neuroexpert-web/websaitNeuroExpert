@@ -219,15 +219,17 @@ export const mockTeam = [
     role: 'Tech Lead',
     strength: 'Архитектура и масштабирование',
     bio: '10+ лет в разработке, создал 50+ проектов',
-    image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/js6my24c_Gemini_Generated_Image_all29pall29pall2.png'
+    image: null,
+    gradient: 'from-[#667eea] to-[#764ba2]'
   },
   {
     id: 2,
-    name: 'Мария Иванова',
+    name: 'Мария Кузнецова',
     role: 'UX/UI Designer',
-    strength: 'Конверсионный дизайн',
-    bio: 'Дизайнер года 2024, средний рост конверсии +320%',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'
+    strength: 'Интерфейсы, конвертирующие в продажи',
+    bio: 'Создала дизайны для 80+ проектов',
+    image: null,
+    gradient: 'from-[#f093fb] to-[#f5576c]'
   },
   {
     id: 3,
@@ -235,7 +237,8 @@ export const mockTeam = [
     role: 'AI Engineer',
     strength: 'Интеграция LLM и ML',
     bio: 'Эксперт по Claude, GPT, Gemini',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop'
+    image: null,
+    gradient: 'from-[#4facfe] to-[#00f2fe]'
   },
   {
     id: 4,
@@ -243,6 +246,7 @@ export const mockTeam = [
     role: 'Marketing Strategist',
     strength: 'ROI и аналитика',
     bio: 'Увеличила выручку клиентам на $2M+',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop'
+    image: null,
+    gradient: 'from-[#43e97b] to-[#38f9d7]'
   }
 ];
