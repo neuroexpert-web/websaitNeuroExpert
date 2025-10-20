@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Backend API Testing Script for NeuroExpert
-Tests Contact Form API with Telegram Integration
+Tests Contact Form API with Telegram Integration and AI Chat API
 """
 
 import requests
@@ -9,6 +9,7 @@ import json
 import sys
 import time
 from datetime import datetime
+import uuid
 
 # Configuration
 BACKEND_URL = "https://tech-consult-pro-2.preview.emergentagent.com"
