@@ -154,6 +154,7 @@ const AIChat = () => {
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
+          data-ai-chat-button="true"
           className="relative w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] rounded-full shadow-lg shadow-[#7dd3fc]/50 flex items-center justify-center"
         >
           <motion.div
