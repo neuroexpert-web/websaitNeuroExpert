@@ -249,31 +249,39 @@ const AIChat = () => {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="bg-[#1a1f2e]/95 border-b border-white/10 overflow-hidden"
+                  className="bg-gradient-to-r from-[#1a1f2e]/98 to-[#0b0f17]/98 backdrop-blur-xl border-b border-white/10 overflow-hidden"
                 >
                   <div className="p-3 space-y-2">
                     {models.map((model) => (
-                      <button
+                      <motion.button
                         key={model.id}
+                        whileHover={{ scale: 1.02, x: 5 }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => {
                           setSelectedModel(model.id);
                           setShowModelMenu(false);
                         }}
-                        className={`w-full p-3 rounded-lg transition-all flex items-center gap-3 ${
+                        className={`w-full p-3 rounded-xl transition-all flex items-center gap-3 ${
                           selectedModel === model.id
-                            ? 'bg-gradient-to-r from-[#7dd3fc]/20 to-[#764ba2]/20 border border-[#7dd3fc]/30'
-                            : 'bg-white/5 hover:bg-white/10 border border-transparent'
+                            ? 'bg-gradient-to-r from-[#7dd3fc]/30 to-[#764ba2]/30 border-2 border-[#7dd3fc]/50 shadow-lg shadow-[#7dd3fc]/20'
+                            : 'bg-white/5 hover:bg-white/10 border-2 border-transparent'
                         }`}
                       >
-                        <span className="text-2xl">{model.icon}</span>
+                        <span className="text-3xl">{model.icon}</span>
                         <div className="flex-1 text-left">
                           <div className="text-white font-semibold text-sm">{model.name}</div>
                           <div className="text-white/60 text-xs">{model.description}</div>
                         </div>
                         {selectedModel === model.id && (
-                          <span className="text-[#7dd3fc]">✓</span>
+                          <motion.span 
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="text-[#7dd3fc] text-xl"
+                          >
+                            ✓
+                          </motion.span>
                         )}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </motion.div>
