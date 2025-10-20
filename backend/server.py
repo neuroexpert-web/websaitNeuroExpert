@@ -49,6 +49,7 @@ class ContactForm(BaseModel):
 class ChatMessage(BaseModel):
     session_id: str
     message: str
+    model: Optional[str] = "claude-sonnet"  # claude-sonnet, gpt-4o, gemini-pro
     user_data: Optional[dict] = None
 
 class ChatResponse(BaseModel):
