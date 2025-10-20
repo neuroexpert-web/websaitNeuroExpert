@@ -870,26 +870,24 @@ const ServiceCards = () => {
                           onClick={() => {
                             setSelectedService(null);
                             setTimeout(() => {
-                              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                              // Открываем AI Chat
+                              const aiChatButton = document.querySelector('button[class*="fixed"][class*="bottom"]');
+                              if (aiChatButton) {
+                                aiChatButton.click();
+                              }
                             }, 300);
                           }}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#7dd3fc]/50 breathing-glow"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#7dd3fc]/50 breathing-glow flex items-center justify-center gap-2"
                         >
-                          🤖 ЗАПУСТИТЬ AI-АССИСТЕНТА
+                          <span className="text-2xl">💬</span>
+                          <span>ЗАПУСТИТЬ AI-АССИСТЕНТА</span>
                         </motion.button>
-                        <motion.a
-                          href="https://t.me/AineuroRu"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all flex items-center justify-center gap-2"
-                        >
-                          🎮 ДЕМО-ВЕРСИЯ
-                        </motion.a>
                       </div>
+                      <p className="text-white/40 text-sm mt-4">
+                        ✨ Получите консультацию прямо сейчас
+                      </p>
                     </div>
                   </>
                 )}
