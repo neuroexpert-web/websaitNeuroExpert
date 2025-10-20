@@ -14,6 +14,10 @@ const GlobalVideoBackground = () => {
           playsInline
           preload="auto"
           onLoadedData={() => setVideoLoaded(true)}
+          style={{
+            transform: 'scale(1.05)',
+            objectPosition: 'center center'
+          }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
