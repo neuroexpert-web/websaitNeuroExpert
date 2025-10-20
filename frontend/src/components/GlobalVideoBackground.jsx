@@ -22,6 +22,7 @@ const GlobalVideoBackground = () => {
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
         >
+          <source src="https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/tc8zafjv_11.webm" type="video/webm" />
           <source src="https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/n4lspsre_AI_Neural_Network_Visualization_Generated.mp4" type="video/mp4" />
         </video>
         {/* Overlay for better text readability */}
