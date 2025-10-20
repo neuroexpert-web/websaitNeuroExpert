@@ -962,7 +962,7 @@ const ServiceCards = () => {
 
                     {/* Problems */}
                     <section className="mb-8 sm:mb-10 md:mb-12">
-                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">Что происходит без техподдержки?</h3>
+                      <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-5 md:mb-6">⚡ Риски работы без техподдержки</h3>
                       <div className="space-y-3">
                         {supportContent.problems.map((problem, idx) => (
                           <motion.div
@@ -971,9 +971,9 @@ const ServiceCards = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg"
+                            className="flex items-start gap-3 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg"
                           >
-                            <span className="text-red-400 text-xl flex-shrink-0">❌</span>
+                            <span className="text-yellow-400 text-xl flex-shrink-0">⚠️</span>
                             <span className="text-white/80">{problem}</span>
                           </motion.div>
                         ))}
