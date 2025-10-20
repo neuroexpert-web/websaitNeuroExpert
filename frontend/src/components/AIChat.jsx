@@ -274,7 +274,7 @@ const AIChat = () => {
                         : 'bg-white/10 text-white'
                     }`}
                   >
-                    {msg.content}
+                    <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                   </div>
                 </motion.div>
               ))}
