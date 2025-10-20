@@ -115,6 +115,7 @@ const AIChat = () => {
         body: JSON.stringify({
           session_id: sessionId,
           message: userMessage,
+          model: selectedModel,
           user_data: userData.contact ? userData : null
         }),
       });
