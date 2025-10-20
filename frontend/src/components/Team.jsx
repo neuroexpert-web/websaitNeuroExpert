@@ -54,12 +54,23 @@ const Team = () => {
                   className="absolute inset-0 backface-hidden overflow-hidden rounded-none"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f17] via-[#0b0f17]/40 to-transparent" />
+                  {member.image ? (
+                    <>
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f17] via-[#0b0f17]/40 to-transparent" />
+                    </>
+                  ) : (
+                    <div className={`w-full h-full bg-gradient-to-br ${member.gradient} relative`}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f17] via-transparent to-transparent" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-8xl opacity-20">👤</div>
+                      </div>
+                    </div>
+                  )}
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
                     <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                       {member.name}
