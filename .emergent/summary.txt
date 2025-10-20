@@ -1,62 +1,51 @@
 <analysis>
-The AI engineer, E1, developed the NeuroExpert application with React, FastAPI, and MongoDB, adhering to a premium, conversion-optimized dark-themed design based on the green-dark-theme playbook. Initial work involved frontend mock-ups, backend setup with Claude Sonnet 4 and Telegram integration. The project iteratively incorporated user feedback, including page flow restructuring, detailed content integration for four service modals (Audit, Websites, AI Assistant, Technical Support), and dynamic, neon-animated service cards. After an attempt at a CSS-animated cosmic background was deemed unsatisfactory, the user planned to provide new video backgrounds. The current focus is on responsive mobile adaptation, addressing specific UI issues like oversized text in the Hero section and incorrect padding in the Portfolio section, with the next immediate task being header optimization.
+The AI engineer, E1, initiated the NeuroExpert application using React, FastAPI, and MongoDB, with a green-dark-theme design. The trajectory outlines extensive feature development and refinements based on user feedback. Key achievements include implementing a dynamic landing page with a video background, creating interactive, neon-animated service cards leading to detailed modals, and integrating an AI chat assistant (Claude Sonnet 4) with Telegram. Significant efforts were directed towards mobile responsiveness across all components. Subsequent work focused on improving the Portfolio section, enhancing the Contact Form with Telegram integration (which required several fixes for bot token and chat ID), creating a seamless global video background, and adding moderate CSS animations to titles and texts. The AI engineer also integrated a comprehensive AI consultant persona, refined pricing based on market research, and iteratively improved service modal content, bonuses, FAQs, and technical support details, culminating in the current task of rephrasing a technical support statement for clarity.
 </analysis>
 
 <product_requirements>
-The user's vision for NeuroExpert is a premium, professional application with a rich social colors and life aesthetic, featuring a main page video background. It must include an immediate AI chat assistant (Claude Sonnet 4), Telegram bot integration, and SEO optimization. The design should be conversion-optimized, agency-quality, with layered elements, glass-morphism, and smooth animations.
+NeuroExpert aims to be a premium, conversion-optimized application with a rich social colors and life aesthetic, featuring a main page video background and a global seamless video background for other sections. It requires an immediate AI chat assistant (Claude Sonnet 4), Telegram bot integration for client requests, and SEO optimization. The design emphasizes agency-quality, layered elements, glass-morphism, and smooth animations.
 
-Key features and content integrated so far:
--   A dynamic landing page structure: Hero section with video background, followed by four interactive service cards.
--   Each service card opens a full-screen modal with detailed descriptions for:
-    1.  **Digital Audit**: Problem identification, consequences of inaction, ordering process, bonuses, FAQs, guarantees, and CTAs.
-    2.  **Websites Turnkey**: Product types, common problems solved, NeuroExpert's approach, and CTAs.
-    3.  **AI Assistant Implementation**: Core definition, problems solved, benefits, three detailed scenarios of operation, and CTAs.
-    4.  **Technical Support**: Definition, real client stories, risks without support, detailed service inclusions (monitoring, backups, updates, bug fixing, small enhancements, consultations, scaling), package comparisons (Basic, Standard, Premium), ROI calculation, guarantees, and FAQs.
--   Integrated AI chat within each service modal for client interaction, collecting data, and sending requests to Telegram.
--   Global components: Portfolio/Cases, Why Us section, Team section, Contact Form, Header, Footer, and a Sticky CTA button.
--   Interactive service cards with rounded corners, neon lighting, and dynamic hover animations.
--   A planned unified video background for all sections (excluding the Hero) to replace a less effective CSS animation.
--   Comprehensive mobile adaptation across various devices.
+Key integrated features: a dynamic landing page (Hero, service cards, Portfolio, Advantages, Team, Contact Form, Footer, Sticky CTA), four interactive service modals (Digital Audit, Websites Turnkey, AI Assistant Implementation, Technical Support) with detailed content and integrated AI chat. All sections are adapted for mobile, animated titles and texts, a redesigned header with animated navigation, and a functional contact form that sends messages to Telegram. The AI consultant within the chat is trained with extensive persona, service details, and market-aligned pricing. Recent content refinements include Audit steps, client bonuses, and rephrased FAQs for clarity and sales focus.
 </product_requirements>
 
 <key_technical_concepts>
--   **Frontend**: React.js,  for routing.
--   **Backend**: FastAPI for API endpoints.
--   **Database**: MongoDB (via  and ).
--   **Styling**: Tailwind CSS, Shadcn UI components, custom CSS for dark theme, typography (KodeMono font), neon effects, glass-morphism.
+-   **Frontend**: React.js, , Tailwind CSS, Shadcn UI,  for animations.
+-   **Backend**: FastAPI, MongoDB (via , ),  for LLM (Claude Sonnet 4).
+-   **Styling**: Custom green-dark-theme CSS variables, KodeMono font, neon effects, glass-morphism.
 -   **API Communication**: .
--   **AI/LLM**: Claude Sonnet 4 integrated via Emergent LLM Key ().
--   **Animations**:  for complex UI animations, custom CSS for hover effects and background.
--   **3D**:  (installed, but alternative video background favored).
+-   **LLM Integration**: Claude Sonnet 4 using .
+-   **Third-party Integrations**: Telegram bot API.
 </key_technical_concepts>
 
 <code_architecture>
 
-
-
--   : The central component managing the application's structure and routing. It orchestrates the display of , , , , , , , , , and . It has been frequently updated to reflect changes in page flow and component inclusion/exclusion.
--   : Defines global styles, including Tailwind CSS imports and the custom green-dark-theme variables for colors (, ), and typography ( font). It also previously contained the CSS for the experimental cosmic animation, which is to be removed.
--   : Renders the prominent top section of the landing page. It now features a video background () and main headline, removing previously housed service cards.
--   : This is a critical and heavily modified component. It displays the four main service offerings as interactive, neon-animated cards. It also manages the full-screen modal for each service, which contains detailed text content (Audit, Websites, AI Assistant, Technical Support) and an integrated AI chat. Recent changes include: extensive content integration for all four services, fixing modal scrolling and AI chat overlap, adding a text-clear button, and implementing rounded corners, neon glow, and 3D hover animations for the cards. It temporarily had a video background, then a CSS cosmic animation, now awaiting a new video background.
--   : Handles user inquiries. It's integrated with the backend for form submissions and likely received styling updates for backgrounds.
--   : A global component for the sticky AI chat button. It's integrated with the FastAPI backend to interact with Claude Sonnet 4, replacing mock functionality.
--   : The application's navigation bar. It has received styling for the dark theme and is currently being adapted for mobile responsiveness.
--   : The FastAPI backend. It includes API routes for status checks, AI chat, and contact form submissions. It connects to MongoDB for data persistence and uses  to interface with Claude Sonnet 4. An  is used for authentication.
--   : Updated to include SEO meta tags.
+-   : Main component, now orchestrates  for seamless background. , , , etc. are rendered within.
+-   : Defines global styles, Tailwind CSS imports, green-dark-theme variables, and new CSS keyframe animations for text.
+-   : Previously contained cosmic animation, now cleaned up.
+-   : Renders the top section with its specific video background. Text styling and animations updated, including a white main headline.
+-   : Displays four service cards and manages their full-screen modals. Received extensive content updates, modal styling, button functionality (linking to contact/Telegram/AI chat), and text/icon refinements (removing red crosses). Previously used , now removed.
+-   : Displays client cases. Updated with specific project links, a transparent gradient background, Смотреть buttons, and animated hover effects. Mobile padding fixed. Previously used , now removed.
+-   : User inquiry form. Design updated to match overall theme (transparent, blur, gradient button). Backend integration for submissions. Previously used , now removed.
+-   : Global sticky AI chat button, integrated with backend.
+-   : Navigation bar. Extensively updated for mobile responsiveness, new Начать button with animations, improved navigation links (hover effects), and animated logo.
+-   : FastAPI backend. Includes API routes for AI chat and contact form. Updated with detailed AI consultant persona prompt and market-aligned pricing. Telegram integration fixed (token, chat ID).
+-   : Stores mock data, updated with new portfolio case details.
+-   : Created to provide per-section video backgrounds; now deprecated as  is used.
+-   : NEW. Renders a single, fixed, seamless video background for the entire application (except Hero) from .
+-   , , , : All these components were updated for mobile responsiveness, text animations, and removal of individual  usage.
+-   : Contains , , . Regularly updated for Telegram functionality.
 </code_architecture>
 
 <pending_tasks>
--   Receive and apply the new video background for all sections except the Hero, replacing the current CSS cosmic animation.
--   Complete the mobile adaptation and responsive design fixes, specifically:
-    -   Adjusting text size and layout in the mobile Hero section.
-    -   Improving padding in the mobile Portfolio section.
-    -   General optimization for tablet devices.
+-   Rephrase the statement in the Technical Support section: Срочный ремонт стоит × 3 → платите 50 000₽ за то, что можно было предотвратить за 5 000₽ to be more understandable for the client.
 </pending_tasks>
 
 <current_work>
-Immediately prior to this summary, the AI engineer was working on mobile adaptation and responsive design. An initial review of the site on different devices was performed, identifying issues such as oversized text in the Hero section and incorrect padding in the Portfolio section on mobile, along with general optimization needs for tablets. The last action recorded was an edit to the Header component to improve its mobile responsiveness.
+Immediately prior to this summary, the AI engineer was working on refining the textual content within the service modals, specifically focusing on the Technical Support section. The last completed task was to replace the alarming phrase навесили вирусы with the more professional внедрили вредоносный код within the client stories. The AI engineer has identified two occurrences of the phrase and successfully updated them in . Screenshots confirmed the updated wording.
+
+The current work involves addressing the user's latest request: to rephrase a specific statement regarding urgent repairs in the Technical Support section for better clarity. The AI engineer is about to locate the phrase Срочный ремонт стоит × 3 → платите 50 000₽ за то, что можно было предотвратить за 5 000₽ in the codebase and reformulate it to be more easily understood by clients. This is the last pending task from the user's explicit requests in the trajectory.
 </current_work>
 
 <optional_next_step>
-I will continue working on mobile adaptation, specifically fixing the Header for mobile responsiveness, then address the Hero text and Portfolio padding.
+Locate and rephrase the statement Срочный ремонт стоит × 3 → платите 50 000₽ за то, что можно было предотвратить за 5 000₽ in the code.
 </optional_next_step>

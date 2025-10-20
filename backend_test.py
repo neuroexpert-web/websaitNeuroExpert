@@ -11,7 +11,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BACKEND_URL = "https://smartweb-wizard.preview.emergentagent.com"
+BACKEND_URL = "https://tech-consult-pro-2.preview.emergentagent.com"
 API_BASE = f"{BACKEND_URL}/api"
 
 def test_contact_form_api():
