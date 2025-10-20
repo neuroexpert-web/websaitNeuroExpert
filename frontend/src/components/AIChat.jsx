@@ -376,7 +376,8 @@ const AIChat = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
                 placeholder="Напишите сообщение..."
-                className="flex-1 bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-white placeholder:text-white/40 rounded-2xl text-sm md:text-base focus:border-[#7dd3fc]/50 focus:shadow-lg focus:shadow-[#7dd3fc]/20 transition-all backdrop-blur-sm"
+                className="flex-1 bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-white placeholder:text-white/40 rounded-2xl text-sm md:text-base focus:border-[#7dd3fc]/50 focus:shadow-lg focus:shadow-[#7dd3fc]/20 transition-all backdrop-blur-sm [&>input]:text-white"
+                style={{ color: 'white' }}
                 disabled={loading}
               />
               <motion.button
