@@ -869,7 +869,7 @@ const ServiceCards = () => {
                             setSelectedService(null);
                             setTimeout(() => {
                               // Открываем AI Chat
-                              const aiChatButton = document.querySelector('button[class*="fixed"][class*="bottom"]');
+                              const aiChatButton = document.querySelector('button[data-ai-chat-button="true"]');
                               if (aiChatButton) {
                                 aiChatButton.click();
                               }
