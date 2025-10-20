@@ -197,15 +197,27 @@ const AIChat = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-black">NeuroExpert AI</div>
-                  <div className="text-xs text-black/70">Онлайн</div>
+                  <div className="text-xs text-black/70">{models.find(m => m.id === selectedModel)?.name}</div>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-black hover:bg-black/10 p-1 rounded transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex gap-2">
+                {/* Model selector button */}
+                <button
+                  onClick={() => setShowModelMenu(!showModelMenu)}
+                  className="w-9 h-9 bg-black/10 hover:bg-black/20 rounded-lg transition-colors flex items-center justify-center text-black"
+                  title="Выбрать модель"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-black hover:bg-black/10 p-1 rounded transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
