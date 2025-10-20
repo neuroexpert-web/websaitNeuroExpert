@@ -215,11 +215,11 @@ export const mockAdvantages = [
 export const mockTeam = [
   {
     id: 1,
-    name: 'Алексей Смирнов',
+    name: 'Александр Дмитричев',
     role: 'Tech Lead',
     strength: 'Архитектура и масштабирование',
     bio: '10+ лет в разработке, создал 50+ проектов',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/js6my24c_Gemini_Generated_Image_all29pall29pall2.png'
   },
   {
     id: 2,
