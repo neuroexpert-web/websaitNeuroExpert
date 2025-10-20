@@ -235,11 +235,10 @@ async def chat_with_ai(chat_request: ChatMessage):
 
 Будьте живым, полезным экспертом, который искренне хочет помочь решить задачу клиента!"""
 
-        # Model mapping
+        # Model mapping (only working models)
         model_config = {
             "claude-sonnet": ("anthropic", "claude-3-7-sonnet-20250219"),
-            "gpt-4o": ("openai", "gpt-4o"),
-            "gemini-pro": ("google", "gemini/gemini-pro")
+            "gpt-4o": ("openai", "gpt-4o")
         }
         
         selected_model = chat_request.model or "claude-sonnet"
