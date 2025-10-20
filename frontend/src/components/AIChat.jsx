@@ -18,6 +18,12 @@ const AIChat = () => {
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  const models = [
+    { id: 'claude-sonnet', name: 'Claude Sonnet 4', icon: '🧠', description: 'Самый умный' },
+    { id: 'gpt-4o', name: 'GPT-4o', icon: '⚡', description: 'Быстрый и точный' },
+    { id: 'gemini-pro', name: 'Gemini 2.0 Flash', icon: '✨', description: 'Креативный' }
+  ];
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
