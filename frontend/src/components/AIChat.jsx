@@ -289,20 +289,24 @@ const AIChat = () => {
             </AnimatePresence>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
+            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4 bg-gradient-to-b from-transparent to-[#0b0f17]/30">
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: idx * 0.05 }}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] md:max-w-[80%] p-2 md:p-3 rounded-lg text-sm md:text-base ${
+                    className={`max-w-[85%] md:max-w-[80%] p-3 md:p-4 shadow-lg text-sm md:text-base ${
                       msg.role === 'user'
-                        ? 'bg-[#7dd3fc] text-black'
-                        : 'bg-white/10 text-white'
+                        ? 'bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] text-white rounded-2xl rounded-br-md'
+                        : 'bg-gradient-to-br from-white/15 to-white/5 text-white border border-white/20 backdrop-blur-sm rounded-2xl rounded-bl-md'
                     }`}
+                    style={msg.role === 'user' ? {
+                      boxShadow: '0 10px 25px -5px rgba(125, 211, 252, 0.3)'
+                    } : {}}
                   >
                     <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                   </div>
