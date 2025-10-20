@@ -1094,12 +1094,29 @@ const ServiceCards = () => {
                           onClick={() => {
                             setSelectedService(null);
                             setTimeout(() => {
+                              const aiChatButton = document.querySelector('button[class*="fixed"][class*="bottom"]');
+                              if (aiChatButton) {
+                                aiChatButton.click();
+                              }
+                            }, 300);
+                          }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#7dd3fc]/50 breathing-glow flex items-center justify-center gap-2"
+                        >
+                          <span className="text-2xl">💬</span>
+                          <span>ЗАПУСТИТЬ AI-АССИСТЕНТА</span>
+                        </motion.button>
+                        <motion.button
+                          onClick={() => {
+                            setSelectedService(null);
+                            setTimeout(() => {
                               document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
                             }, 300);
                           }}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-bold text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#7dd3fc]/50 breathing-glow"
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all"
                         >
                           🛡️ ПОДКЛЮЧИТЬ ПОДДЕРЖКУ
                         </motion.button>
