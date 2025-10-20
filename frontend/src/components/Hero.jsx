@@ -12,7 +12,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
-            Ваш цифровой прорыв —
+            Ваш цифровой прорыв
             <br />
             <span className="text-white">
               с ИИ и командой NeuroExpert
@@ -22,9 +22,9 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-12 leading-relaxed px-4"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-12 leading-relaxed px-4 text-center"
           >
-            Превращаем технологии в деньги. <span className="color-pulse font-semibold">Быстро. Эффективно. С гарантией.</span>
+            Превращаем технологии в деньги. Быстро. Эффективно. С гарантией.
           </motion.p>
           
           <motion.a
