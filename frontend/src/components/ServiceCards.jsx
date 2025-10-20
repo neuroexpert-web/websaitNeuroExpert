@@ -775,7 +775,7 @@ const ServiceCards = () => {
                       
                       {/* Problems */}
                       <div className="mb-6 sm:mb-8">
-                        <p className="text-white/60 mb-4 sm:mb-6 text-base sm:text-lg">Проблемы, которые он решает:</p>
+                        <p className="text-white/60 mb-4 sm:mb-6 text-base sm:text-lg">🤔 С чем сталкивается бизнес:</p>
                         <div className="space-y-3">
                           {aiAssistantContent.problems.map((problem, idx) => (
                             <motion.div
@@ -784,9 +784,9 @@ const ServiceCards = () => {
                               whileInView={{ opacity: 1, x: 0 }}
                               viewport={{ once: true }}
                               transition={{ delay: idx * 0.1 }}
-                              className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg"
+                              className="flex items-start gap-3 p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg"
                             >
-                              <span className="text-red-400 text-xl flex-shrink-0">❌</span>
+                              <span className="text-purple-400 text-xl flex-shrink-0">💬</span>
                               <span className="text-white/80">{problem}</span>
                             </motion.div>
                           ))}
