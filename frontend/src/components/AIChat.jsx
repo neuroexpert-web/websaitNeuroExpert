@@ -313,15 +313,31 @@ const AIChat = () => {
                 </motion.div>
               ))}
               {loading && (
-                <div className="flex justify-start">
-                  <div className="bg-white/10 text-white p-2 md:p-3 rounded-lg">
-                    <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-white rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                      <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex justify-start"
+                >
+                  <div className="bg-gradient-to-br from-white/15 to-white/5 p-3 md:p-4 rounded-2xl border border-white/20 backdrop-blur-sm rounded-bl-md shadow-lg">
+                    <div className="flex gap-1.5">
+                      <motion.span 
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                        className="w-2 h-2 bg-[#7dd3fc] rounded-full"
+                      ></motion.span>
+                      <motion.span 
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                        className="w-2 h-2 bg-[#764ba2] rounded-full"
+                      ></motion.span>
+                      <motion.span 
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+                        className="w-2 h-2 bg-[#7dd3fc] rounded-full"
+                      ></motion.span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
               <div ref={messagesEndRef} />
             </div>
