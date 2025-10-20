@@ -179,14 +179,17 @@ const AIChat = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.8 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            className={`fixed z-50 bg-[#121826] backdrop-blur-xl border border-white/20 rounded-none shadow-2xl flex flex-col overflow-hidden ${
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className={`fixed z-50 bg-gradient-to-br from-[#1a1f2e]/95 to-[#0b0f17]/95 backdrop-blur-xl border border-white/20 shadow-2xl flex flex-col overflow-hidden ${
               isMobile 
-                ? 'inset-0 w-full h-full' 
-                : 'bottom-20 md:bottom-24 right-4 md:right-6 w-80 md:w-96 h-[500px] md:h-[600px]'
+                ? 'inset-0 w-full h-full rounded-none' 
+                : 'bottom-20 md:bottom-24 right-4 md:right-6 w-80 md:w-96 h-[500px] md:h-[600px] rounded-3xl'
             }`}
+            style={{
+              boxShadow: '0 25px 50px -12px rgba(125, 211, 252, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+            }}
           >
             {/* Header */}
             <div className="p-4 bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] flex items-center justify-between">
