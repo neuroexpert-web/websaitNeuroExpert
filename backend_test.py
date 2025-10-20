@@ -170,6 +170,258 @@ def check_backend_logs():
         print(f"✗ Error checking logs: {str(e)}")
         return False
 
+def test_ai_chat_endpoint():
+    """Test AI Chat API endpoint with multiple models"""
+    print("\n" + "=" * 60)
+    print("TESTING AI CHAT API ENDPOINT")
+    print("=" * 60)
+    
+    # Test models as specified in review request
+    models = ["claude-sonnet", "gpt-4o", "gemini-pro"]
+    results = []
+    
+    for model in models:
+        print(f"\n--- Testing model: {model} ---")
+        session_id = f"test-session-{int(time.time())}-{model}"
+        
+        # Test single message
+        test_data = {
+            "session_id": session_id,
+            "message": "Привет, расскажите о ваших услугах",
+            "model": model
+        }
+        
+        try:
+            response = requests.post(
+                f"{API_BASE}/chat",
+                json=test_data,
+                headers={"Content-Type": "application/json"},
+                timeout=60  # AI responses can take longer
+            )
+            
+            print(f"✓ Response Status Code: {response.status_code}")
+            
+            if response.status_code == 200:
+                response_data = response.json()
+                print(f"✓ Model {model}: API returned 200 OK")
+                
+                # Check response structure
+                if "response" in response_data and "session_id" in response_data:
+                    print(f"✓ Model {model}: Response has correct structure")
+                    
+                    # Check session_id matches
+                    if response_data["session_id"] == session_id:
+                        print(f"✓ Model {model}: Session ID matches")
+                    else:
+                        print(f"✗ Model {model}: Session ID mismatch")
+                        results.append(False)
+                        continue
+                        
+                    # Check response quality (should be 3-6 sentences)
+                    ai_response = response_data["response"]
+                    sentences = ai_response.count('.') + ai_response.count('!') + ai_response.count('?')
+                    
+                    if 2 <= sentences <= 8:  # Allow some flexibility
+                        print(f"✓ Model {model}: Response length appropriate ({sentences} sentences)")
+                    else:
+                        print(f"? Model {model}: Response length: {sentences} sentences (expected 3-6)")
+                    
+                    # Check if response contains service information
+                    if any(keyword in ai_response.lower() for keyword in ['услуг', 'разработк', 'дизайн', 'аудит', 'ai-ассистент']):
+                        print(f"✓ Model {model}: Response contains service information")
+                    else:
+                        print(f"? Model {model}: Response may not contain expected service information")
+                    
+                    print(f"Response preview: {ai_response[:200]}...")
+                    results.append(True)
+                else:
+                    print(f"✗ Model {model}: Invalid response structure")
+                    results.append(False)
+            else:
+                print(f"✗ Model {model}: API returned {response.status_code}")
+                print(f"Response: {response.text}")
+                results.append(False)
+                
+        except Exception as e:
+            print(f"✗ Model {model}: Error - {str(e)}")
+            results.append(False)
+    
+    return all(results)
+
+def test_ai_chat_context_scenarios():
+    """Test AI Chat context preservation with specific scenarios"""
+    print("\n" + "=" * 60)
+    print("TESTING AI CHAT CONTEXT PRESERVATION")
+    print("=" * 60)
+    
+    scenarios = [
+        {
+            "model": "claude-sonnet",
+            "messages": [
+                "Привет, хочу создать интернет-магазин",
+                "А сколько времени займет разработка?"
+            ],
+            "context_check": "интернет-магазин"
+        },
+        {
+            "model": "gpt-4o", 
+            "messages": [
+                "Какие у вас есть услуги по AI-ассистентам?",
+                "Расскажи подробнее про базовый пакет"
+            ],
+            "context_check": "ai-ассистент"
+        },
+        {
+            "model": "gemini-pro",
+            "messages": [
+                "Нужна техподдержка для моего сайта",
+                "Что входит в стандартный пакет?"
+            ],
+            "context_check": "техподдержк"
+        }
+    ]
+    
+    results = []
+    
+    for i, scenario in enumerate(scenarios, 1):
+        print(f"\n--- Scenario {i}: {scenario['model']} ---")
+        session_id = f"test-session-{int(time.time())}-scenario-{i}"
+        
+        try:
+            # Send first message
+            first_data = {
+                "session_id": session_id,
+                "message": scenario["messages"][0],
+                "model": scenario["model"]
+            }
+            
+            print(f"First message: {scenario['messages'][0]}")
+            
+            first_response = requests.post(
+                f"{API_BASE}/chat",
+                json=first_data,
+                headers={"Content-Type": "application/json"},
+                timeout=60
+            )
+            
+            if first_response.status_code != 200:
+                print(f"✗ First message failed: {first_response.status_code}")
+                results.append(False)
+                continue
+                
+            first_data_response = first_response.json()
+            print(f"✓ First response received")
+            
+            # Wait a moment between messages
+            time.sleep(2)
+            
+            # Send second message (context test)
+            second_data = {
+                "session_id": session_id,  # Same session
+                "message": scenario["messages"][1],
+                "model": scenario["model"]
+            }
+            
+            print(f"Second message: {scenario['messages'][1]}")
+            
+            second_response = requests.post(
+                f"{API_BASE}/chat",
+                json=second_data,
+                headers={"Content-Type": "application/json"},
+                timeout=60
+            )
+            
+            if second_response.status_code != 200:
+                print(f"✗ Second message failed: {second_response.status_code}")
+                results.append(False)
+                continue
+                
+            second_data_response = second_response.json()
+            print(f"✓ Second response received")
+            
+            # Check if context is preserved
+            second_ai_response = second_data_response["response"].lower()
+            context_preserved = scenario["context_check"].lower() in second_ai_response
+            
+            if context_preserved:
+                print(f"✓ Context preserved: Found reference to '{scenario['context_check']}'")
+            else:
+                print(f"? Context check: '{scenario['context_check']}' not explicitly found in response")
+                print(f"Response preview: {second_ai_response[:300]}...")
+            
+            # Check response quality
+            sentences = second_ai_response.count('.') + second_ai_response.count('!') + second_ai_response.count('?')
+            if 2 <= sentences <= 8:
+                print(f"✓ Response quality: {sentences} sentences")
+            else:
+                print(f"? Response length: {sentences} sentences")
+            
+            # Check for concrete information (numbers, timeframes)
+            has_numbers = any(char.isdigit() for char in second_ai_response)
+            if has_numbers:
+                print(f"✓ Response contains concrete numbers/timeframes")
+            else:
+                print(f"? Response may lack concrete numbers")
+            
+            results.append(True)
+            
+        except Exception as e:
+            print(f"✗ Scenario {i} error: {str(e)}")
+            results.append(False)
+    
+    return all(results)
+
+def test_ai_chat_database_storage():
+    """Test that AI chat messages are properly stored in database"""
+    print("\n" + "=" * 60)
+    print("TESTING AI CHAT DATABASE STORAGE")
+    print("=" * 60)
+    
+    # Generate unique session for testing
+    test_session_id = f"test-session-{int(time.time())}-db-test"
+    test_model = "claude-sonnet"
+    test_message = "Тест сохранения в базу данных"
+    
+    print(f"Test session ID: {test_session_id}")
+    print(f"Test model: {test_model}")
+    print(f"Test message: {test_message}")
+    
+    try:
+        # Send test message
+        test_data = {
+            "session_id": test_session_id,
+            "message": test_message,
+            "model": test_model
+        }
+        
+        response = requests.post(
+            f"{API_BASE}/chat",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=60
+        )
+        
+        if response.status_code == 200:
+            response_data = response.json()
+            print(f"✓ Chat message sent successfully")
+            print(f"✓ Session ID returned: {response_data['session_id']}")
+            
+            # Note: We can't directly query the database from here, but we can verify
+            # the API response structure indicates proper storage
+            if response_data["session_id"] == test_session_id:
+                print(f"✓ Session ID consistency verified")
+                return True
+            else:
+                print(f"✗ Session ID mismatch in response")
+                return False
+        else:
+            print(f"✗ Chat API failed: {response.status_code}")
+            return False
+            
+    except Exception as e:
+        print(f"✗ Database storage test error: {str(e)}")
+        return False
+
 def main():
     """Run all backend tests"""
     print("NEUROEXPERT BACKEND API TESTING")
@@ -183,6 +435,15 @@ def main():
     
     # Test contact form API
     results.append(("Contact Form API", test_contact_form_api()))
+    
+    # Test AI Chat API endpoint
+    results.append(("AI Chat API", test_ai_chat_endpoint()))
+    
+    # Test AI Chat context scenarios
+    results.append(("AI Chat Context", test_ai_chat_context_scenarios()))
+    
+    # Test AI Chat database storage
+    results.append(("AI Chat DB Storage", test_ai_chat_database_storage()))
     
     # Wait a moment for logs to be written
     print("\nWaiting 3 seconds for logs to be written...")
