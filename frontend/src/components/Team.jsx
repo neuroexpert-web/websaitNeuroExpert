@@ -32,7 +32,7 @@ const Team = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {mockTeam.map((member, idx) => (
             <motion.div
               key={member.id}
@@ -46,7 +46,7 @@ const Team = () => {
               <motion.div
                 animate={{ rotateY: flipped[member.id] ? 180 : 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative h-[450px] sm:h-[480px] rounded-2xl preserve-3d shadow-2xl"
+                className="relative h-[420px] sm:h-[450px] rounded-2xl preserve-3d shadow-2xl"
                 style={{ transformStyle: 'preserve-3d' }}
                 whileHover={{ scale: 1.02 }}
               >
