@@ -32,22 +32,23 @@ const Team = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {mockTeam.map((member, idx) => (
             <motion.div
               key={member.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={{ delay: idx * 0.15 }}
               onClick={() => handleFlip(member.id)}
               className="cursor-pointer perspective-1000"
             >
               <motion.div
                 animate={{ rotateY: flipped[member.id] ? 180 : 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative h-96 rounded-none preserve-3d"
+                className="relative h-[450px] sm:h-[480px] rounded-2xl preserve-3d shadow-2xl"
                 style={{ transformStyle: 'preserve-3d' }}
+                whileHover={{ scale: 1.02 }}
               >
                 {/* Front */}
                 <div
