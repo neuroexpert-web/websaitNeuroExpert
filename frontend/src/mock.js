@@ -215,38 +215,29 @@ export const mockAdvantages = [
 export const mockTeam = [
   {
     id: 1,
-    name: 'Александр Дмитричев',
-    role: 'Tech Lead',
-    strength: 'Архитектура и масштабирование',
-    bio: '10+ лет в разработке, создал 50+ проектов',
-    image: null,
-    gradient: 'from-[#667eea] to-[#764ba2]'
+    name: 'Вячеслав Дерябин',
+    role: 'Руководитель проекта',
+    strength: 'Управление и стратегия',
+    bio: 'Координирует все этапы разработки, обеспечивает качество и сроки',
+    image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/u5rb8pta_%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0%20%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2%20%D0%94%D0%B5%D1%80%D1%8F%D0%B1%D0%B8%D0%BD.png',
+    gradient: null
   },
   {
     id: 2,
-    name: 'Мария Кузнецова',
-    role: 'UX/UI Designer',
-    strength: 'Интерфейсы, конвертирующие в продажи',
-    bio: 'Создала дизайны для 80+ проектов',
-    image: null,
-    gradient: 'from-[#f093fb] to-[#f5576c]'
+    name: 'Александр Дмитричев',
+    role: 'Эксперт по цифровому аудиту',
+    strength: 'Аналитика и аудит',
+    bio: '10+ лет в разработке, эксперт по digital-аудиту и аналитике',
+    image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/3jilxory_%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D1%82%20%D0%BF%D0%BE%20%D1%86%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%BE%D0%BC%D1%83%20%D0%90%D1%83%D0%B4%D0%B8%D1%82%D1%83%20%D0%B8%20%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B8%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%94%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D1%87%D0%B5%D0%B2%20%20.png',
+    gradient: null
   },
   {
     id: 3,
-    name: 'Дмитрий Петров',
-    role: 'AI Engineer',
-    strength: 'Интеграция LLM и ML',
-    bio: 'Эксперт по Claude, GPT, Gemini',
-    image: null,
-    gradient: 'from-[#4facfe] to-[#00f2fe]'
-  },
-  {
-    id: 4,
-    name: 'Елена Волкова',
-    role: 'Marketing Strategist',
-    strength: 'ROI и аналитика',
-    bio: 'Увеличила выручку клиентам на $2M+',
-    image: null,
-    gradient: 'from-[#43e97b] to-[#38f9d7]'
+    name: 'Роман Дмитричев',
+    role: 'AI Инженер / Главный разработчик',
+    strength: 'AI интеграция и разработка',
+    bio: 'Эксперт по Claude, GPT, Gemini и fullstack разработке',
+    image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/9phqyu0d_AI%20%D0%98%D0%BD%D0%B6%D0%B8%D0%BD%D0%B5%D1%80%20%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%20%D0%A0%D0%BE%D0%BC%D0%B0%D0%BD%20%D0%94%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D1%87%D0%B5%D0%B2%20.png',
+    gradient: null
   }
 ];
