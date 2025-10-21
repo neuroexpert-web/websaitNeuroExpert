@@ -239,5 +239,14 @@ export const mockTeam = [
     bio: 'Эксперт по Claude, GPT, Gemini и fullstack разработке',
     image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/9phqyu0d_AI%20%D0%98%D0%BD%D0%B6%D0%B8%D0%BD%D0%B5%D1%80%20%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%20%D0%A0%D0%BE%D0%BC%D0%B0%D0%BD%20%D0%94%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D1%87%D0%B5%D0%B2%20.png',
     gradient: null
+  },
+  {
+    id: 4,
+    name: 'Татьяна Дерябина',
+    role: 'Web UI-UX Дизайнер',
+    strength: 'Пользовательские интерфейсы',
+    bio: 'Создает конверсионные дизайны, которые превращают посетителей в клиентов',
+    image: 'https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/iu9i33iu_Web%20UI-UX%20%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D1%80%20%20%D0%A2%D0%B0%D1%82%D1%8C%D1%8F%D0%BD%D0%B0%20%D0%94%D0%B5%D1%80%D1%8F%D0%B1%D0%B8%D0%BD%D0%B0%20%2C.png',
+    gradient: null
   }
 ];
