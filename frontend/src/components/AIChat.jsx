@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send } from 'lucide-react';
 import { Input } from './ui/input';
+import { Button } from './ui/button';
 import { toast } from 'sonner';
 
 const AIChat = () => {
