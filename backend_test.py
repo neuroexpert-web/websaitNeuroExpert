@@ -608,6 +608,9 @@ def main():
     # Test AI Chat API endpoint
     results.append(("AI Chat API", test_ai_chat_endpoint()))
     
+    # CRITICAL TEST: Extended memory fix (main focus of this testing session)
+    results.append(("AI Chat Extended Memory Fix", test_ai_chat_extended_memory_fix()))
+    
     # Test AI Chat context scenarios
     results.append(("AI Chat Context", test_ai_chat_context_scenarios()))
     
@@ -637,11 +640,20 @@ def main():
     
     print(f"\nOverall: {passed}/{total} tests passed")
     
+    # Special focus on the critical memory fix test
+    memory_test_result = results[3][1]  # Extended Memory Fix is 4th test (index 3)
+    if memory_test_result:
+        print("\n🎉 CRITICAL TEST PASSED: AI Chat memory fix is working!")
+        print("✅ Context is preserved beyond 7 messages")
+    else:
+        print("\n❌ CRITICAL TEST FAILED: AI Chat memory fix needs attention")
+        print("❌ Memory loss issue may still exist")
+    
     if passed == total:
-        print("🎉 ALL TESTS PASSED!")
+        print("\n🎉 ALL TESTS PASSED!")
         return 0
     else:
-        print("❌ SOME TESTS FAILED")
+        print(f"\n❌ {total - passed} TESTS FAILED")
         return 1
 
 if __name__ == "__main__":
