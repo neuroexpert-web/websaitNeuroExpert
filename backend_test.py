@@ -12,7 +12,7 @@ from datetime import datetime
 import uuid
 
 # Configuration
-BACKEND_URL = "https://tech-consult-pro-2.preview.emergentagent.com"
+BACKEND_URL = "https://smart-consult-app-1.preview.emergentagent.com"
 API_BASE = f"{BACKEND_URL}/api"
 
 def test_contact_form_api():
