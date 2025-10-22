@@ -102,23 +102,23 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Apply new video background to all sections except Hero, complete mobile responsive design adaptation"
+user_problem_statement: "Fix AI Chat memory issue - context lost after 7 messages. Also verify all recent changes (new video, Yandex Metrika, WebP images, social buttons)"
 
 backend:
-  - task: "AI Chat API endpoint"
+  - task: "AI Chat API endpoint - Memory Fix"
     implemented: true
-    working: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
+      - working: false
+        agent: "user"
+        comment: "User reported: AI Chat memory only lasts 7 messages, on 8th message it 'loops back' and starts over, forgetting previous context"
       - working: "NA"
         agent: "main"
-        comment: "Backend API already implemented, not modified in this iteration"
-      - working: true
-        agent: "testing"
-        comment: "FINAL DEPLOYMENT CHECK PASSED: AI Chat API fully functional. Tested both claude-sonnet and gpt-4o models successfully. Context preservation working correctly across multiple messages in same session. All responses contain appropriate service information with concrete numbers and timeframes. Database storage verified - 66 chat messages stored. EMERGENT_LLM_KEY working properly. Ready for production deployment."
+        comment: "FIXED: Added MongoDB history loading to chat endpoint. Now loads last 20 messages from database and passes them as initial_messages to LlmChat. This ensures conversation context is preserved across multiple messages. Previously, LlmChat only kept messages in memory without database persistence, causing context loss after ~7 messages."
 
   - task: "Contact Form API endpoint"
     implemented: true
