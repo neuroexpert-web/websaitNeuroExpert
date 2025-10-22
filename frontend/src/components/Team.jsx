@@ -60,6 +60,7 @@ const Team = () => {
                       <img
                         src={member.image}
                         alt={member.name}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f17] via-[#0b0f17]/60 to-transparent" />
