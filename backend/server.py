@@ -244,10 +244,25 @@ async def chat_with_ai(chat_request: ChatMessage):
         selected_model = chat_request.model or "claude-sonnet"
         provider, model_name = model_config.get(selected_model, model_config["claude-sonnet"])
         
+        # Load conversation history from MongoDB (last 20 messages to maintain context)
+        history_cursor = db.chat_messages.find(
+            {"session_id": chat_request.session_id}
+        ).sort("timestamp", 1).limit(20)
+        
+        history_docs = await history_cursor.to_list(length=20)
+        
+        # Convert history to initial_messages format
+        initial_messages = []
+        for doc in history_docs:
+            initial_messages.append({"role": "user", "content": doc["user_message"]})
+            initial_messages.append({"role": "assistant", "content": doc["ai_response"]})
+        
+        # Create chat with history
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
             session_id=chat_request.session_id,
-            system_message=system_prompt
+            system_message=system_prompt,
+            initial_messages=initial_messages
         ).with_model(provider, model_name)
         
         user_message = UserMessage(text=chat_request.message)
