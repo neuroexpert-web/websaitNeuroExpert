@@ -41,9 +41,29 @@ const GlobalVideoBackground = () => {
   };
 
   if (!shouldLoadVideo() || videoError) {
-    // Show static gradient for very slow connections or video errors
+    // Show premium animated gradient for very slow connections or video errors
     return (
-      <div className="fixed inset-0 w-full h-full overflow-hidden bg-gradient-to-b from-[#0b0f17] via-[#1a1f2e] to-[#0b0f17] z-0" />
+      <div className="fixed inset-0 w-full h-full overflow-hidden z-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0b0f17] via-[#1a1f2e] to-[#0b0f17]" />
+        
+        {/* Animated overlay gradient */}
+        <div 
+          className="absolute inset-0 opacity-40"
+          style={{
+            background: 'radial-gradient(circle at 20% 50%, rgba(125, 211, 252, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%)',
+            animation: 'gradientShift 15s ease infinite'
+          }}
+        />
+        
+        {/* CSS animation */}
+        <style>{`
+          @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-10%, 10%) scale(1.1); }
+          }
+        `}</style>
+      </div>
     );
   }
 
