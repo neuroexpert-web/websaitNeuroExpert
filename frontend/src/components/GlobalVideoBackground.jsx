@@ -19,11 +19,6 @@ const GlobalVideoBackground = () => {
 
   // Don't load video on very slow connections
   const shouldLoadVideo = () => {
-    // Temporarily disable video due to browser compatibility issues
-    // Will use gradient background instead
-    return false;
-    
-    /* Original code:
     if (typeof navigator !== 'undefined' && navigator.connection) {
       const connection = navigator.connection;
       if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
@@ -31,7 +26,6 @@ const GlobalVideoBackground = () => {
       }
     }
     return true;
-    */
   };
 
   // Handle video loading error
