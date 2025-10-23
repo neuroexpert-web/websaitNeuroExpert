@@ -81,8 +81,8 @@ const GlobalVideoBackground = () => {
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          {/* Local video - no CORS issues, no external dependencies */}
-          <source src="/neuroexpert-video.mp4" type="video/mp4" />
+          {/* Local video - smaller file size (4.9MB) to avoid platform limitations */}
+          <source src="/bg-video.mp4" type="video/mp4" />
         </video>
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f17]/60 via-[#0b0f17]/40 to-[#0b0f17]/60" />
