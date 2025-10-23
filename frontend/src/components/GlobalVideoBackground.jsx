@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const GlobalVideoBackground = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -27,8 +28,14 @@ const GlobalVideoBackground = () => {
     return true;
   };
 
-  if (!shouldLoadVideo()) {
-    // Show static gradient for very slow connections
+  // Handle video loading error
+  const handleVideoError = (e) => {
+    console.error('Video loading error:', e);
+    setVideoError(true);
+  };
+
+  if (!shouldLoadVideo() || videoError) {
+    // Show static gradient for very slow connections or video errors
     return (
       <div className="fixed inset-0 w-full h-full overflow-hidden bg-gradient-to-b from-[#0b0f17] via-[#1a1f2e] to-[#0b0f17] z-0" />
     );
@@ -43,8 +50,9 @@ const GlobalVideoBackground = () => {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           onLoadedData={() => setVideoLoaded(true)}
+          onError={handleVideoError}
           style={{
             transform: 'scale(1.05)',
             objectPosition: 'center center'
@@ -53,8 +61,8 @@ const GlobalVideoBackground = () => {
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          {/* Use ПОСЛЕДНЕЕ ВИДЕО for all devices - optimized MP4 */}
-          <source src="https://customer-assets.emergentagent.com/job_tech-consult-pro-2/artifacts/fdex6l3w_%D0%9F%D0%9E%D0%A1%D0%9B%D0%95%D0%94%D0%9D%D0%95%D0%95%20%D0%92%D0%98%D0%94%D0%95%D0%9E%20.mp4" type="video/mp4" />
+          {/* Optimized video with ASCII filename for better compatibility */}
+          <source src="https://customer-assets.emergentagent.com/job_smart-consult-app-1/artifacts/i4ldjvbm_neuroexpert-bg-video.mp4" type="video/mp4" />
         </video>
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f17]/60 via-[#0b0f17]/40 to-[#0b0f17]/60" />
