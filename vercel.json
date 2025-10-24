@@ -19,40 +19,34 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/static/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/frontend/build/static/$1"
+      "source": "/static/(.*)",
+      "destination": "/frontend/build/static/$1"
     },
     {
-      "src": "/robots.txt",
-      "dest": "/frontend/build/robots.txt"
+      "source": "/robots.txt",
+      "destination": "/frontend/build/robots.txt"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/frontend/build/favicon.ico"
+      "source": "/favicon.ico",
+      "destination": "/frontend/build/favicon.ico"
     },
     {
-      "src": "/manifest.json",
-      "dest": "/frontend/build/manifest.json"
+      "source": "/manifest.json",
+      "destination": "/frontend/build/manifest.json"
     },
     {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot))",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/frontend/build/$1"
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot))",
+      "destination": "/frontend/build/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/frontend/build/index.html"
+      "source": "/(.*)",
+      "destination": "/frontend/build/index.html"
     }
   ],
   "headers": [
