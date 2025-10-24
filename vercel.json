@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.9"
+      }
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "buildCommand": "npm run build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ],
+  "env": {
+    "VERCEL_BACKEND_URL": "@backend-url"
+  },
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.9",
+      "env": {
+        "PYTHONPATH": ".",
+        "VERCEL": "1"
+      }
+    }
+  },
+  "github": {
+    "silent": true
+  },
+  "regions": ["fra1"]
+}
