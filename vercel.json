@@ -1,45 +1,130 @@
 {
   "version": 2,
+
   "builds": [
     {
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "runtime": "python3.9"
+        "runtime": "python3.11",
+        "installCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+        "buildCommand": "python -m compileall api"
       }
     },
     {
       "src": "frontend/package.json",
       "use": "@vercel/next",
       "config": {
-        "buildCommand": "npm run build"
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDirectory": ".next"
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/$1"
-    }
-  ],
-  "env": {
-    "VERCEL_BACKEND_URL": "@backend-url"
-  },
+
   "functions": {
     "api/index.py": {
-      "runtime": "python3.9",
+      "runtime": "python3.11",
+      "maxDuration": 30,
+      "memory": 1024,
       "env": {
         "PYTHONPATH": ".",
+        "PYTHONUNBUFFERED": "1",
         "VERCEL": "1"
       }
     }
   },
-  "github": {
-    "silent": true
+
+  "routes": [
+    {
+      "src": "/api/health",
+      "dest": "/api/index.py",
+      "headers": {
+        "Cache-Control": "no-store, must-revalidate",
+        "X-Request-ID": "{requestId}"
+      }
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py",
+      "headers": {
+        "Cache-Control": "no-store, must-revalidate",
+        "X-Request-ID": "{requestId}"
+      }
+    },
+    {
+      "src": "/_next/static/(.*)",
+      "dest": "/frontend/_next/static/\$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(.*)\\.(?:js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)",
+      "dest": "/frontend/\$1.\$2",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/\$1",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "X-Request-ID": "{requestId}"
+      }
+    }
+  ],
+
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'se 'self'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' '{ "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'strict-dynamic'; style-src 'self'; object-src 'none'; base-uri 'self'" }
+      ]
+    }
+  ],
+
+  "rewrites": [
+    {
+      "source": "/((?!api|_next|static|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)",
+      "destination": "/frontend/index.html"
+    }
+  ],
+
+  "redirects": [
+    {
+      "source": "/health",
+      "destination": "/api/health",
+      "permanent": false
+    }
+  ],
+
+  "regions": ["iad1"],
+
+  "env": {
+    "VERCEL_BACKEND_URL": "@backend-url",
+    "NODE_ENV": "production"
   },
-  "regions": ["fra1"]
+
+  "github": {
+    "silent": false,
+    "autoAlias": true
+  }
 }
