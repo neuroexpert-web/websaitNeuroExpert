@@ -12,18 +12,33 @@
     },
     {
       "src": "frontend/package.json",
-      "use": "@vercel/next"
+      "use": "@vercel/static-build",
+      "config": {
+        "installCommand": "npm ci --legacy-peer-deps",
+        "buildCommand": "npm run build",
+        "outputDirectory": "frontend/build"
+      }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.py" },
-    { "src": "/(.*)", "dest": "/frontend/$1" }
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/build/index.html"
+    }
   ],
   "env": {
-    "VERCEL_BACKEND_URL": "https://neuroexpert.vercel.app/api",
-    "PYTHONPATH": ".",
     "PYTHONUNBUFFERED": "1",
-    "NODE_ENV": "production"
+    "PYTHONPATH": ".",
+    "NODE_ENV": "production",
+    "VERCEL_BACKEND_URL": "https://neuroexpert.vercel.app/api"
   },
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "github": {
+    "silent": false,
+    "autoAlias": true
+  }
 }
