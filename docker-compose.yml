@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Frontend React приложение
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:8000
+    command: yarn start
+    networks:
+      - neuroexpert-network
+
+  # Backend FastAPI приложение
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MONGODB_URL=${MONGODB_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    command: uvicorn index:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - neuroexpert-network
+    depends_on:
+      - mongodb
+
+  # MongoDB база данных (локальная для разработки)
+  mongodb:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+    networks:
+      - neuroexpert-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  neuroexpert-network:
+    driver: bridge
