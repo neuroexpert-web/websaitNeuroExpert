@@ -40,11 +40,10 @@
       "source": "/manifest.json",
       "destination": "/frontend/build/manifest.json"
     },
-   {
-  "source": "/:file(.*\\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot))",
-  "destination": "/frontend/build/:file"
-}
-
+    {
+      "source": "/:file(.*\\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot))",
+      "destination": "/frontend/build/:file"
+    },
     {
       "source": "/(.*)",
       "destination": "/frontend/build/index.html"
