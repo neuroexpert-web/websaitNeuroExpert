@@ -1,50 +1,214 @@
 {
+  "metadata": {
+    "version": "3.0.0",
+    "updated_at": "2025-10-24T19:00:00Z",
+    "schema_version": "1.0.0",
+    "environment": "production"
+  },
   "company": {
     "name": "NeuroExpert",
-    "phone": "+7 (XXX) XXX-XX-XX",
+    "legal_name": "ООО \"НейроЭксперт\"",
+    "phone": "+7 (999) 123-45-67",
     "email": "info@neuroexpert.ru",
-    "completed_projects": 127
+    "website": "https://neuroexpert.ru",
+    "support_email": "support@neuroexpert.ru",
+    "sales_email": "sales@neuroexpert.ru",
+    "completed_projects": 127,
+    "founded_year": 2023,
+    "team_size": 12,
+    "working_hours": {
+      "timezone": "Europe/Moscow",
+      "weekdays": "09:00-19:00",
+      "weekend": "Выходные"
+    },
+    "social_media": {
+      "telegram": "https://t.me/neuroexpert_ru",
+      "linkedin": "https://linkedin.com/company/neuroexpert",
+      "github": "https://github.com/neuroexpert-web"
+    }
   },
   "services": {
     "digital_audit": {
+      "id": "digital_audit",
       "name": "Цифровой аудит",
+      "slug": "digital-audit",
+      "category": "analytics",
       "price_min": 25500,
       "price_max": 90000,
+      "currency": "RUB",
       "time": "3 дня",
-      "description": "Полная диагностика бизнеса — выявим, где уходят клиенты и прибыль"
+      "time_min_days": 3,
+      "time_max_days": 5,
+      "description": "Полная диагностика бизнеса — выявим, где уходят клиенты и прибыль",
+      "detailed_description": "Комплексный анализ вашего digital-присутствия: аудит сайта, анализ конверсий, исследование пользовательского опыта, конкурентный анализ и рекомендации по оптимизации.",
+      "features": [
+        "Технический аудит сайта",
+        "Анализ воронки продаж",
+        "UX/UI исследование",
+        "Конкурентный анализ",
+        "SEO-аудит",
+        "Аналитика трафика"
+      ],
+      "deliverables": [
+        "Презентация с находками",
+        "Дорожная карта улучшений",
+        "Приоритизированный бэклог задач"
+      ],
+      "is_active": true,
+      "is_popular": true,
+      "order": 1
     },
     "ai_assistants": {
+      "id": "ai_assistants",
       "name": "AI-ассистенты",
+      "slug": "ai-assistants",
+      "category": "ai",
       "price_min": 85000,
       "price_max": 315000,
+      "currency": "RUB",
       "time": "2 недели",
-      "description": "Умный помощник 24/7 — автоматизация 70% задач"
+      "time_min_days": 14,
+      "time_max_days": 30,
+      "description": "Умный помощник 24/7 — автоматизация 70% задач",
+      "detailed_description": "Разработка AI-ассистента под ваши бизнес-процессы: от простых чат-ботов до сложных систем обработки запросов с интеграцией в CRM, базы знаний и внутренние системы.",
+      "features": [
+        "Интеграция с Claude/GPT-4",
+        "Обучение на ваших данных",
+        "Подключение к CRM",
+        "Многоязычная поддержка",
+        "Аналитика диалогов",
+        "API для интеграций"
+      ],
+      "deliverables": [
+        "Готовый AI-ассистент",
+        "Документация API",
+        "Обучение команды",
+        "Месяц техподдержки"
+      ],
+      "is_active": true,
+      "is_popular": true,
+      "order": 2
     },
     "websites": {
+      "id": "websites",
       "name": "Сайты и приложения",
+      "slug": "websites-apps",
+      "category": "development",
       "price_min": 50000,
       "price_max": 900000,
+      "currency": "RUB",
       "time": "3 недели",
-      "description": "Современный сайт, который реально продаёт"
+      "time_min_days": 21,
+      "time_max_days": 90,
+      "description": "Современный сайт, который реально продаёт",
+      "detailed_description": "Разработка сайтов и веб-приложений с фокусом на конверсию: от landing page до сложных порталов с интеграцией AI, аналитики и CRM.",
+      "features": [
+        "Адаптивный дизайн",
+        "SEO-оптимизация",
+        "Интеграция аналитики",
+        "CRM-интеграция",
+        "Облачный хостинг",
+        "Техподдержка 24/7"
+      ],
+      "deliverables": [
+        "Готовый сайт/приложение",
+        "Исходный код",
+        "Документация",
+        "Обучение администраторов",
+        "3 месяца гарантии"
+      ],
+      "is_active": true,
+      "is_popular": false,
+      "order": 3
     },
     "support": {
+      "id": "support",
       "name": "Техподдержка 24/7",
+      "slug": "technical-support",
+      "category": "support",
       "price_min": 20000,
       "price_max": 70000,
+      "currency": "RUB",
       "time": "1 день старт",
-      "description": "Круглосуточная поддержка и мониторинг"
+      "time_min_days": 1,
+      "time_max_days": 1,
+      "description": "Круглосуточная поддержка и мониторинг",
+      "detailed_description": "Профессиональная техническая поддержка для ваших digital-проектов: мониторинг 24/7, быстрое реагирование на инциденты, регулярные обновления и превентивное обслуживание.",
+      "features": [
+        "Мониторинг 24/7",
+        "SLA 99.9%",
+        "Время реакции 15 мин",
+        "Регулярные бэкапы",
+        "Обновления безопасности",
+        "Отчёты по инцидентам"
+      ],
+      "deliverables": [
+        "Круглосуточная поддержка",
+        "Ежемесячные отчёты",
+        "Рекомендации по улучшению"
+      ],
+      "is_active": true,
+      "is_popular": false,
+      "order": 4
     },
-    "all_inclusive": {
-      "name": "Всё включено",
-      "price_min": 1000000,
-      "price_max": 3000000,
-      "time": "3 месяца",
-      "description": "Полная цифровая трансформация под ключ"
+    "crm_integration": {
+      "id": "crm_integration",
+      "name": "Интеграция CRM-систем",
+      "slug": "crm-integration",
+      "category": "integration",
+      "price_min": 45000,
+      "price_max": 180000,
+      "currency": "RUB",
+      "time": "1-2 недели",
+      "time_min_days": 7,
+      "time_max_days": 14,
+      "description": "Подключение и настройка CRM под бизнес-процессы",
+      "detailed_description": "Интеграция популярных CRM-систем (amoCRM, Битрикс24, Salesforce) с вашим сайтом, настройка воронок, автоматизация и обучение команды.",
+      "features": [
+        "Интеграция с amoCRM",
+        "Интеграция с Битрикс24",
+        "Настройка воронок",
+        "Автоматизация задач",
+        "Webhooks и API",
+        "Обучение команды"
+      ],
+      "deliverables": [
+        "Настроенная CRM",
+        "Документация интеграций",
+        "Обучающие материалы"
+      ],
+      "is_active": true,
+      "is_popular": false,
+      "order": 5
     }
   },
-  "fallback_responses": {
-    "irrelevant": "Я специализируюсь на консультировании по digital-услугам NeuroExpert: аудит, AI-ассистенты, разработка сайтов, техподдержка. Чем могу помочь для вашего бизнеса?",
-    "unclear": "Чтобы лучше помочь, уточните: какая задача для бизнеса сейчас в приоритете?",
-    "error": "Извините, произошла ошибка. Попробуйте переформулировать вопрос или напишите: 'Связаться с менеджером'"
+  "pricing_notes": {
+    "discount_info": "Скидка 10% при заказе 2+ услуг одновременно",
+    "payment_methods": ["Счёт для ЮЛ", "Картой онлайн", "СБП"],
+    "payment_terms": "Предоплата 50%, остаток после сдачи проекта",
+    "vat_included": true,
+    "custom_projects": "Для индивидуальных проектов цена рассчитывается отдельно"
+  },
+  "categories": {
+    "analytics": {
+      "name": "Аналитика",
+      "description": "Аудит и исследование бизнес-процессов"
+    },
+    "ai": {
+      "name": "Искусственный интеллект",
+      "description": "AI-ассистенты и автоматизация"
+    },
+    "development": {
+      "name": "Разработка",
+      "description": "Сайты, приложения и digital-продукты"
+    },
+    "support": {
+      "name": "Поддержка",
+      "description": "Техническая поддержка и мониторинг"
+    },
+    "integration": {
+      "name": "Интеграции",
+      "description": "Подключение внешних систем и API"
+    }
   }
 }
