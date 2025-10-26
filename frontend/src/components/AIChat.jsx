@@ -7,14 +7,17 @@ import { toast } from 'sonner';
 const AIChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Привет! Я AI‑консультант NeuroExpert на базе Google Gemini. Опиши задачу — и я помогу найти решение 🚀' },
+    {
+      role: 'assistant',
+      content:
+        'Привет! Я AI‑консультант NeuroExpert на базе Google Gemini. Расскажите, какая задача перед вами — я помогу найти решение 🚀',
+    },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Проверка устройства
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -26,7 +29,6 @@ const AIChat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Отправка запроса в API (Google Gemini через наш endpoint)
   const callGemini = async (message) => {
     const response = await fetch('/api/chat', {
       method: 'POST',
@@ -35,33 +37,47 @@ const AIChat = () => {
     });
 
     if (!response.ok) throw new Error('Network response was not ok');
-
     const data = await response.json();
+
     return (
       data?.candidates?.[0]?.content?.parts?.[0]?.text ||
       'Ошибка: не удалось получить ответ от Gemini.'
     );
   };
 
-  // Обработка отправки сообщения
+  const handleQuickAction = async (prompt) => {
+    setMessages((prev) => [...prev, { role: 'user', content: prompt }]);
+    setLoading(true);
+    try {
+      const aiResponse = await callGemini(prompt);
+      setMessages((prev) => [...prev, { role: 'assistant', content: aiResponse }]);
+    } catch (e) {
+      console.error(e);
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: 'Произошла ошибка, попробуйте ещё раз.' },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSend = async () => {
     if (!input.trim() || loading) return;
-
     const userMessage = input;
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
-
     try {
       const aiResponse = await callGemini(userMessage);
       setMessages((prev) => [...prev, { role: 'assistant', content: aiResponse }]);
     } catch (err) {
-      console.error('Error sending message:', err);
+      console.error(err);
+      toast.error('Ошибка при обращении к серверу');
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Извини, произошла ошибка. Попробуй ещё раз.' },
+        { role: 'assistant', content: 'Извини, произошла ошибка. Попробуй снова.' },
       ]);
-      toast.error('Ошибка связи с сервером');
     } finally {
       setLoading(false);
     }
@@ -98,10 +114,12 @@ const AIChat = () => {
             {/* Header */}
             <div className="p-4 bg-gradient-to-r from-[#7dd3fc]/30 to-[#764ba2]/30 border-b border-white/20 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] flex items-center justify-center text-xl">🤖</div>
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7dd3fc] to-[#764ba2] flex items-center justify-center text-xl">
+                  🤖
+                </div>
                 <div>
                   <div className="font-bold text-white text-lg">NeuroExpert AI</div>
-                  <div className="text-xs text-white/70">Google Gemini API</div>
+                  <div className="text-xs text-white/70">Google Gemini Assistant</div>
                 </div>
               </div>
               <button
@@ -117,7 +135,9 @@ const AIChat = () => {
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${
+                    msg.role === 'user' ? 'justify-end' : 'justify-start'
+                  }`}
                 >
                   <div
                     className={`max-w-[80%] p-3 rounded-2xl text-sm ${
@@ -131,10 +151,32 @@ const AIChat = () => {
                 </motion.div>
               ))}
               {loading && (
-                <div className="flex justify-start text-white/70 text-sm">Генерация ответа ...</div>
+                <div className="flex justify-start text-white/70 text-sm">
+                  Генерация ответа ...
+                </div>
               )}
               <div ref={messagesEndRef} />
             </div>
+
+            {/* Quick questions */}
+            {!loading && messages.length <= 1 && (
+              <div className="p-3 border-t border-white/10 grid grid-cols-2 gap-2">
+                {[
+                  { label: '💎 Аудит', text: 'Расскажите про цифровой аудит' },
+                  { label: '🤖 AI‑бот', text: 'Интересует AI‑ассистент 24/7' },
+                  { label: '🚀 Сайт', text: 'Хочу заказать сайт под ключ' },
+                  { label: '🛡️ Поддержка', text: 'Нужна техподдержка' },
+                ].map((q) => (
+                  <button
+                    key={q.label}
+                    onClick={() => handleQuickAction(q.text)}
+                    className="p-2 bg-white/10 hover:bg-white/20 text-white rounded text-xs transition"
+                  >
+                    {q.label}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Input */}
             <div className="p-3 border-t border-white/10 flex gap-2 bg-black/20">
