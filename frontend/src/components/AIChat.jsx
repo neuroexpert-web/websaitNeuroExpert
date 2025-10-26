@@ -52,7 +52,8 @@ const AIChat = () => {
     const response = await fetch('https://agentrouter.org/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_AGENT_ROUTER_KEY}`,
+        'Authorization': `Bearer sk-pd7nIJAiiVMSmOpWeClJntRd8Wwa2x5wWBYfDS6Jdcb4xWtx`,
+
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
