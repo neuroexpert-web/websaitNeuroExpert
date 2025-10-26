@@ -14,14 +14,17 @@ const AIChat = () => {
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
   const [userData, setUserData] = useState({ name: '', contact: '' });
   const [loading, setLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('gpt-4o');
+  const [selectedModel, setSelectedModel] = useState('claude-sonnet-4-20250514');
   const [showModelMenu, setShowModelMenu] = useState(false);
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
   const models = [
+    { id: 'claude-haiku-4-5-20251001', name: 'Claude Haiku 4.5', icon: '⚡', description: 'Быстрый и экономный' },
     { id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4', icon: '🧠', description: 'Самый умный' },
-    { id: 'deepseek-r1-0528', name: 'DeepSeek R1', icon: '⚡', description: 'Быстрый и мощный' }
+    { id: 'deepseek-r1-0528', name: 'DeepSeek R1', icon: '🔬', description: 'Для сложных задач' },
+    { id: 'grok-code-fast-1', name: 'Grok Code Fast', icon: '💻', description: 'Для кода' },
+    { id: 'claude-sonnet-4-5-20250929', name: 'Claude Sonnet 4.5', icon: '🚀', description: 'Улучшенный' }
   ];
   
 
@@ -47,13 +50,10 @@ const AIChat = () => {
     ]
   };
 
-  // Agent Router API call
   const callAgentRouter = async (message) => {
-    const response = await fetch('https://agentrouter.org/v1/chat/completions', {
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer sk-pd7nIJAiiVMSmOpWeClJntRd8Wwa2x5wWBYfDS6Jdcb4xWtx`,
-
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -111,7 +111,6 @@ const AIChat = () => {
       const aiResponse = await callAgentRouter(userMessage);
       setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
 
-      // Check if user provided contact info
       const phoneRegex = /(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}/;
       const telegramRegex = /@\w+/;
       
