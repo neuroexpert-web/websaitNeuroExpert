@@ -13,7 +13,8 @@ const VideoBackground = () => {
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/videos/11.webm" type="video/webm" />
+          <source src="/videos/background.webm" type="video/webm" />
+
         </video>
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f17]/50 via-[#0b0f17]/30 to-[#0b0f17]/50" />
