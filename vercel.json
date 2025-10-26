@@ -3,56 +3,25 @@
     "builds": [
       {
         "src": "api/index.py",
-        "use": "@vercel/python",
-        "config": {
-          "runtime": "python3.11",
-          "maxDuration": 30
-        }
-      },
-      {
-        "src": "frontend/package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "build"
-        }
+        "use": "@vercel/python"
       }
     ],
-    "rewrites": [
+    "routes": [
       {
-        "source": "/api/(.*)",
-        "destination": "/api/index.py"
+        "src": "/api/(.*)",
+        "dest": "/api/index.py"
       },
       {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
-    ],
-    "headers": [
-      {
-        "source": "/api/(.*)",
-        "headers": [
-          {
-            "key": "X-Content-Type-Options",
-            "value": "nosniff"
-          },
-          {
-            "key": "X-Frame-Options",
-            "value": "DENY"
-          }
-        ]
+        "src": "/static/(.*)",
+        "dest": "/frontend/build/static/$1"
       },
       {
-        "source": "/(.*)",
-        "headers": [
-          {
-            "key": "X-Content-Type-Options",
-            "value": "nosniff"
-          },
-          {
-            "key": "Strict-Transport-Security",
-            "value": "max-age=63072000"
-          }
-        ]
+        "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|json))",
+        "dest": "/frontend/build/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/frontend/build/index.html"
       }
     ]
   }
