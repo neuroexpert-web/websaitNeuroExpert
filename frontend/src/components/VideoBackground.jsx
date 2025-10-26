@@ -13,7 +13,9 @@ const VideoBackground = () => {
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/videos/background.webm" type="video/webm" />
+          <source src="/background.webm" type="video/webm" />
+
+
 
         </video>
         {/* Overlay for better text readability */}
