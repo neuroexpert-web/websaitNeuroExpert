@@ -21,8 +21,9 @@ const AIChat = () => {
 
   const models = [
     { id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4', icon: '🧠', description: 'Самый умный' },
-    { id: 'gpt-4o', name: 'GPT-4o', icon: '⚡', description: 'Быстрый и точный' }
+    { id: 'deepseek-r1-0528', name: 'DeepSeek R1', icon: '⚡', description: 'Быстрый и мощный' }
   ];
+  
 
   useEffect(() => {
     const checkMobile = () => {
