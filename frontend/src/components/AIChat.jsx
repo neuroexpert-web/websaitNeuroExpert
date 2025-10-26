@@ -14,13 +14,13 @@ const AIChat = () => {
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
   const [userData, setUserData] = useState({ name: '', contact: '' });
   const [loading, setLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('claude-sonnet');
+  const [selectedModel, setSelectedModel] = useState('gpt-4o');
   const [showModelMenu, setShowModelMenu] = useState(false);
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
   const models = [
-    { id: 'claude-sonnet', name: 'Claude Sonnet 4', icon: '🧠', description: 'Самый умный' },
+    { id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4', icon: '🧠', description: 'Самый умный' },
     { id: 'gpt-4o', name: 'GPT-4o', icon: '⚡', description: 'Быстрый и точный' }
   ];
 
@@ -46,6 +46,31 @@ const AIChat = () => {
     ]
   };
 
+  // Agent Router API call
+  const callAgentRouter = async (message) => {
+    const response = await fetch('https://agentrouter.org/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_AGENT_ROUTER_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: selectedModel,
+        messages: [
+          { role: 'system', content: 'Ты AI-консультант NeuroExpert. Помогай клиентам с выбором услуг: цифровой аудит, AI-боты и ассистенты, разработка сайтов, техническая поддержка. Отвечай по-русски, профессионально и дружелюбно.' },
+          { role: 'user', content: message }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  };
+
   const handleQuickAction = async (action) => {
     const serviceMessages = {
       audit: 'Расскажите о цифровом аудите',
@@ -54,37 +79,13 @@ const AIChat = () => {
       support: 'Нужна техподдержка'
     };
 
-    // Send as user message to AI
     const message = serviceMessages[action];
     setMessages(prev => [...prev, { role: 'user', content: message }]);
     setLoading(true);
 
     try {
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-      const response = await fetch(`${BACKEND_URL}/api/chat`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          session_id: sessionId,
-          message: message,
-          model: selectedModel,
-          user_data: userData.contact ? userData : null
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      
-      setMessages(prev => [
-        ...prev,
-        { role: 'assistant', content: data.response }
-      ]);
-
+      const aiResponse = await callAgentRouter(message);
+      setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
     } catch (error) {
       console.error('Error sending quick action:', error);
       setMessages(prev => [
@@ -105,33 +106,10 @@ const AIChat = () => {
     setLoading(true);
 
     try {
-      // Call backend API
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-      const response = await fetch(`${BACKEND_URL}/api/chat`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          session_id: sessionId,
-          message: userMessage,
-          model: selectedModel,
-          user_data: userData.contact ? userData : null
-        }),
-      });
+      const aiResponse = await callAgentRouter(userMessage);
+      setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      
-      setMessages(prev => [
-        ...prev,
-        { role: 'assistant', content: data.response }
-      ]);
-
-      // Check if user provided contact info in the message
+      // Check if user provided contact info
       const phoneRegex = /(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}/;
       const telegramRegex = /@\w+/;
       
@@ -229,7 +207,6 @@ const AIChat = () => {
                 </div>
               </div>
               <div className="flex gap-2">
-                {/* Model selector button */}
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
