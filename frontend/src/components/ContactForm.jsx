@@ -5,10 +5,7 @@ import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { toast } from 'sonner';
 import { Send } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import api from '../utils/api';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +27,7 @@ const ContactForm = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post(`${API}/contact`, formData);
+      const response = await api.post('/contact', formData);
       
       if (response.data.success) {
         toast.success(response.data.message || 'Спасибо! Мы свяжемся с вами в течение 15 минут');

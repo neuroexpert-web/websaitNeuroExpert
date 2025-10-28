@@ -4,10 +4,7 @@ import { mockServices } from '../mock';
 import { X, Send } from 'lucide-react';
 import { Input } from './ui/input';
 import { toast } from 'sonner';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import api from '../utils/api';
 
 const ServiceCards = () => {
   const [selectedService, setSelectedService] = useState(null);
@@ -311,9 +308,10 @@ const ServiceCards = () => {
     setChatLoading(true);
 
     try {
-      const response = await axios.post(`${API}/chat`, {
+      const response = await api.post('/chat', {
         session_id: sessionId,
-        message: userMessage
+        message: userMessage,
+        model: 'gemini-pro'
       });
 
       if (response.data.response) {

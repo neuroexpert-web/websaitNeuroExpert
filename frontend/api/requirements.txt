@@ -1,83 +1,14 @@
-# ============================================================================
-# NEUROEXPERT API DEPENDENCIES - PRODUCTION READY
-# ============================================================================
-# Core Framework
 fastapi==0.115.5
 uvicorn[standard]==0.32.1
 pydantic==2.9.2
 pydantic-settings==2.6.1
-
-# ASGI Server & HTTP
 starlette==0.41.3
 python-multipart==0.0.12
 httpx==0.27.2
 aiohttp==3.11.2
 aiodns==3.2.0
-brotli==1.1.0
-
-# Database - MongoDB
 motor==3.6.0
-pymongo==4.9.0
+pymongo==4.10.1
 dnspython==2.7.0
-
-# AI Integration
-emergentintegrations>=0.1.0
-anthropic==0.39.0
-openai==1.54.4
 google-generativeai==0.8.3
-httpcore==1.0.7
-tiktoken>=0.5.0
-
-# Authentication & Security
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-bcrypt==4.2.1
-cryptography==43.0.3
-pyjwt==2.9.0
-
-# Telegram Integration
-python-telegram-bot==21.7
-aiofiles==24.1.0
-
-# Cloud & Storage (если используется)
-# boto3==1.35.60
-# botocore==1.35.60
-# cloudinary==1.41.0
-
-# Monitoring & Logging
-sentry-sdk[fastapi]==2.18.0
-python-dotenv==1.0.1
-
-# Data Validation & Processing
-email-validator==2.2.0
-pydantic[email]==2.9.2
-phonenumbers==8.13.50
-pytz==2024.2
-
-# Utilities
-ujson==5.10.0
-orjson==3.10.12
-python-dateutil==2.9.0.post0
-
-# HTTP Standards
-anyio==4.6.2.post1
-h11==0.14.0
-certifi==2024.8.30
-charset-normalizer==3.4.0
-idna==3.10
-
-# Type Hints & Development (закомментировать в production если не нужны)
-typing-extensions==4.12.2
-
-# ============================================================================
-# REMOVED DEPENDENCIES (с пояснением)
-# ============================================================================
-# numpy, pandas - Избыточны для API без ML inference
-# pillow - Не используется (изображения через Cloudinary)
-# stripe - Платежи не реализованы в текущей версии
-# boto3/botocore - AWS S3 не используется (только MongoDB + Cloudinary)
-# litellm - Слишком большой пакет (300MB+), лучше прямые API клиенты
-# black, flake8, isort, pytest - Только для dev окружения (не в production)
-# jinja2 - Не нужен для API-only backend
-# redis - Кеширование будет добавлено в следующей фазе
-# ============================================================================
+python-telegram-bot==21.5

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import "./App.css";
 import { Toaster } from "./components/ui/sonner";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ServiceCards from "./components/ServiceCards";
-import Portfolio from "./components/Portfolio";
-import Advantages from "./components/Advantages";
-import Team from "./components/Team";
-import ContactForm from "./components/ContactForm";
-import AIChat from "./components/AIChat";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 import GlobalVideoBackground from "./components/GlobalVideoBackground";
+
+// Lazy load heavy components
+const Portfolio = lazy(() => import("./components/Portfolio"));
+const Advantages = lazy(() => import("./components/Advantages"));
+const Team = lazy(() => import("./components/Team"));
+const ContactForm = lazy(() => import("./components/ContactForm"));
+const AIChat = lazy(() => import("./components/AIChat"));
 
 function App() {
   return (
@@ -34,26 +36,36 @@ function App() {
           <ServiceCards />
           
           {/* 3. Портфолио/Кейсы */}
-          <section id="portfolio">
-            <Portfolio />
-          </section>
+          <Suspense fallback={<div className="py-20 text-center text-white">Загрузка...</div>}>
+            <section id="portfolio">
+              <Portfolio />
+            </section>
+          </Suspense>
           
           {/* 4. Почему мы */}
-          <Advantages />
+          <Suspense fallback={<div className="py-20 text-center text-white">Загрузка...</div>}>
+            <Advantages />
+          </Suspense>
           
           {/* 5. Кто мы */}
-          <section id="team">
-            <Team />
-          </section>
+          <Suspense fallback={<div className="py-20 text-center text-white">Загрузка...</div>}>
+            <section id="team">
+              <Team />
+            </section>
+          </Suspense>
           
           {/* 6. Форма обратной связи */}
-          <ContactForm />
+          <Suspense fallback={<div className="py-20 text-center text-white">Загрузка...</div>}>
+            <ContactForm />
+          </Suspense>
         </main>
         
         <Footer />
       </div>
       
-      <AIChat />
+      <Suspense fallback={null}>
+        <AIChat />
+      </Suspense>
     </div>
   );
 }
