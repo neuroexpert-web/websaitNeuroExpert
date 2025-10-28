@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const GlobalVideoBackground = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef(null);
 
   // Don't load video on very slow connections
   const shouldLoadVideo = () => {
@@ -20,6 +21,49 @@ const GlobalVideoBackground = () => {
     console.error('Video loading error:', e);
     setVideoError(true);
   };
+
+  useEffect(() => {
+    if (videoError) {
+      return;
+    }
+
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    let retryTimeout;
+
+    const attemptPlay = () => {
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.log('Autoplay blocked, retrying...', err);
+          retryTimeout = setTimeout(attemptPlay, 500);
+        });
+      }
+    };
+
+    const handleLoadedData = () => {
+      setVideoLoaded(true);
+      attemptPlay();
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+
+    if (video.readyState >= 3) {
+      handleLoadedData();
+    }
+
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+      if (retryTimeout) {
+        clearTimeout(retryTimeout);
+      }
+    };
+  }, [videoError]);
 
   if (!shouldLoadVideo() || videoError) {
     // Premium animated gradient background - agency quality
@@ -119,11 +163,11 @@ const GlobalVideoBackground = () => {
       {/* Optimized Cloudinary Video Background */}
       <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#0b0f17] z-0">
         <video
-          autoPlay
+          ref={videoRef}
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           onLoadedData={() => setVideoLoaded(true)}
           onError={handleVideoError}
           style={{
