@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send } from 'lucide-react';
 import { Input } from './ui/input';
 import { toast } from 'sonner';
+import api from '../utils/api';
 
-const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || '').trim();
-const API_BASE_URL = BACKEND_URL.endsWith('/') ? BACKEND_URL.slice(0, -1) : BACKEND_URL;
-const API_ENDPOINT = `${API_BASE_URL}/api/chat`.replace(/^\/api\/chat$/g, '/api/chat');
 const MAX_RETRIES = 3;
 const INITIAL_RETRY_DELAY = 1000;
 
@@ -57,37 +55,21 @@ const AIChat = () => {
 
   const callAI = async (message, retryCount = 0) => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
-
-      const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          session_id: sessionId,
-          message: message,
-          model: 'claude-sonnet',
-        }),
-        signal: controller.signal,
+      const response = await api.post('/chat', {
+        session_id: sessionId,
+        message: message,
+        model: 'gemini-pro',
+      }, {
+        timeout: 30000,
       });
 
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || `HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data.response || 'Ошибка: не удалось получить ответ.';
+      return response.data.response || 'Ошибка: не удалось получить ответ.';
       
     } catch (error) {
       console.error(`AI API error (attempt ${retryCount + 1}/${MAX_RETRIES + 1}):`, error);
       
-      // Don't retry on abort (timeout)
-      if (error.name === 'AbortError') {
+      // Don't retry on timeout
+      if (error.code === 'ECONNABORTED') {
         throw new Error('Превышено время ожидания ответа. Попробуйте позже.');
       }
       

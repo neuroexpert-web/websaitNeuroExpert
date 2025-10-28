@@ -57,8 +57,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
-    "build:prod": "NODE_ENV=production craco build",
+    "build": "GENERATE_SOURCEMAP=false craco build",
+    "build:prod": "NODE_ENV=production GENERATE_SOURCEMAP=false craco build",
     "test": "craco test --watchAll=false",
     "test:watch": "craco test",
     "test:coverage": "craco test --coverage --watchAll=false",
