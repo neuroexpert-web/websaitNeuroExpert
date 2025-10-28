@@ -9,7 +9,14 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 import uuid
 from datetime import datetime
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+import sys
+
+BACKEND_DIR = Path(__file__).parent
+FRONTEND_API_DIR = BACKEND_DIR.parent / "frontend" / "api"
+if str(FRONTEND_API_DIR) not in sys.path:
+    sys.path.insert(0, str(FRONTEND_API_DIR))
+
+from gemini_client import GeminiClient, Message  # type: ignore
 import aiohttp
 from config.loader import config
 from utils.intent_checker import intent_checker
@@ -29,7 +36,7 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
 
 # Environment variables
-EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') or os.environ.get('GEMINI_API_KEY')
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 CLIENT_ORIGIN_URL = os.environ.get('CLIENT_ORIGIN_URL', 'http://localhost:3000')
@@ -139,6 +146,12 @@ async def chat_with_ai(chat_request: ChatMessage):
         )
 
     try:
+        if not GOOGLE_API_KEY:
+            raise HTTPException(
+                status_code=503,
+                detail="AI сервис не настроен: добавьте GOOGLE_API_KEY или GEMINI_API_KEY в переменные окружения",
+            )
+
         # Enhanced system prompt with better context handling
         system_prompt = f"""# IDENTITY & CORE ROLE
 
@@ -226,14 +239,7 @@ Email: {config.data['company']['email']}
 
 Будьте живым, полезным экспертом, который искренне хочет помочь решить задачу клиента!"""
 
-        # Model mapping (only working models)
-        model_config = {
-            "claude-sonnet": ("anthropic", "claude-3-7-sonnet-20250219"),
-            "gpt-4o": ("openai", "gpt-4o")
-        }
-        
-        selected_model = chat_request.model or "claude-sonnet"
-        provider, model_name = model_config.get(selected_model, model_config["claude-sonnet"])
+        selected_model = "gemini-1.5-pro"
         
         # Load conversation history using SmartContext
         initial_messages = await smart_context.get_context(
@@ -241,16 +247,28 @@ Email: {config.data['company']['email']}
             db=db
         )
         
-        # Create chat with history
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            session_id=chat_request.session_id,
-            system_message=system_prompt,
-            initial_messages=initial_messages
-        ).with_model(provider, model_name)
+        # Convert history to Message format
+        history = []
+        if initial_messages:
+            for msg in initial_messages:
+                role = msg.get("role")
+                content = msg.get("content")
+                if role in {"user", "assistant"} and content:
+                    history.append(Message(role=role, content=content))
         
-        user_message = UserMessage(text=chat_request.message)
-        response = await chat.send_message(user_message)
+        try:
+            gemini_client = GeminiClient(api_key=GOOGLE_API_KEY, model_name=selected_model)
+            response = await gemini_client.generate_response(
+                prompt=chat_request.message,
+                system_message=system_prompt,
+                history=history,
+            )
+        except ValueError as exc:
+            logger.error(f"Gemini configuration error: {exc}")
+            raise HTTPException(status_code=503, detail=str(exc))
+        except Exception as exc:
+            logger.error(f"Gemini generation error: {exc}")
+            raise HTTPException(status_code=502, detail=str(exc))
         
         # Save to DB with model info
         message_record = {

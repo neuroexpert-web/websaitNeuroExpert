@@ -21,7 +21,8 @@ cp .env.example .env
 
 # Отредактируйте .env с реальными значениями:
 # - MONGO_URL: строка подключения MongoDB
-# - EMERGENT_LLM_KEY: API ключ для AI
+# - GOOGLE_API_KEY или GEMINI_API_KEY: API ключ для Google Gemini
+# - ANTHROPIC_API_KEY, OPENAI_API_KEY: опциональные ключи для других моделей
 # - TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID: для уведомлений
 ```
 
@@ -44,7 +45,9 @@ vercel --prod
 |------------|----------|---------|
 | `MONGO_URL` | Строка подключения MongoDB Atlas | `mongodb+srv://user:pass@cluster.mongodb.net/neuroexpert_db` |
 | `DB_NAME` | Название базы данных | `neuroexpert_db` |
-| `EMERGENT_LLM_KEY` | API ключ Emergent Integrations | `your_key_here` |
+| `GOOGLE_API_KEY` / `GEMINI_API_KEY` | API ключ Google Gemini | `your_google_api_key` |
+| `ANTHROPIC_API_KEY` | API ключ для Claude (опционально) | `your_claude_key` |
+| `OPENAI_API_KEY` | API ключ для GPT-4o (опционально) | `your_openai_key` |
 | `TELEGRAM_BOT_TOKEN` | Токен Telegram бота | `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11` |
 | `TELEGRAM_CHAT_ID` | ID чата для уведомлений | `123456789` |
 
@@ -85,7 +88,7 @@ cd backend && python backend_test.py
 ## 🚨 Важно:
 
 1. **MongoDB Atlas**: Создайте бесплатную учетную запись и базу данных
-2. **API ключи**: Получите доступы к Emergent Integrations для AI
+2. **Google API Key**: Получите API ключ для Google Gemini (https://ai.google.dev/)
 3. **Telegram бот**: Создайте бота и настройте его токен
 4. **Cloudinary**: Для видео фона, оно уже настроено в коде
 5. **Domain**: Настройте кастомный домен neuroexpert.ru в Vercel
