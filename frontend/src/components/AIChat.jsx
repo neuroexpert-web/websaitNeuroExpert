@@ -4,19 +4,43 @@ import { X, Send } from 'lucide-react';
 import { Input } from './ui/input';
 import { toast } from 'sonner';
 
+const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || '').trim();
+const API_BASE_URL = BACKEND_URL.endsWith('/') ? BACKEND_URL.slice(0, -1) : BACKEND_URL;
+const API_ENDPOINT = `${API_BASE_URL}/api/chat`.replace(/^\/api\/chat$/g, '/api/chat');
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY = 1000;
+
 const AIChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
       content:
-        'Привет! Я AI‑консультант NeuroExpert на базе Google Gemini. Расскажите, какая задача перед вами — я помогу найти решение 🚀',
+        'Привет! Я AI‑консультант NeuroExpert. Расскажите, какая задача перед вами — я помогу найти решение 🚀',
     },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [sessionId, setSessionId] = useState('');
+
+  // Initialize session ID
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    try {
+      let storedSessionId = window.localStorage.getItem('neuroexpert_session_id');
+      if (!storedSessionId) {
+        storedSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        window.localStorage.setItem('neuroexpert_session_id', storedSessionId);
+      }
+      setSessionId(storedSessionId);
+    } catch (error) {
+      console.warn('Unable to access localStorage for session tracking:', error);
+      setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+    }
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -29,33 +53,73 @@ const AIChat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const callGemini = async (message) => {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: message }),
-    });
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    if (!response.ok) throw new Error('Network response was not ok');
-    const data = await response.json();
+  const callAI = async (message, retryCount = 0) => {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
 
-    return (
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      'Ошибка: не удалось получить ответ от Gemini.'
-    );
+      const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          session_id: sessionId,
+          message: message,
+          model: 'claude-sonnet',
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.response || 'Ошибка: не удалось получить ответ.';
+      
+    } catch (error) {
+      console.error(`AI API error (attempt ${retryCount + 1}/${MAX_RETRIES + 1}):`, error);
+      
+      // Don't retry on abort (timeout)
+      if (error.name === 'AbortError') {
+        throw new Error('Превышено время ожидания ответа. Попробуйте позже.');
+      }
+      
+      // Retry with exponential backoff
+      if (retryCount < MAX_RETRIES) {
+        const delay = INITIAL_RETRY_DELAY * Math.pow(2, retryCount);
+        console.log(`Retrying in ${delay}ms...`);
+        await sleep(delay);
+        return callAI(message, retryCount + 1);
+      }
+      
+      // All retries failed
+      throw error;
+    }
   };
 
   const handleQuickAction = async (prompt) => {
+    if (loading || !sessionId) return;
+    
     setMessages((prev) => [...prev, { role: 'user', content: prompt }]);
     setLoading(true);
+    
     try {
-      const aiResponse = await callGemini(prompt);
+      const aiResponse = await callAI(prompt);
       setMessages((prev) => [...prev, { role: 'assistant', content: aiResponse }]);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error('Quick action error:', error);
+      const errorMessage = error.message || 'Произошла ошибка, попробуйте ещё раз.';
+      toast.error(errorMessage);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Произошла ошибка, попробуйте ещё раз.' },
+        { role: 'assistant', content: 'Извините, возникла ошибка. Пожалуйста, попробуйте снова или напишите нам напрямую.' },
       ]);
     } finally {
       setLoading(false);
@@ -63,20 +127,23 @@ const AIChat = () => {
   };
 
   const handleSend = async () => {
-    if (!input.trim() || loading) return;
+    if (!input.trim() || loading || !sessionId) return;
+    
     const userMessage = input;
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
+    
     try {
-      const aiResponse = await callGemini(userMessage);
+      const aiResponse = await callAI(userMessage);
       setMessages((prev) => [...prev, { role: 'assistant', content: aiResponse }]);
-    } catch (err) {
-      console.error(err);
-      toast.error('Ошибка при обращении к серверу');
+    } catch (error) {
+      console.error('Send message error:', error);
+      const errorMessage = error.message || 'Ошибка при обращении к серверу';
+      toast.error(errorMessage);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Извини, произошла ошибка. Попробуй снова.' },
+        { role: 'assistant', content: 'Извините, возникла ошибка. Пожалуйста, попробуйте снова или напишите нам напрямую.' },
       ]);
     } finally {
       setLoading(false);
@@ -118,8 +185,8 @@ const AIChat = () => {
                   🤖
                 </div>
                 <div>
-                  <div className="font-bold text-white text-lg">NeuroExpert AI</div>
-                  <div className="text-xs text-white/70">Google Gemini Assistant</div>
+                  <div className="font-bold text-white text-lg">NeuroExpert AI</div>
+                  <div className="text-xs text-white/70">AI Assistant</div>
                 </div>
               </div>
               <button
@@ -135,6 +202,8 @@ const AIChat = () => {
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   className={`flex ${
                     msg.role === 'user' ? 'justify-end' : 'justify-start'
                   }`}
@@ -152,7 +221,12 @@ const AIChat = () => {
               ))}
               {loading && (
                 <div className="flex justify-start text-white/70 text-sm">
-                  Генерация ответа ...
+                  <div className="bg-white/10 p-3 rounded-2xl border border-white/10">
+                    <div className="flex items-center gap-2">
+                      <div className="animate-spin h-4 w-4 border-2 border-white/40 border-t-white rounded-full" />
+                      Генерация ответа...
+                    </div>
+                  </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
@@ -163,14 +237,15 @@ const AIChat = () => {
               <div className="p-3 border-t border-white/10 grid grid-cols-2 gap-2">
                 {[
                   { label: '💎 Аудит', text: 'Расскажите про цифровой аудит' },
-                  { label: '🤖 AI‑бот', text: 'Интересует AI‑ассистент 24/7' },
-                  { label: '🚀 Сайт', text: 'Хочу заказать сайт под ключ' },
-                  { label: '🛡️ Поддержка', text: 'Нужна техподдержка' },
+                  { label: '🤖 AI‑бот', text: 'Интересует AI‑ассистент 24/7' },
+                  { label: '🚀 Сайт', text: 'Хочу заказать сайт под ключ' },
+                  { label: '🛡️ Поддержка', text: 'Нужна техподдержка' },
                 ].map((q) => (
                   <button
                     key={q.label}
                     onClick={() => handleQuickAction(q.text)}
-                    className="p-2 bg-white/10 hover:bg-white/20 text-white rounded text-xs transition"
+                    disabled={loading || !sessionId}
+                    className="p-2 bg-white/10 hover:bg-white/20 text-white rounded text-xs transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {q.label}
                   </button>
@@ -184,15 +259,20 @@ const AIChat = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Напишите сообщение..."
-                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-                disabled={loading}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
+                disabled={loading || !sessionId}
                 className="flex-1 rounded-xl bg-white/90 text-black placeholder-gray-500 px-3 py-2"
               />
               <motion.button
                 onClick={handleSend}
                 whileTap={{ scale: 0.95 }}
-                disabled={!input.trim() || loading}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-semibold hover:shadow-lg transition disabled:opacity-50"
+                disabled={!input.trim() || loading || !sessionId}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={16} />
               </motion.button>

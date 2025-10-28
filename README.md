@@ -62,14 +62,14 @@ vercel --prod
 ## 🧪 Тестирование
 
 ```bash
-# Локальный запуск
-cd backend && python -m uvicorn server:app --reload
+# Локальный запуск бэкенда
+cd frontend/api && python -m uvicorn index:app --reload --port 8000
 
-# Тесты бэкенда
-cd backend && python backend_test.py
-
-# Фронтенд
+# Локальный запуск фронтенда
 cd frontend && npm start
+
+# Ручной smoke-тест API (health + корневой)
+cd scripts && ./test_health.sh
 ```
 
 ## ⚙️ Переменные окружения
@@ -77,19 +77,31 @@ cd frontend && npm start
 Скопируйте `.env.example` и заполните:
 
 ```bash
-# MongoDB
-MONGO_URL=mongodb+srv://...
+# MongoDB (Required)
+MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
 DB_NAME=neuroexpert_db
 
-# AI интеграция
-EMERGENT_LLM_KEY=your_key
+# AI интеграция (Required для AI-чата)
+EMERGENT_LLM_KEY=your_emergent_llm_api_key
 
-# Telegram
+# Telegram (Optional, для уведомлений о заявках)
 TELEGRAM_BOT_TOKEN=your_bot_token
-TELEGRAM_CHAT_ID=chat_id
+TELEGRAM_CHAT_ID=your_chat_id
 
-# Vercel автоматически установит остальные
+# Frontend (Optional)
+REACT_APP_BACKEND_URL=        # Пусто для production, http://localhost:8000 для dev
+CLIENT_ORIGIN_URL=http://localhost:3000
+
+# Logging (Optional)
+LOG_LEVEL=INFO
+
+# Vercel автоматически установит VERCEL_ENV и другие переменные
 ```
+
+**Важно для запуска AI-чата:**
+- `MONGO_URL` и `DB_NAME` — обязательны для хранения сообщений
+- `EMERGENT_LLM_KEY` — обязателен для работы Claude/GPT-4o чата
+- `CLIENT_ORIGIN_URL` — должен совпадать с доменом фронтенда для CORS
 
 ## 📊 Особенности реализации
 
@@ -98,18 +110,27 @@ TELEGRAM_CHAT_ID=chat_id
 - Классификатор релевантности вопросов
 - Умная память с подсчетом токенов
 - Fallback-ответы для нерелевантных вопросов
+- Session ID для персистентности диалога (localStorage)
+- Retry-механизм с экспоненциальным backoff
+- Timeout protection (30 сек)
+- Graceful error handling с пользовательскими сообщениями
 
 ### 🎨 Frontend
 - Video фон с Cloudinary оптимизацией
 - 3D эффекты командной страницы
 - Анимированные градиенты для медленных соединений
 - Yandex.Metrika отслеживание конверсий
+- Toast-уведомления для ошибок
 
 ### ⚡ Backend
 - Serverless архитектура в Vercel
 - MongoDB асинхронные операции
 - Telegram уведомления о заявках
 - CORS защита для продакшена
+- Health check endpoint (/api/health)
+- Structured JSON logging
+- Request ID tracking
+- Connection pooling для MongoDB
 
 ## 🎉 Успешно внедрены
 
@@ -119,6 +140,15 @@ TELEGRAM_CHAT_ID=chat_id
 - ✅ Конфигурационная система услуг без кода
 - ✅ Yandex.Metrika с отслеживанием лидов
 - ✅ Полностековый deployment на Vercel
+- ✅ Health check и мониторинг API
+- ✅ Retry logic с экспоненциальным backoff
+- ✅ Улучшенная обработка ошибок
+
+## 📚 Документация
+
+- [Развертывание на Vercel](DEPLOY.md)
+- [AI Chat Health Check & Troubleshooting](AI_CHAT_HEALTH.md)
+- [DevOps и мониторинг](DEVOPS.md)
 
 
 ---

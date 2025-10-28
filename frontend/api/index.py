@@ -309,26 +309,24 @@ async def health_check(request: Request) -> Dict[str, Any]:
 # ============================================================================
 
 try:
-    # Импортируем основной app из backend/server.py
-    # Важно: server.py НЕ должен создавать новый FastAPI(), только определять роуты
-    from backend.server import setup_routes
-    
-    # Монтируем роуты из backend
+    # Import unified API routes
+    from routes import setup_routes
+
     setup_routes(app)
     logger.info("✅ Backend routes loaded successfully")
-    
+
 except ImportError as e:
     logger.warning(
         f"⚠️ Could not import backend routes: {e}\n"
-        f"Убедитесь что backend/server.py экспортирует setup_routes(app)"
+        "Ensure that routes.py exports setup_routes(app)"
     )
-    
-    # Fallback endpoints для тестирования
+
+    # Fallback endpoints for testing
     @app.get("/api/test")
     async def test_endpoint():
         return {
             "message": "NeuroExpert API is running",
-            "note": "Backend routes not loaded - check backend/server.py"
+            "note": "Backend routes not loaded - check routes.py"
         }
 
 # ============================================================================
