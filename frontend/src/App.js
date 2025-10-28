@@ -15,38 +15,28 @@ import GlobalVideoBackground from "./components/GlobalVideoBackground";
 
 function App() {
   return (
-    <div className="App bg-[#0b0f17] min-h-screen relative">
+    <div className="App min-h-screen relative">
       <Toaster position="top-center" />
-      
-      {/* Global Video Background (for sections after Hero) */}
       <GlobalVideoBackground />
       
-      {/* Content above video background */}
       <div className="relative z-10">
         <Header />
         <StickyCTA />
         
         <main>
-          {/* 1. Hero с видео */}
           <Hero />
-          
-          {/* 2. Карточки услуг с AI консультация */}
           <ServiceCards />
           
-          {/* 3. Портфолио/Кейсы */}
           <section id="portfolio">
             <Portfolio />
           </section>
           
-          {/* 4. Почему мы */}
           <Advantages />
           
-          {/* 5. Кто мы */}
           <section id="team">
             <Team />
           </section>
           
-          {/* 6. Форма обратной связи */}
           <ContactForm />
         </main>
         
