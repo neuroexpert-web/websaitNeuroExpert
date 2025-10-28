@@ -50,7 +50,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="relative py-12 md:py-20 px-4 md:px-6 overflow-hidden">
+    <section id="contact" data-testid="contact-section" className="relative py-12 md:py-20 px-4 md:px-6 overflow-hidden">
       <div className="relative z-10 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -94,6 +94,7 @@ const ContactForm = () => {
                 Ваше имя *
               </label>
               <Input
+                data-testid="contact-name-input"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Иван Петров"
@@ -105,6 +106,7 @@ const ContactForm = () => {
                 Телефон / Telegram *
               </label>
               <Input
+                data-testid="contact-phone-input"
                 value={formData.contact}
                 onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                 placeholder="+7 (999) 123-45-67"
@@ -118,7 +120,7 @@ const ContactForm = () => {
               Выберите услугу *
             </label>
             <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
-              <SelectTrigger className="bg-white/10 border-white/20 text-white rounded-lg h-12 focus:border-[#7dd3fc] focus:ring-2 focus:ring-[#7dd3fc]/20 transition-all">
+              <SelectTrigger data-testid="contact-service-select" className="bg-white/10 border-white/20 text-white rounded-lg h-12 focus:border-[#7dd3fc] focus:ring-2 focus:ring-[#7dd3fc]/20 transition-all">
                 <SelectValue placeholder="Выберите услугу" />
               </SelectTrigger>
               <SelectContent className="bg-[#121826] border-white/20 rounded-lg">
@@ -135,6 +137,7 @@ const ContactForm = () => {
               Сообщение (необязательно)
             </label>
             <Textarea
+              data-testid="contact-message-textarea"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder="Расскажите о вашем проекте..."
@@ -144,6 +147,7 @@ const ContactForm = () => {
           </div>
 
           <motion.button
+            data-testid="contact-submit-button"
             type="submit"
             disabled={loading}
             whileHover={{ scale: 1.02 }}

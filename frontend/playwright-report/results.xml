@@ -1,0 +1,244 @@
+<testsuites id="" name="" tests="29" failures="3" skipped="25" errors="0" time="51.960747000000005">
+<testsuite name="chat.spec.js" timestamp="2025-10-28T13:11:27.781Z" hostname="chromium" tests="8" failures="3" skipped="4" time="27.914" errors="0">
+<testcase name="AI Chat › should open and close chat window" classname="chat.spec.js" time="6.425">
+</testcase>
+<testcase name="AI Chat › should send message and receive AI response" classname="chat.spec.js" time="9.647">
+<failure message="chat.spec.js:55:7 should send message and receive AI response" type="FAILURE">
+<![CDATA[  [chromium] › chat.spec.js:55:7 › AI Chat › should send message and receive AI response ───────────
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  locator('[data-testid="chat-message-input"]')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 5000ms
+      - waiting for locator('[data-testid="chat-message-input"]')
+        8 × locator resolved to <input value="" data-testid="chat-message-input" placeholder="Напишите сообщение..." class="flex h-9 w-full border border-input text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm flex-1 rounded-xl bg-white/90 text-black placeholder-gray-500 px-3 py-2"/>
+          - unexpected value "enabled"
+
+
+      64 |     // Check loading state
+      65 |     await expect(page.locator(selectors.chat.loadingIndicator)).toBeVisible();
+    > 66 |     await expect(page.locator(selectors.chat.messageInput)).toBeDisabled();
+         |                                                             ^
+      67 |     await expect(page.locator(selectors.chat.sendButton)).toBeDisabled();
+      68 |     
+      69 |     // Wait for response
+        at /home/engine/project/frontend/tests/e2e/chat.spec.js:66:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AI Chat › should use quick action buttons" classname="chat.spec.js" time="3.395">
+<failure message="chat.spec.js:83:7 should use quick action buttons" type="FAILURE">
+<![CDATA[  [chromium] › chat.spec.js:83:7 › AI Chat › should use quick action buttons ───────────────────────
+
+    TypeError: _testHelpers.selectors.chat.quickActions.first is not a function
+
+      87 |     
+      88 |     // Click quick action button
+    > 89 |     await page.click(selectors.chat.quickActions.first());
+         |                                                  ^
+      90 |     
+      91 |     // Check loading state
+      92 |     await expect(page.locator(selectors.chat.loadingIndicator)).toBeVisible();
+        at /home/engine/project/frontend/tests/e2e/chat.spec.js:89:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AI Chat › should handle API errors gracefully" classname="chat.spec.js" time="8.447">
+<failure message="chat.spec.js:105:7 should handle API errors gracefully" type="FAILURE">
+<![CDATA[  [chromium] › chat.spec.js:105:7 › AI Chat › should handle API errors gracefully ──────────────────
+
+    Error: expect(locator).not.toBeVisible() failed
+
+    Locator:  locator('.animate-spin')
+    Expected: not visible
+    Received: visible
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "not toBeVisible" with timeout 5000ms
+      - waiting for locator('.animate-spin')
+        9 × locator resolved to <div class="animate-spin h-4 w-4 border-2 border-white/40 border-t-white rounded-full"></div>
+          - unexpected value "visible"
+
+
+      122 |     
+      123 |     // Wait for error response
+    > 124 |     await expect(page.locator(selectors.chat.loadingIndicator)).not.toBeVisible();
+          |                                                                     ^
+      125 |     
+      126 |     // Check error message in chat
+      127 |     const messages = page.locator(selectors.chat.messages);
+        at /home/engine/project/frontend/tests/e2e/chat.spec.js:124:69
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AI Chat › should handle empty message input" classname="chat.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AI Chat › should maintain conversation history" classname="chat.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AI Chat › should be responsive on mobile devices" classname="chat.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AI Chat › should handle Enter key to send message" classname="chat.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="contact-form.spec.js" timestamp="2025-10-28T13:11:27.781Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Contact Form › should display contact form correctly" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should submit form successfully with valid data" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should validate required fields" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should validate partial form submission" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should handle API errors gracefully" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should handle different service selections" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should handle optional message field" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should handle long message content" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should be responsive on mobile devices" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contact Form › should show social media links" classname="contact-form.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="hero.spec.js" timestamp="2025-10-28T13:11:27.781Z" hostname="chromium" tests="6" failures="0" skipped="6" time="0" errors="0">
+<testcase name="Hero Section › should load hero section without console errors" classname="hero.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Hero Section › should display hero content correctly" classname="hero.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Hero Section › should handle video loading properly" classname="hero.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Hero Section › should show fallback when video fails to load" classname="hero.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Hero Section › CTA button should navigate to services section" classname="hero.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Hero Section › should be responsive on mobile devices" classname="hero.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="main-user-flow.spec.js" timestamp="2025-10-28T13:11:27.781Z" hostname="chromium" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Main User Flow › complete user journey: hero -&gt; chat -&gt; contact form" classname="main-user-flow.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Main User Flow › user flow with API failures" classname="main-user-flow.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Main User Flow › mobile user flow" classname="main-user-flow.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Main User Flow › accessibility and keyboard navigation" classname="main-user-flow.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Main User Flow › performance and loading states" classname="main-user-flow.spec.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

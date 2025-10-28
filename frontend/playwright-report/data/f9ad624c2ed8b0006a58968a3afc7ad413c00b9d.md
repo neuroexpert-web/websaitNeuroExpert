@@ -1,0 +1,327 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - region "Notifications alt+T"
+    - generic [ref=e11]:
+      - banner [ref=e12]:
+        - generic [ref=e13]:
+          - link "N NeuroExpert" [ref=e14] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e16]: "N"
+            - generic [ref=e17]: NeuroExpert
+          - navigation [ref=e18]:
+            - link "Услуги" [ref=e19] [cursor=pointer]:
+              - /url: "#services"
+              - text: Услуги
+            - link "Портфолио" [ref=e20] [cursor=pointer]:
+              - /url: "#portfolio"
+              - text: Портфолио
+            - link "Команда" [ref=e21] [cursor=pointer]:
+              - /url: "#team"
+              - text: Команда
+            - link "Контакты" [ref=e22] [cursor=pointer]:
+              - /url: "#contact"
+              - text: Контакты
+          - generic [ref=e23]:
+            - link "ВКонтакте" [ref=e24] [cursor=pointer]:
+              - /url: https://vk.com/club231722532
+              - img [ref=e25]
+            - link "Telegram" [ref=e27] [cursor=pointer]:
+              - /url: https://t.me/NeuroExpertAutoBot
+              - img [ref=e28]
+            - link "🚀 Начать" [ref=e30] [cursor=pointer]:
+              - /url: "#contact"
+              - generic [ref=e32]: 🚀
+              - generic [ref=e33]: Начать
+      - main [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e37]: Your browser does not support the video tag.
+          - generic [ref=e40]:
+            - heading "Ваш цифровой прорыв с ИИ и командой NeuroExpert" [level=1] [ref=e41]:
+              - text: Ваш цифровой прорыв
+              - text: с ИИ и командой NeuroExpert
+            - paragraph [ref=e42]: Превращаем технологии в деньги. Быстро. Эффективно. С гарантией.
+            - link "Узнать больше" [ref=e43] [cursor=pointer]:
+              - /url: "#services"
+        - generic [ref=e45]:
+          - heading "Наши услуги" [level=2] [ref=e46]
+          - generic [ref=e47]:
+            - generic [ref=e53]:
+              - generic [ref=e54]: 💎
+              - heading "Цифровой аудит" [level=3] [ref=e55]
+              - generic [ref=e56]: от 4000₽
+              - paragraph [ref=e57]: Полная диагностика вашего бизнеса за 24 часа
+              - button "AI консультация" [ref=e58] [cursor=pointer]: AI консультация
+            - generic [ref=e68]:
+              - generic [ref=e69]: 🤖
+              - heading "AI-ассистент 24/7" [level=3] [ref=e70]
+              - generic [ref=e71]: от 6000₽
+              - paragraph [ref=e72]: Умный чат-бот для поддержки клиентов
+              - button "AI консультация" [ref=e73] [cursor=pointer]: AI консультация
+            - generic [ref=e83]:
+              - generic [ref=e84]: 🚀
+              - heading "Сайты под ключ" [level=3] [ref=e85]
+              - generic [ref=e86]: от 12 000₽
+              - paragraph [ref=e87]: Премиум лендинги и корпоративные сайты
+              - button "AI консультация" [ref=e88] [cursor=pointer]: AI консультация
+            - generic [ref=e98]:
+              - generic [ref=e99]: 🛡️
+              - heading "Техподдержка" [level=3] [ref=e100]
+              - generic [ref=e101]: от 4000₽/мес
+              - paragraph [ref=e102]: Мониторинг, обновления, исправления
+              - button "AI консультация" [ref=e103] [cursor=pointer]: AI консультация
+        - generic [ref=e110]:
+          - generic [ref=e111]:
+            - heading "Наши клиенты зарабатывают больше" [level=2] [ref=e112]
+            - paragraph [ref=e113]: Результаты говорят сами за себя
+          - generic [ref=e114]:
+            - generic [ref=e115]:
+              - generic [ref=e116]: 50+
+              - generic [ref=e117]: Завершенных проектов
+            - generic [ref=e118]:
+              - generic [ref=e119]: 98%
+              - generic [ref=e120]: Довольных клиентов
+            - generic [ref=e121]:
+              - generic [ref=e122]: 300%+
+              - generic [ref=e123]: Средний ROI
+          - generic [ref=e124]:
+            - generic [ref=e129]:
+              - generic [ref=e130]:
+                - generic [ref=e131]: 🏭
+                - heading "Arsenal Platform" [level=3] [ref=e132]
+                - paragraph [ref=e133]: Платформа дистрибьютер герметиков
+                - paragraph [ref=e134]: B2B платформа для продажи профессиональных герметиков и строительных материалов
+              - generic [ref=e135]:
+                - generic [ref=e136]: Веб-платформа
+                - generic [ref=e137]: Каталог продуктов
+                - generic [ref=e138]: Система заказов
+              - generic [ref=e139]:
+                - generic [ref=e140]:
+                  - generic [ref=e141]: +350%
+                  - generic [ref=e142]: рост онлайн-заказов
+                - generic [ref=e143]: "\"Автоматизировали весь процесс закупок для наших клиентов\""
+                - link "Смотреть проект →" [ref=e144] [cursor=pointer]:
+                  - /url: https://arsenal-platform.vercel.app/
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - generic [ref=e151]: 🚀
+                - heading "NeuroExpert Platform" [level=3] [ref=e152]
+                - paragraph [ref=e153]: Платформа для профессионального бизнеса
+                - paragraph [ref=e154]: Комплексная платформа для цифровой трансформации бизнеса с AI-инструментами
+              - generic [ref=e155]:
+                - generic [ref=e156]: AI-интеграция
+                - generic [ref=e157]: Автоматизация
+                - generic [ref=e158]: Аналитика
+              - generic [ref=e159]:
+                - generic [ref=e160]:
+                  - generic [ref=e161]: +420%
+                  - generic [ref=e162]: увеличение конверсии
+                - generic [ref=e163]: "\"Современное решение для масштабирования бизнеса\""
+                - link "Смотреть проект →" [ref=e164] [cursor=pointer]:
+                  - /url: https://neuro-expert.vercel.app/
+            - generic [ref=e169]:
+              - generic [ref=e170]:
+                - generic [ref=e171]: 💼
+                - heading "Скоро..." [level=3] [ref=e172]
+                - paragraph [ref=e173]: Новый проект в разработке
+                - paragraph [ref=e174]: Следите за обновлениями наших кейсов
+              - generic [ref=e176]: В разработке
+              - generic [ref=e177]:
+                - generic [ref=e178]:
+                  - generic [ref=e179]: Soon
+                  - generic [ref=e180]: новый кейс
+                - generic [ref=e181]: "\"Скоро расскажем о новом успешном проекте\""
+                - generic [ref=e182]: Скоро...
+        - generic [ref=e184]:
+          - heading "Почему мы?" [level=2] [ref=e185]
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e188]: ⚡
+              - heading "Быстрый результат" [level=3] [ref=e189]
+              - paragraph [ref=e190]: 10-14 дней от заявки до запуска
+            - generic [ref=e191]:
+              - generic [ref=e192]: 💰
+              - heading "Цены ниже рынка" [level=3] [ref=e193]
+              - paragraph [ref=e194]: Фиксированная стоимость без скрытых платежей
+            - generic [ref=e195]:
+              - generic [ref=e196]: 🤖
+              - heading "Поддержка ИИ" [level=3] [ref=e197]
+              - paragraph [ref=e198]: Автоматизация процессов и AI-инструменты
+            - generic [ref=e199]:
+              - generic [ref=e200]: 🎯
+              - heading "Гарантия ROI" [level=3] [ref=e201]
+              - paragraph [ref=e202]: Не окупилось? Вернём деньги
+            - generic [ref=e203]:
+              - generic [ref=e204]: 👨‍💼
+              - heading "Персональный менеджер" [level=3] [ref=e205]
+              - paragraph [ref=e206]: Один контакт для всех вопросов
+        - generic [ref=e209]:
+          - generic [ref=e210]:
+            - heading "Кто мы" [level=2] [ref=e211]
+            - paragraph [ref=e212]: Команда экспертов с проверенным опытом
+          - generic [ref=e213]:
+            - generic [ref=e215] [cursor=pointer]:
+              - generic [ref=e216]:
+                - img "Вячеслав Дерябин" [ref=e217]
+                - generic [ref=e219]:
+                  - heading "Вячеслав Дерябин" [level=3] [ref=e220]
+                  - paragraph [ref=e221]: Руководитель проекта
+                  - paragraph [ref=e222]: Управление и стратегия
+                  - generic [ref=e223]: Нажмите для подробностей ↻
+              - generic [ref=e225]:
+                - generic [ref=e226]: ⭐
+                - heading "Вячеслав Дерябин" [level=3] [ref=e227]
+                - paragraph [ref=e228]: Руководитель проекта
+                - paragraph [ref=e229]: Координирует все этапы разработки, обеспечивает качество и сроки
+                - generic [ref=e230]: Нажмите еще раз ↻
+            - generic [ref=e232] [cursor=pointer]:
+              - generic [ref=e233]:
+                - img "Александр Дмитричев" [ref=e234]
+                - generic [ref=e236]:
+                  - heading "Александр Дмитричев" [level=3] [ref=e237]
+                  - paragraph [ref=e238]: Эксперт по цифровому аудиту
+                  - paragraph [ref=e239]: Аналитика и аудит
+                  - generic [ref=e240]: Нажмите для подробностей ↻
+              - generic [ref=e242]:
+                - generic [ref=e243]: ⭐
+                - heading "Александр Дмитричев" [level=3] [ref=e244]
+                - paragraph [ref=e245]: Эксперт по цифровому аудиту
+                - paragraph [ref=e246]: 10+ лет в разработке, эксперт по digital-аудиту и аналитике
+                - generic [ref=e247]: Нажмите еще раз ↻
+            - generic [ref=e249] [cursor=pointer]:
+              - generic [ref=e250]:
+                - img "Роман Дмитричев" [ref=e251]
+                - generic [ref=e253]:
+                  - heading "Роман Дмитричев" [level=3] [ref=e254]
+                  - paragraph [ref=e255]: AI Инженер / Главный разработчик
+                  - paragraph [ref=e256]: AI интеграция и разработка
+                  - generic [ref=e257]: Нажмите для подробностей ↻
+              - generic [ref=e259]:
+                - generic [ref=e260]: ⭐
+                - heading "Роман Дмитричев" [level=3] [ref=e261]
+                - paragraph [ref=e262]: AI Инженер / Главный разработчик
+                - paragraph [ref=e263]: Эксперт по Claude, GPT, Gemini и fullstack разработке
+                - generic [ref=e264]: Нажмите еще раз ↻
+            - generic [ref=e266] [cursor=pointer]:
+              - generic [ref=e267]:
+                - img "Татьяна Дерябина" [ref=e268]
+                - generic [ref=e270]:
+                  - heading "Татьяна Дерябина" [level=3] [ref=e271]
+                  - paragraph [ref=e272]: Web UI-UX Дизайнер
+                  - paragraph [ref=e273]: Пользовательские интерфейсы
+                  - generic [ref=e274]: Нажмите для подробностей ↻
+              - generic [ref=e276]:
+                - generic [ref=e277]: ⭐
+                - heading "Татьяна Дерябина" [level=3] [ref=e278]
+                - paragraph [ref=e279]: Web UI-UX Дизайнер
+                - paragraph [ref=e280]: Создает конверсионные дизайны, которые превращают посетителей в клиентов
+                - generic [ref=e281]: Нажмите еще раз ↻
+        - generic [ref=e283]:
+          - generic [ref=e284]:
+            - heading "Получить консультацию" [level=2] [ref=e285]
+            - paragraph [ref=e286]: Ответим в течение 15 минут
+          - generic [ref=e291]:
+            - generic [ref=e292]:
+              - generic [ref=e293]:
+                - generic [ref=e294]: Ваше имя *
+                - textbox "Иван Петров" [ref=e295]
+              - generic [ref=e296]:
+                - generic [ref=e297]: Телефон / Telegram *
+                - textbox "+7 (999) 123-45-67" [ref=e298]
+            - generic [ref=e299]:
+              - generic [ref=e300]: Выберите услугу *
+              - combobox [ref=e301] [cursor=pointer]:
+                - generic: Выберите услугу
+                - img [ref=e302]
+              - combobox [ref=e304]
+            - generic [ref=e305]:
+              - generic [ref=e306]: Сообщение (необязательно)
+              - textbox "Расскажите о вашем проекте..." [ref=e307]
+            - button "Получить консультацию" [ref=e308] [cursor=pointer]:
+              - generic [ref=e310]:
+                - img [ref=e311]
+                - text: Получить консультацию
+            - generic [ref=e314]:
+              - link [ref=e315] [cursor=pointer]:
+                - /url: https://t.me/neuroexpert
+                - img [ref=e316]
+              - link [ref=e318] [cursor=pointer]:
+                - /url: https://github.com/neuroexpert
+                - img [ref=e319]
+              - link [ref=e321] [cursor=pointer]:
+                - /url: https://linkedin.com/company/neuroexpert
+                - img [ref=e322]
+      - contentinfo [ref=e324]:
+        - generic [ref=e325]:
+          - generic [ref=e326]:
+            - generic [ref=e327]:
+              - generic [ref=e328]:
+                - generic [ref=e330]: "N"
+                - generic [ref=e331]: NeuroExpert
+              - paragraph [ref=e332]: Цифровые решения с ИИ для вашего бизнеса
+            - generic [ref=e333]:
+              - heading "Услуги" [level=3] [ref=e334]
+              - list [ref=e335]:
+                - listitem [ref=e336]:
+                  - link "Цифровой аудит" [ref=e337] [cursor=pointer]:
+                    - /url: "#service-1"
+                - listitem [ref=e338]:
+                  - link "AI-ассистент 24/7" [ref=e339] [cursor=pointer]:
+                    - /url: "#service-2"
+                - listitem [ref=e340]:
+                  - link "Сайты под ключ" [ref=e341] [cursor=pointer]:
+                    - /url: "#service-3"
+                - listitem [ref=e342]:
+                  - link "Техподдержка" [ref=e343] [cursor=pointer]:
+                    - /url: "#service-4"
+            - generic [ref=e344]:
+              - heading "Контакты" [level=3] [ref=e345]
+              - list [ref=e346]:
+                - listitem [ref=e347]: "Email: info@neuroexpert.ru"
+                - listitem [ref=e348]: "Telegram: @NeuroExpertAutoBot"
+                - listitem [ref=e349]: Работаем 24/7
+              - generic [ref=e350]:
+                - link "ВК" [ref=e351] [cursor=pointer]:
+                  - /url: https://vk.com/club231722532
+                  - img [ref=e352]
+                  - generic [ref=e354]: ВК
+                - link "Telegram" [ref=e355] [cursor=pointer]:
+                  - /url: https://t.me/NeuroExpertAutoBot
+                  - img [ref=e356]
+                  - generic [ref=e358]: Telegram
+          - generic [ref=e359]:
+            - paragraph [ref=e360]:
+              - text: © 2025 NeuroExpert. Made with
+              - img [ref=e361]
+              - text: and AI
+            - generic [ref=e363]:
+              - link "Политика конфиденциальности" [ref=e364] [cursor=pointer]:
+                - /url: "#"
+              - link "Условия использования" [ref=e365] [cursor=pointer]:
+                - /url: "#"
+    - button "💬" [ref=e367] [cursor=pointer]
+    - generic [ref=e368]:
+      - generic [ref=e369]:
+        - generic [ref=e370]:
+          - generic [ref=e371]: 🤖
+          - generic [ref=e372]:
+            - generic [ref=e373]: NeuroExpert AI
+            - generic [ref=e374]: AI Assistant
+        - button [ref=e375] [cursor=pointer]:
+          - img [ref=e376]
+      - generic [ref=e379]:
+        - generic [ref=e381]: Привет! Я AI‑консультант NeuroExpert. Расскажите, какая задача перед вами — я помогу найти решение 🚀
+        - generic [ref=e383]: Test message
+        - generic [ref=e386]: Генерация ответа...
+      - generic [ref=e388]:
+        - textbox "Напишите сообщение..." [disabled] [ref=e389]
+        - button [disabled] [ref=e390]:
+          - img [ref=e391]
+  - link "Made with Emergent" [ref=e394] [cursor=pointer]:
+    - /url: https://app.emergent.sh/?utm_source=emergent-badge
+    - generic [ref=e395]:
+      - img [ref=e396]
+      - paragraph [ref=e397]: Made with Emergent
+```
