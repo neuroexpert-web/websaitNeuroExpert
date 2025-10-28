@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.11"
+    },
+    "api/chat.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ]
+}

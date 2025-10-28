@@ -21,7 +21,8 @@ pymongo==4.9.0
 dnspython==2.7.0
 
 # AI Integration
-emergentintegrations>=0.1.0
+# emergentintegrations>=0.1.0 - REMOVED: package not available on PyPI
+# Using direct API clients instead with fallback logic in routes.py
 anthropic==0.39.0
 openai==1.54.4
 google-generativeai==0.8.3
