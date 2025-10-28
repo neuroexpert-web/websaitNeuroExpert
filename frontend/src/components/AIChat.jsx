@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send } from 'lucide-react';
+import { X, Send, AlertCircle } from 'lucide-react';
 import { Input } from './ui/input';
 import { toast } from 'sonner';
+import { captureException, addBreadcrumb } from '@/sentry';
 
 const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || '').trim();
 const API_BASE_URL = BACKEND_URL.endsWith('/') ? BACKEND_URL.slice(0, -1) : BACKEND_URL;
@@ -21,6 +22,8 @@ const AIChat = () => {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [chatUnavailable, setChatUnavailable] = useState(false);
+  const [lastError, setLastError] = useState('');
   const messagesEndRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [sessionId, setSessionId] = useState('');
@@ -55,7 +58,28 @@ const AIChat = () => {
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+  const resetChatState = () => {
+    setChatUnavailable(false);
+    setLastError('');
+  };
+
+  const openContactSection = () => {
+    if (typeof window === 'undefined') return;
+    setIsOpen(false);
+    const contactElement = document.getElementById('contact');
+    if (contactElement?.scrollIntoView) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.hash = '#contact';
+    }
+  };
+
   const callAI = async (message, retryCount = 0) => {
+    addBreadcrumb(`AI chat request: ${message.substring(0, 50)}...`, 'ai-chat', {
+      session_id: sessionId,
+      retry_count: retryCount,
+    });
+
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
@@ -77,10 +101,34 @@ const AIChat = () => {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || `HTTP ${response.status}: ${response.statusText}`);
+        const errorMessage = errorData.detail || `HTTP ${response.status}: ${response.statusText}`;
+        
+        // Track server errors to Sentry
+        if (response.status >= 500) {
+          captureException(new Error(`AI chat server error: ${errorMessage}`), {
+            status: response.status,
+            session_id: sessionId,
+          });
+          setChatUnavailable(true);
+          setLastError(errorMessage);
+        }
+        
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
+      
+      // Reset chat unavailable flag on success
+      if (chatUnavailable) {
+        setChatUnavailable(false);
+        setLastError('');
+      }
+      
+      addBreadcrumb('AI chat response received', 'ai-chat', {
+        session_id: sessionId,
+        response_length: data.response?.length || 0,
+      });
+      
       return data.response || 'Ошибка: не удалось получить ответ.';
       
     } catch (error) {
@@ -88,7 +136,12 @@ const AIChat = () => {
       
       // Don't retry on abort (timeout)
       if (error.name === 'AbortError') {
-        throw new Error('Превышено время ожидания ответа. Попробуйте позже.');
+        const timeoutError = new Error('Превышено время ожидания ответа. Попробуйте позже.');
+        captureException(timeoutError, {
+          timeout: 30000,
+          session_id: sessionId,
+        });
+        throw timeoutError;
       }
       
       // Retry with exponential backoff
@@ -99,13 +152,28 @@ const AIChat = () => {
         return callAI(message, retryCount + 1);
       }
       
-      // All retries failed
+      // All retries failed - report to Sentry
+      captureException(error, {
+        retries: retryCount,
+        session_id: sessionId,
+        message_preview: message.substring(0, 100),
+      });
+      
       throw error;
     }
   };
 
   const handleQuickAction = async (prompt) => {
     if (loading || !sessionId) return;
+    if (chatUnavailable) {
+      toast.warning('AI-чат временно недоступен. Напишите нам через форму обратной связи.');
+      return;
+    }
+
+    addBreadcrumb('AI chat quick action', 'ai-chat', {
+      prompt,
+      session_id: sessionId,
+    });
     
     setMessages((prev) => [...prev, { role: 'user', content: prompt }]);
     setLoading(true);
@@ -117,6 +185,8 @@ const AIChat = () => {
       console.error('Quick action error:', error);
       const errorMessage = error.message || 'Произошла ошибка, попробуйте ещё раз.';
       toast.error(errorMessage);
+      setLastError(errorMessage);
+      setChatUnavailable(true);
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: 'Извините, возникла ошибка. Пожалуйста, попробуйте снова или напишите нам напрямую.' },
@@ -128,6 +198,10 @@ const AIChat = () => {
 
   const handleSend = async () => {
     if (!input.trim() || loading || !sessionId) return;
+    if (chatUnavailable) {
+      toast.warning('AI-чат временно недоступен. Напишите нам через форму обратной связи.');
+      return;
+    }
     
     const userMessage = input;
     setInput('');
@@ -141,6 +215,8 @@ const AIChat = () => {
       console.error('Send message error:', error);
       const errorMessage = error.message || 'Ошибка при обращении к серверу';
       toast.error(errorMessage);
+      setLastError(errorMessage);
+      setChatUnavailable(true);
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: 'Извините, возникла ошибка. Пожалуйста, попробуйте снова или напишите нам напрямую.' },
@@ -229,6 +305,35 @@ const AIChat = () => {
                   </div>
                 </div>
               )}
+
+              {chatUnavailable && (
+                <div className="bg-amber-500/10 border border-amber-400/30 rounded-2xl p-4 text-amber-100 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="mt-0.5" size={18} />
+                    <div className="space-y-1">
+                      <p className="font-semibold text-sm">AI-чат временно недоступен</p>
+                      <p className="text-xs text-amber-100/80">
+                        {lastError || 'Мы уже занимаемся решением проблемы. Вы можете оставить заявку через форму или попробовать снова чуть позже.'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <button
+                      onClick={openContactSection}
+                      className="w-full rounded-xl bg-gradient-to-r from-[#7dd3fc] to-[#764ba2] text-white px-4 py-2 text-sm font-semibold"
+                    >
+                      Написать менеджеру
+                    </button>
+                    <button
+                      onClick={resetChatState}
+                      className="w-full rounded-xl border border-white/20 text-white px-4 py-2 text-sm hover:bg-white/10 transition"
+                    >
+                      Попробовать снова
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div ref={messagesEndRef} />
             </div>
 

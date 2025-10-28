@@ -1,0 +1,191 @@
+{
+  "dashboard": {
+    "title": "NeuroExpert Backend Observability",
+    "tags": ["neuroexpert", "backend", "api"],
+    "timezone": "browser",
+    "schemaVersion": 27,
+    "version": 0,
+    "refresh": "10s",
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "type": "graph",
+        "title": "Request Rate (req/s)",
+        "targets": [
+          {
+            "expr": "rate(neuroexpert_backend_requests_total[5m])",
+            "legendFormat": "{{method}} {{path}} ({{status}})",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [{"format": "reqps"}, {"format": "short"}],
+        "legend": {"show": true, "values": false, "alignAsTable": true}
+      },
+      {
+        "id": 2,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "type": "graph",
+        "title": "Request Latency (p50, p95, p99)",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, rate(neuroexpert_backend_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p50",
+            "refId": "A"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(neuroexpert_backend_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p95",
+            "refId": "B"
+          },
+          {
+            "expr": "histogram_quantile(0.99, rate(neuroexpert_backend_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p99",
+            "refId": "C"
+          }
+        ],
+        "yaxes": [{"format": "s"}, {"format": "short"}],
+        "legend": {"show": true}
+      },
+      {
+        "id": 3,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "type": "graph",
+        "title": "Error Rate (4xx/5xx)",
+        "targets": [
+          {
+            "expr": "rate(neuroexpert_backend_error_responses_total{status_class=\"4xx\"}[5m])",
+            "legendFormat": "4xx {{method}} {{path}}",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(neuroexpert_backend_error_responses_total{status_class=\"5xx\"}[5m])",
+            "legendFormat": "5xx {{method}} {{path}}",
+            "refId": "B"
+          }
+        ],
+        "yaxes": [{"format": "reqps"}, {"format": "short"}],
+        "legend": {"show": true},
+        "alert": {
+          "name": "High 5xx Error Rate",
+          "message": "5xx error rate is above threshold",
+          "conditions": [
+            {
+              "evaluator": {"params": [0.1], "type": "gt"},
+              "operator": {"type": "and"},
+              "query": {"params": ["B", "5m", "now"]},
+              "reducer": {"params": [], "type": "avg"},
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "alerting",
+          "for": "5m",
+          "frequency": "1m",
+          "handler": 1,
+          "noDataState": "no_data",
+          "notifications": []
+        }
+      },
+      {
+        "id": 4,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "type": "graph",
+        "title": "External Service Calls (LLM, MongoDB, Telegram)",
+        "targets": [
+          {
+            "expr": "rate(neuroexpert_backend_external_calls_total[5m])",
+            "legendFormat": "{{service}} ({{outcome}})",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [{"format": "reqps"}, {"format": "short"}],
+        "legend": {"show": true, "alignAsTable": true}
+      },
+      {
+        "id": 5,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+        "type": "graph",
+        "title": "External Call Latency (p95)",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(neuroexpert_backend_external_call_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{service}} p95",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [{"format": "s"}, {"format": "short"}],
+        "legend": {"show": true}
+      },
+      {
+        "id": 6,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+        "type": "graph",
+        "title": "MongoDB Operations",
+        "targets": [
+          {
+            "expr": "rate(neuroexpert_backend_db_operations_total[5m])",
+            "legendFormat": "{{collection}}.{{operation}} ({{outcome}})",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [{"format": "ops"}, {"format": "short"}],
+        "legend": {"show": true, "alignAsTable": true}
+      },
+      {
+        "id": 7,
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 24},
+        "type": "singlestat",
+        "title": "Active Requests",
+        "targets": [
+          {
+            "expr": "sum(neuroexpert_backend_requests_in_progress)",
+            "refId": "A"
+          }
+        ],
+        "format": "none"
+      },
+      {
+        "id": 8,
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 24},
+        "type": "singlestat",
+        "title": "Avg Response Time (5m)",
+        "targets": [
+          {
+            "expr": "avg(rate(neuroexpert_backend_request_duration_seconds_sum[5m]) / rate(neuroexpert_backend_requests_total[5m]))",
+            "refId": "A"
+          }
+        ],
+        "format": "s"
+      },
+      {
+        "id": 9,
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 24},
+        "type": "singlestat",
+        "title": "Total Requests (5m)",
+        "targets": [
+          {
+            "expr": "sum(increase(neuroexpert_backend_requests_total[5m]))",
+            "refId": "A"
+          }
+        ],
+        "format": "none"
+      },
+      {
+        "id": 10,
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 24},
+        "type": "singlestat",
+        "title": "Error Rate % (5m)",
+        "targets": [
+          {
+            "expr": "100 * sum(increase(neuroexpert_backend_error_responses_total[5m])) / sum(increase(neuroexpert_backend_requests_total[5m]))",
+            "refId": "A"
+          }
+        ],
+        "format": "percent",
+        "colors": ["#299c46", "#e0b400", "#d44a3a"],
+        "thresholds": "1,5"
+      }
+    ]
+  },
+  "overwrite": true
+}

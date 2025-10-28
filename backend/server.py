@@ -1,4 +1,5 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Request
+from fastapi.responses import Response
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -14,6 +15,22 @@ import aiohttp
 from config.loader import config
 from utils.intent_checker import intent_checker
 from memory.smart_context import smart_context
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from sentry_sdk.integrations.starlette import StarletteIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+from sentry_sdk.integrations.asyncio import AsyncioIntegration
+from sentry_sdk.integrations.opentelemetry import SentrySpanProcessor
+from sentry_sdk import configure_scope
+from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
+from opentelemetry import trace
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.instrumentation.aiohttp_client import AioHttpClientInstrumentor
+from opentelemetry.instrumentation.pymongo import PymongoInstrumentor
+from contextlib import asynccontextmanager
+import time
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -33,12 +50,13 @@ EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 CLIENT_ORIGIN_URL = os.environ.get('CLIENT_ORIGIN_URL', 'http://localhost:3000')
-
-# Create the main app
-app = FastAPI()
-
-# Create a router with the /api prefix
-api_router = APIRouter(prefix="/api")
+SENTRY_DSN_BACKEND = os.environ.get('SENTRY_DSN_BACKEND')
+SENTRY_ENABLED = os.environ.get('SENTRY_ENABLED', 'false').lower() in {'1', 'true', 'yes', 'on'}
+SENTRY_ENVIRONMENT = os.environ.get('SENTRY_ENVIRONMENT', os.environ.get('APP_ENV', 'development'))
+SENTRY_RELEASE = os.environ.get('SENTRY_RELEASE') or os.environ.get('GIT_COMMIT_SHA') or 'unknown'
+SENTRY_TRACES_SAMPLE_RATE = os.environ.get('SENTRY_TRACES_SAMPLE_RATE', '0.2')
+SENTRY_PROFILES_SAMPLE_RATE = os.environ.get('SENTRY_PROFILES_SAMPLE_RATE', '0.0')
+SERVICE_NAME = os.environ.get('SERVICE_NAME', 'neuroexpert-backend')
 
 # Configure logging
 logging.basicConfig(
@@ -46,6 +64,191 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+
+def _filter_pii(event, hint=None):
+    """Remove PII from events before sending to Sentry."""
+    request_data = event.get('request')
+    if request_data:
+        for key in ('headers', 'cookies', 'data'):
+            if key in request_data:
+                request_data[key] = '[FILTERED]'
+
+    user_data = event.get('user')
+    if user_data:
+        event['user'] = {k: user_data[k] for k in ('id', 'username') if k in user_data}
+
+    extra_data = event.get('extra')
+    if extra_data:
+        for key in list(extra_data.keys()):
+            if any(token in key.lower() for token in ('email', 'phone', 'contact', 'name')):
+                extra_data[key] = '[FILTERED]'
+
+    return event
+
+
+def _coerce_float(value: str, fallback: float, label: str) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        logger.warning("Invalid value for %s=%s. Falling back to %s", label, value, fallback)
+        return fallback
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Sentry & OpenTelemetry initialization
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+traces_sample_rate = _coerce_float(SENTRY_TRACES_SAMPLE_RATE, 0.2, 'SENTRY_TRACES_SAMPLE_RATE')
+profiles_sample_rate = _coerce_float(SENTRY_PROFILES_SAMPLE_RATE, 0.0, 'SENTRY_PROFILES_SAMPLE_RATE')
+SENTRY_ACTIVE = bool(SENTRY_DSN_BACKEND) and SENTRY_ENABLED and SENTRY_ENVIRONMENT != 'development'
+
+if SENTRY_ACTIVE:
+    sentry_sdk.init(
+        dsn=SENTRY_DSN_BACKEND,
+        environment=SENTRY_ENVIRONMENT,
+        release=SENTRY_RELEASE,
+        integrations=[
+            FastApiIntegration(transaction_style="endpoint"),
+            StarletteIntegration(transaction_style="endpoint"),
+            LoggingIntegration(level=logging.INFO, event_level=logging.ERROR),
+            AsyncioIntegration(),
+        ],
+        traces_sample_rate=traces_sample_rate,
+        profiles_sample_rate=profiles_sample_rate,
+        send_default_pii=False,
+        before_send=_filter_pii,
+    )
+    with configure_scope() as scope:
+        scope.set_tag('service', SERVICE_NAME)
+        scope.set_tag('deployment', SENTRY_ENVIRONMENT)
+    logger.info("✅ Sentry initialized: %s [%s]", SENTRY_ENVIRONMENT, SENTRY_RELEASE)
+else:
+    logger.info(
+        "⚠️  Sentry disabled (environment=%s, enabled=%s, dsn=%s)",
+        SENTRY_ENVIRONMENT,
+        SENTRY_ENABLED,
+        bool(SENTRY_DSN_BACKEND),
+    )
+
+# OpenTelemetry setup with Sentry integration
+resource = Resource.create({
+    "service.name": SERVICE_NAME,
+    "service.version": SENTRY_RELEASE,
+    "deployment.environment": SENTRY_ENVIRONMENT,
+})
+tracer_provider = TracerProvider(resource=resource)
+trace.set_tracer_provider(tracer_provider)
+tracer = trace.get_tracer("neuroexpert.backend")
+
+if SENTRY_ACTIVE:
+    tracer_provider.add_span_processor(SentrySpanProcessor())
+
+# Instrument external libraries for tracing
+AioHttpClientInstrumentor().instrument()
+PymongoInstrumentor().instrument()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Prometheus Metrics
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REQUEST_IN_PROGRESS = Gauge(
+    "neuroexpert_backend_requests_in_progress",
+    "Number of HTTP requests currently processed",
+    ("method", "path"),
+)
+
+REQUEST_COUNT = Counter(
+    "neuroexpert_backend_requests_total",
+    "Total HTTP requests processed",
+    ("method", "path", "status"),
+)
+
+REQUEST_LATENCY = Histogram(
+    "neuroexpert_backend_request_duration_seconds",
+    "HTTP request duration in seconds",
+    ("method", "path"),
+    buckets=(0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0),
+)
+
+ERROR_COUNT = Counter(
+    "neuroexpert_backend_error_responses_total",
+    "Total HTTP error responses by class",
+    ("method", "path", "status_class"),
+)
+
+EXTERNAL_CALL_LATENCY = Histogram(
+    "neuroexpert_backend_external_call_duration_seconds",
+    "Duration of external service calls",
+    ("service",),
+    buckets=(0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0),
+)
+
+EXTERNAL_CALL_COUNT = Counter(
+    "neuroexpert_backend_external_calls_total",
+    "Total external service calls grouped by outcome",
+    ("service", "outcome"),
+)
+
+DB_OPERATION_LATENCY = Histogram(
+    "neuroexpert_backend_db_operation_duration_seconds",
+    "Duration of MongoDB operations",
+    ("collection", "operation"),
+    buckets=(0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 2.0),
+)
+
+DB_OPERATION_COUNT = Counter(
+    "neuroexpert_backend_db_operations_total",
+    "Total MongoDB operations grouped by outcome",
+    ("collection", "operation", "outcome"),
+)
+
+
+@asynccontextmanager
+async def observe_external_call(service_name: str):
+    start = time.perf_counter()
+    outcome = "success"
+    try:
+        yield
+    except Exception:
+        outcome = "error"
+        raise
+    finally:
+        duration = time.perf_counter() - start
+        EXTERNAL_CALL_LATENCY.labels(service=service_name).observe(duration)
+        EXTERNAL_CALL_COUNT.labels(service=service_name, outcome=outcome).inc()
+
+
+@asynccontextmanager
+async def observe_db_operation(collection: str, operation: str):
+    start = time.perf_counter()
+    outcome = "success"
+    try:
+        yield
+    except Exception:
+        outcome = "error"
+        raise
+    finally:
+        duration = time.perf_counter() - start
+        DB_OPERATION_LATENCY.labels(collection=collection, operation=operation).observe(duration)
+        DB_OPERATION_COUNT.labels(collection=collection, operation=operation, outcome=outcome).inc()
+
+
+# Lifespan context manager for startup/shutdown
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    logger.info("🚀 Starting NeuroExpert Backend API")
+    # Instrument FastAPI after creation
+    FastAPIInstrumentor.instrument_app(app)
+    yield
+    # Shutdown
+    logger.info("👋 Shutting down NeuroExpert Backend API")
+    client.close()
+
+# Create the main app
+app = FastAPI(lifespan=lifespan)
+
+# Create a router with the /api prefix
+api_router = APIRouter(prefix="/api")
 
 
 # Models
@@ -66,15 +269,61 @@ class ChatResponse(BaseModel):
     session_id: str
 
 
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Metrics Middleware
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+@app.middleware("http")
+async def metrics_middleware(request: Request, call_next):
+    """Record Prometheus metrics for all requests."""
+    start_time = time.perf_counter()
+    method = request.method
+    path = request.url.path
+    
+    # Skip metrics endpoint itself
+    if path == "/metrics":
+        return await call_next(request)
+    
+    # Normalize endpoint for metrics (remove IDs)
+    endpoint = path
+    for route in app.routes:
+        match = route.matches(request.scope)
+        if match[0]:
+            endpoint = route.path
+            break
+    
+    REQUEST_IN_PROGRESS.labels(method=method, path=endpoint).inc()
+    status = 500
+    try:
+        response = await call_next(request)
+        status = response.status_code
+        return response
+    except Exception as e:
+        logger.exception("Unhandled exception in request: %s", e)
+        sentry_sdk.capture_exception(e)
+        raise
+    finally:
+        duration = time.time() - start_time
+        REQUEST_IN_PROGRESS.labels(method=method, path=endpoint).dec()
+        
+        # Record metrics
+        REQUEST_COUNT.labels(method=method, path=endpoint, status=status).inc()
+        REQUEST_LATENCY.labels(method=method, path=endpoint).observe(duration)
+        
+        if status >= 400:
+            status_class = f"{status // 100}xx"
+            ERROR_COUNT.labels(method=method, path=endpoint, status_class=status_class).inc()
+            if status >= 500:
+                logger.error("5xx error: %s %s -> %d (%.3fs)", method, path, status, duration)
+
 # Telegram notification
 async def send_telegram_notification(message: str):
     """Send notification to Telegram bot"""
-    try:
-        if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-            logger.warning("Telegram not configured")
-            return
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        logger.warning("Telegram not configured")
+        return
             
-        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    async with observe_external_call("telegram"):
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json={
                 "chat_id": TELEGRAM_CHAT_ID,
@@ -86,11 +335,14 @@ async def send_telegram_notification(message: str):
                 else:
                     text = await response.text()
                     logger.error(f"Telegram notification failed! Status: {response.status}, Response: {text}")
-    except Exception as e:
-        logger.error(f"An exception occurred while sending Telegram notification: {str(e)}")
+                    raise Exception(f"Telegram API error: {response.status}")
 
 
 # Routes
+@app.get("/metrics")
+async def metrics():
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
 @api_router.get("/")
 async def root():
     return {"message": "NeuroExpert API"}
@@ -104,7 +356,8 @@ async def submit_contact_form(form_data: ContactForm):
         form_dict['timestamp'] = datetime.utcnow()
         form_dict['status'] = 'new'
         
-        await db.contact_forms.insert_one(form_dict)
+        async with observe_db_operation('contact_forms', 'insert_one'):
+            await db.contact_forms.insert_one(form_dict)
         
         telegram_message = f"""
 <b>🎯 Новая заявка NeuroExpert!</b>
@@ -115,7 +368,11 @@ async def submit_contact_form(form_data: ContactForm):
 <b>Сообщение:</b> {form_data.message or 'Не указано'}
 """
         
-        await send_telegram_notification(telegram_message)
+        try:
+            await send_telegram_notification(telegram_message)
+        except Exception as notify_error:
+            logger.error("Telegram notification failed: %s", notify_error)
+            sentry_sdk.capture_exception(notify_error)
         
         logger.info(f"Contact form: {form_data.name} - {form_data.service}")
         
@@ -125,6 +382,7 @@ async def submit_contact_form(form_data: ContactForm):
         }
     except Exception as e:
         logger.error(f"Contact form error: {str(e)}")
+        sentry_sdk.capture_exception(e)
         raise HTTPException(status_code=500, detail="Ошибка отправки заявки")
 
 
@@ -241,7 +499,7 @@ Email: {config.data['company']['email']}
             db=db
         )
         
-        # Create chat with history
+        # Create chat with history and call LLM with metrics
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
             session_id=chat_request.session_id,
@@ -250,7 +508,8 @@ Email: {config.data['company']['email']}
         ).with_model(provider, model_name)
         
         user_message = UserMessage(text=chat_request.message)
-        response = await chat.send_message(user_message)
+        async with observe_external_call(f"llm_{selected_model}"):
+            response = await chat.send_message(user_message)
         
         # Save to DB with model info
         message_record = {
@@ -262,7 +521,8 @@ Email: {config.data['company']['email']}
             "timestamp": datetime.utcnow(),
             "user_data": chat_request.user_data
         }
-        await db.chat_messages.insert_one(message_record)
+        async with observe_db_operation('chat_messages', 'insert_one'):
+            await db.chat_messages.insert_one(message_record)
         
         # Notify if contact provided
         if chat_request.user_data and chat_request.user_data.get('contact'):
@@ -274,7 +534,11 @@ Email: {config.data['company']['email']}
 <b>Контакт:</b> {chat_request.user_data.get('contact')}
 <b>Сообщение:</b> {chat_request.message}
 """
-            await send_telegram_notification(telegram_message)
+            try:
+                await send_telegram_notification(telegram_message)
+            except Exception as notify_error:
+                logger.error("Telegram notification failed: %s", notify_error)
+                sentry_sdk.capture_exception(notify_error)
         
         return ChatResponse(
             response=response,
@@ -282,6 +546,7 @@ Email: {config.data['company']['email']}
         )
     except Exception as e:
         logger.error(f"AI chat error: {str(e)}")
+        sentry_sdk.capture_exception(e)
         raise HTTPException(status_code=500, detail="Ошибка обработки сообщения")
 
 
