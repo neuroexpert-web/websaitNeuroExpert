@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./App.css";
 import { Toaster } from "./components/ui/sonner";
 import Header from "./components/Header";
@@ -18,7 +18,7 @@ function App() {
     <div className="App bg-[#0b0f17] min-h-screen relative">
       <Toaster position="top-center" />
       
-      {/* Global Video Background (for all sections except Hero) */}
+      {/* Global Video Background (for sections after Hero) */}
       <GlobalVideoBackground />
       
       {/* Content above video background */}
