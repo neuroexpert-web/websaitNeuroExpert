@@ -82,7 +82,13 @@ MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&
 DB_NAME=neuroexpert_db
 
 # AI интеграция (Required для AI-чата)
-EMERGENT_LLM_KEY=your_emergent_llm_api_key
+GOOGLE_API_KEY=your_google_api_key_here
+# Optional: alternative key name
+GEMINI_API_KEY=your_google_api_key_here
+
+# Optional AI providers
+ANTHROPIC_API_KEY=your_anthropic_key_here
+OPENAI_API_KEY=your_openai_key_here
 
 # Telegram (Optional, для уведомлений о заявках)
 TELEGRAM_BOT_TOKEN=your_bot_token
@@ -100,7 +106,9 @@ LOG_LEVEL=INFO
 
 **Важно для запуска AI-чата:**
 - `MONGO_URL` и `DB_NAME` — обязательны для хранения сообщений
-- `EMERGENT_LLM_KEY` — обязателен для работы Claude/GPT-4o чата
+- `GOOGLE_API_KEY` или `GEMINI_API_KEY` — обязателен для работы Gemini чата
+- `ANTHROPIC_API_KEY` — опционально для Claude Sonnet
+- `OPENAI_API_KEY` — опционально для GPT-4o
 - `CLIENT_ORIGIN_URL` — должен совпадать с доменом фронтенда для CORS
 
 ## 📊 Особенности реализации

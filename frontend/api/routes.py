@@ -25,23 +25,40 @@ try:
     from config.loader import config
     from utils.intent_checker import intent_checker
     from memory.smart_context import smart_context
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
 except ImportError as exc:
     logging.warning("Failed to import backend modules: %s", exc)
     config = None
     intent_checker = None
     smart_context = None
-    LlmChat = None
-    UserMessage = None
+
+try:
+    from gemini_client import MultiModelLLMClient, Message
+except ImportError as exc:
+    logging.warning("Failed to import gemini_client: %s", exc)
+    MultiModelLLMClient = None
+    Message = None
 
 logger = logging.getLogger("neuroexpert.routes")
 
 # Environment variables
 MONGO_URL = os.environ.get("MONGO_URL")
 DB_NAME = os.environ.get("DB_NAME")
-EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY")
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+
+DEFAULT_AI_MODEL = "gemini-1.5-pro"
+MODEL_CONFIG = {
+    "gemini-1.5-pro": ("google", "gemini-1.5-pro"),
+    "gemini-pro": ("google", "gemini-1.5-pro"),
+    "gemini-1.5-flash": ("google", "gemini-1.5-flash"),
+    "claude-sonnet": ("anthropic", "claude-3-7-sonnet-20250219"),
+    "gpt-4o": ("openai", "gpt-4o"),
+}
+
+llm_client = MultiModelLLMClient() if MultiModelLLMClient else None
 
 _client: Optional[AsyncIOMotorClient] = None
 _db: Optional[AsyncIOMotorDatabase] = None
@@ -167,18 +184,24 @@ async def submit_contact_form(form_data: ContactForm, request: Request) -> Dict[
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_with_ai(chat_request: ChatMessage, request: Request) -> ChatResponse:
-    if not all([config, intent_checker, smart_context, LlmChat, UserMessage]):
+    if not all([config, intent_checker, smart_context, llm_client, Message]):
         raise HTTPException(status_code=503, detail="AI chat service temporarily unavailable")
 
-    if not EMERGENT_LLM_KEY:
-        raise HTTPException(status_code=503, detail="AI service not configured")
+    if not GOOGLE_API_KEY:
+        raise HTTPException(
+            status_code=503,
+            detail="AI сервис не настроен: добавьте GOOGLE_API_KEY или GEMINI_API_KEY в переменные окружения",
+        )
 
     try:
         db = await _get_database(request)
 
         try:
             if not intent_checker.is_relevant(chat_request.message):
-                fallback_msg = "Извините, я могу помочь только с вопросами, связанными с digital-трансформацией и нашими услугами. Чем могу помочь?"
+                fallback_msg = (
+                    "Извините, я могу помочь только с вопросами, связанными с digital-трансформацией и нашими услугами. "
+                    "Чем могу помочь?"
+                )
                 return ChatResponse(
                     response=fallback_msg,
                     session_id=chat_request.session_id,
@@ -195,23 +218,45 @@ async def chat_with_ai(chat_request: ChatMessage, request: Request) -> ChatRespo
             logger.warning("Smart context unavailable: %s", exc)
             initial_messages = []
 
-        model_config = {
-            "claude-sonnet": ("anthropic", "claude-3-7-sonnet-20250219"),
-            "gpt-4o": ("openai", "gpt-4o"),
-        }
+        selected_model = chat_request.model or DEFAULT_AI_MODEL
+        provider, model_name = MODEL_CONFIG.get(selected_model, MODEL_CONFIG[DEFAULT_AI_MODEL])
 
-        selected_model = chat_request.model or "claude-sonnet"
-        provider, model_name = model_config.get(selected_model, model_config["claude-sonnet"])
+        # Enforce Gemini as primary provider, fallback to Gemini if other provider requested
+        if provider != "google":
+            logger.info(
+                "Model %s requested but Gemini is enforced. Falling back to %s",
+                selected_model,
+                DEFAULT_AI_MODEL,
+            )
+            selected_model = DEFAULT_AI_MODEL
+            provider, model_name = MODEL_CONFIG[DEFAULT_AI_MODEL]
 
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            session_id=chat_request.session_id,
-            system_message=_build_system_prompt(),
-            initial_messages=initial_messages,
-        ).with_model(provider, model_name)
+        history: list[Message] = []
+        for msg in initial_messages:
+            role = msg.get("role")
+            content = msg.get("content")
+            if role in {"user", "assistant"} and content:
+                history.append(Message(role=role, content=content))
 
-        user_message = UserMessage(text=chat_request.message)
-        response_text = await chat.send_message(user_message)
+        system_prompt = _build_system_prompt()
+
+        try:
+            response_text = await llm_client.generate_response(
+                prompt=chat_request.message,
+                provider=provider,
+                model_name=model_name,
+                system_message=system_prompt,
+                history=history,
+            )
+        except ValueError as exc:
+            logger.warning("LLM configuration error: %s", exc)
+            raise HTTPException(status_code=503, detail=str(exc)) from exc
+        except Exception as exc:
+            logger.exception("Gemini generation error: %s", exc)
+            raise HTTPException(
+                status_code=502,
+                detail=str(exc),
+            ) from exc
 
         message_record = {
             "id": str(uuid.uuid4()),
