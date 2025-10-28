@@ -17,7 +17,7 @@ const VIDEO_BACKGROUND_REQUIREMENTS = {
     muted: true, // ✅ Critical for autoplay
     playsInline: true, // ✅ Critical for iOS
     loop: true, // ✅ Continuous playback
-    preload: 'metadata', // ✅ Optimized loading
+    preload: 'auto', // ✅ Fast loading (changed from metadata)
     crossOrigin: 'anonymous', // ✅ CORS support for CDN
     poster: '/video-poster.svg' // ✅ Fallback image
   },
@@ -64,20 +64,21 @@ const VIDEO_BACKGROUND_REQUIREMENTS = {
     dataSaver: 'Should show gradient fallback', // ✅ Network detection
     slowConnection: 'Should show gradient fallback', // ✅ Network detection
     lowBattery: 'Should show gradient fallback', // ✅ Battery detection
-    autoplayBlocked: 'Should show gradient fallback', // ✅ Error handling
+    autoplayBlocked: 'Should show gradient fallback + manual play CTA', // ✅ Error handling
     videoError: 'Should show gradient fallback', // ✅ Error handling
     videoStalled: 'Should recover or show fallback' // ✅ Stalled handling
   },
 
   // 6. Performance Metrics ✅
   METRICS: {
-    LCP: 'Optimized with metadata preload', // ✅ Fast initial paint
+    LCP: 'Optimized with auto preload + preload hints', // ✅ Fast initial paint
     CLS: 'object-cover + aspect ratio', // ✅ No layout shift
     FID: 'Non-blocking video loading', // ✅ Smooth interaction
-    TTI: 'IntersectionObserver lazy loading', // ✅ Progressive enhancement
+    TTI: 'Eager loading with network detection', // ✅ Progressive enhancement
     bandwidth: 'Adaptive quality + network detection', // ✅ Data efficiency
     battery: 'Low power mode detection', // ✅ Device optimization
     accessibility: 'Poster image + semantic markup', // ✅ A11y compliance
+    domStability: 'Video element never removed from DOM', // ✅ Prevents autoplay interruption
   }
 };
 
@@ -99,12 +100,14 @@ const VERIFICATION_CHECKLIST = {
   },
 
   PERFORMANCE_FEATURES: {
-    lazyLoading: '✅ IntersectionObserver with 50px margin',
+    eagerLoading: '✅ Preload hints in HTML + auto preload',
     adaptiveQuality: '✅ Mobile vs desktop sources',
     networkDetection: '✅ 2g/slow-2g/data-saver protection',
     batteryDetection: '✅ Low power mode detection',
     formatDetection: '✅ WebM/MP4 capability detection',
-    preloadStrategy: '✅ metadata preload to optimize LCP'
+    preloadStrategy: '✅ auto preload for immediate playback',
+    domStability: '✅ Video element persists in DOM',
+    autoplayRecovery: '✅ Manual play button on autoplay block'
   },
 
   VISUAL_QUALITY: {
