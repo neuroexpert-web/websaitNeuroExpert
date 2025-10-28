@@ -251,6 +251,11 @@ class ConfigLoader:
         """Получить информацию о компании"""
         return self._data.company if self._data else None
     
+    @property
+    def data(self) -> Optional[ServicesData]:
+        """Получить текущие данные конфигурации"""
+        return self._data
+    
     def invalidate_cache(self) -> None:
         """
         Сброс кеша (для hot-reload в development)
