@@ -6,7 +6,7 @@ const Hero = () => {
   const heroRef = useRef(null);
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={heroRef} data-testid="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <VideoBackground />
       
@@ -17,7 +17,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
+          <h1 data-testid="hero-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
             Ваш цифровой прорыв
             <br />
             <span className="text-white">
@@ -25,6 +25,7 @@ const Hero = () => {
             </span>
           </h1>
           <motion.p 
+            data-testid="hero-subtitle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
@@ -34,6 +35,7 @@ const Hero = () => {
           </motion.p>
           
           <motion.a
+            data-testid="hero-cta-button"
             href="#services"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

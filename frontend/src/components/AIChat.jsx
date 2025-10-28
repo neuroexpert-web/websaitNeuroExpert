@@ -155,6 +155,7 @@ const AIChat = () => {
       {/* Floating button */}
       <motion.div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
         <motion.button
+          data-testid="chat-float-button"
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -168,6 +169,7 @@ const AIChat = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            data-testid="chat-window"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -190,6 +192,7 @@ const AIChat = () => {
                 </div>
               </div>
               <button
+                data-testid="chat-close-button"
                 onClick={() => setIsOpen(false)}
                 className="w-8 h-8 rounded-lg bg-white/10 text-white hover:bg-red-600/20 transition"
               >
@@ -256,6 +259,7 @@ const AIChat = () => {
             {/* Input */}
             <div className="p-3 border-t border-white/10 flex gap-2 bg-black/20">
               <Input
+                data-testid="chat-message-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Напишите сообщение..."
@@ -269,6 +273,7 @@ const AIChat = () => {
                 className="flex-1 rounded-xl bg-white/90 text-black placeholder-gray-500 px-3 py-2"
               />
               <motion.button
+                data-testid="chat-send-button"
                 onClick={handleSend}
                 whileTap={{ scale: 0.95 }}
                 disabled={!input.trim() || loading || !sessionId}

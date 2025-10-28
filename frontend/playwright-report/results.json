@@ -1,0 +1,977 @@
+{
+  "config": {
+    "configFile": "/home/engine/project/frontend/playwright.config.js",
+    "rootDir": "/home/engine/project/frontend/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "/home/engine/project/frontend/tests/e2e/global-setup.js",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 3,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "playwright-report/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "playwright-report/results.xml"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/engine/project/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/engine/project/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/engine/project/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/engine/project/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/engine/project/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/engine/project/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/engine/project/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/home/engine/project/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/engine/project/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/home/engine/project/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm start",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "chat.spec.js",
+      "file": "chat.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "AI Chat",
+          "file": "chat.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should open and close chat window",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6425,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-28T13:11:28.672Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-fdb9a052f074b21dd865",
+              "file": "chat.spec.js",
+              "line": 35,
+              "column": 7
+            },
+            {
+              "title": "should send message and receive AI response",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 9647,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[data-testid=\"chat-message-input\"]')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"chat-message-input\"]')\u001b[22m\n\u001b[2m    8 × locator resolved to <input value=\"\" data-testid=\"chat-message-input\" placeholder=\"Напишите сообщение...\" class=\"flex h-9 w-full border border-input text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm flex-1 rounded-xl bg-white/90 text-black placeholder-gray-500 px-3 py-2\"/>\u001b[22m\n\u001b[2m      - unexpected value \"enabled\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[data-testid=\"chat-message-input\"]')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"chat-message-input\"]')\u001b[22m\n\u001b[2m    8 × locator resolved to <input value=\"\" data-testid=\"chat-message-input\" placeholder=\"Напишите сообщение...\" class=\"flex h-9 w-full border border-input text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm flex-1 rounded-xl bg-white/90 text-black placeholder-gray-500 px-3 py-2\"/>\u001b[22m\n\u001b[2m      - unexpected value \"enabled\"\u001b[22m\n\n    at /home/engine/project/frontend/tests/e2e/chat.spec.js:66:61",
+                        "location": {
+                          "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                          "column": 61,
+                          "line": 66
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 64 |\u001b[39m     \u001b[90m// Check loading state\u001b[39m\n \u001b[90m 65 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mloadingIndicator))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mmessageInput))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39msendButton))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m 68 |\u001b[39m     \n \u001b[90m 69 |\u001b[39m     \u001b[90m// Wait for response\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                            "column": 61,
+                            "line": 66
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[data-testid=\"chat-message-input\"]')\nExpected: disabled\nReceived: enabled\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"chat-message-input\"]')\u001b[22m\n\u001b[2m    8 × locator resolved to <input value=\"\" data-testid=\"chat-message-input\" placeholder=\"Напишите сообщение...\" class=\"flex h-9 w-full border border-input text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm flex-1 rounded-xl bg-white/90 text-black placeholder-gray-500 px-3 py-2\"/>\u001b[22m\n\u001b[2m      - unexpected value \"enabled\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 64 |\u001b[39m     \u001b[90m// Check loading state\u001b[39m\n \u001b[90m 65 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mloadingIndicator))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mmessageInput))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39msendButton))\u001b[33m.\u001b[39mtoBeDisabled()\u001b[33m;\u001b[39m\n \u001b[90m 68 |\u001b[39m     \n \u001b[90m 69 |\u001b[39m     \u001b[90m// Wait for response\u001b[39m\u001b[0m\n\u001b[2m    at /home/engine/project/frontend/tests/e2e/chat.spec.js:66:61\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-28T13:11:36.032Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-send-message-and-receive-AI-response-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                        "column": 61,
+                        "line": 66
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-7f2faf9b179c087e7b31",
+              "file": "chat.spec.js",
+              "line": 55,
+              "column": 7
+            },
+            {
+              "title": "should use quick action buttons",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 3395,
+                      "error": {
+                        "message": "TypeError: _testHelpers.selectors.chat.quickActions.first is not a function",
+                        "stack": "TypeError: _testHelpers.selectors.chat.quickActions.first is not a function\n    at /home/engine/project/frontend/tests/e2e/chat.spec.js:89:50",
+                        "location": {
+                          "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                          "column": 50,
+                          "line": 89
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m     \n \u001b[90m 88 |\u001b[39m     \u001b[90m// Click quick action button\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mquickActions\u001b[33m.\u001b[39mfirst())\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m     \n \u001b[90m 91 |\u001b[39m     \u001b[90m// Check loading state\u001b[39m\n \u001b[90m 92 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mloadingIndicator))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                            "column": 50,
+                            "line": 89
+                          },
+                          "message": "TypeError: _testHelpers.selectors.chat.quickActions.first is not a function\n\n\u001b[0m \u001b[90m 87 |\u001b[39m     \n \u001b[90m 88 |\u001b[39m     \u001b[90m// Click quick action button\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mquickActions\u001b[33m.\u001b[39mfirst())\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m     \n \u001b[90m 91 |\u001b[39m     \u001b[90m// Check loading state\u001b[39m\n \u001b[90m 92 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mloadingIndicator))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at /home/engine/project/frontend/tests/e2e/chat.spec.js:89:50\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-28T13:11:46.660Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-use-quick-action-buttons-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                        "column": 50,
+                        "line": 89
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-b7601afbc35d43c079f6",
+              "file": "chat.spec.js",
+              "line": 83,
+              "column": 7
+            },
+            {
+              "title": "should handle API errors gracefully",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 8447,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-spin')\nExpected: not visible\nReceived: visible\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-spin')\u001b[22m\n\u001b[2m    9 × locator resolved to <div class=\"animate-spin h-4 w-4 border-2 border-white/40 border-t-white rounded-full\"></div>\u001b[22m\n\u001b[2m      - unexpected value \"visible\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-spin')\nExpected: not visible\nReceived: visible\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-spin')\u001b[22m\n\u001b[2m    9 × locator resolved to <div class=\"animate-spin h-4 w-4 border-2 border-white/40 border-t-white rounded-full\"></div>\u001b[22m\n\u001b[2m      - unexpected value \"visible\"\u001b[22m\n\n    at /home/engine/project/frontend/tests/e2e/chat.spec.js:124:69",
+                        "location": {
+                          "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                          "column": 69,
+                          "line": 124
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 122 |\u001b[39m     \n \u001b[90m 123 |\u001b[39m     \u001b[90m// Wait for error response\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 124 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mloadingIndicator))\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 125 |\u001b[39m     \n \u001b[90m 126 |\u001b[39m     \u001b[90m// Check error message in chat\u001b[39m\n \u001b[90m 127 |\u001b[39m     \u001b[36mconst\u001b[39m messages \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mmessages)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                            "column": 69,
+                            "line": 124
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-spin')\nExpected: not visible\nReceived: visible\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-spin')\u001b[22m\n\u001b[2m    9 × locator resolved to <div class=\"animate-spin h-4 w-4 border-2 border-white/40 border-t-white rounded-full\"></div>\u001b[22m\n\u001b[2m      - unexpected value \"visible\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 122 |\u001b[39m     \n \u001b[90m 123 |\u001b[39m     \u001b[90m// Wait for error response\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 124 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mloadingIndicator))\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 125 |\u001b[39m     \n \u001b[90m 126 |\u001b[39m     \u001b[90m// Check error message in chat\u001b[39m\n \u001b[90m 127 |\u001b[39m     \u001b[36mconst\u001b[39m messages \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(selectors\u001b[33m.\u001b[39mchat\u001b[33m.\u001b[39mmessages)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at /home/engine/project/frontend/tests/e2e/chat.spec.js:124:69\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-28T13:11:51.489Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/engine/project/frontend/test-results/chat-AI-Chat-should-handle-API-errors-gracefully-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/engine/project/frontend/tests/e2e/chat.spec.js",
+                        "column": 69,
+                        "line": 124
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-79e82bbde974f1e7587a",
+              "file": "chat.spec.js",
+              "line": 105,
+              "column": 7
+            },
+            {
+              "title": "should handle empty message input",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-df878d808f936ae9bef9",
+              "file": "chat.spec.js",
+              "line": 138,
+              "column": 7
+            },
+            {
+              "title": "should maintain conversation history",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-a733ef86a9efcec0bcc4",
+              "file": "chat.spec.js",
+              "line": 155,
+              "column": 7
+            },
+            {
+              "title": "should be responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-47aef3144cd61f56ea2e",
+              "file": "chat.spec.js",
+              "line": 179,
+              "column": 7
+            },
+            {
+              "title": "should handle Enter key to send message",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3e6486b881f4eb937326-430a7a2ff4685ec66e45",
+              "file": "chat.spec.js",
+              "line": 204,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "contact-form.spec.js",
+      "file": "contact-form.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Contact Form",
+          "file": "contact-form.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display contact form correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-c74c0601191e34c67a9f",
+              "file": "contact-form.spec.js",
+              "line": 41,
+              "column": 7
+            },
+            {
+              "title": "should submit form successfully with valid data",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-30f34c2f5932d587b5f5",
+              "file": "contact-form.spec.js",
+              "line": 59,
+              "column": 7
+            },
+            {
+              "title": "should validate required fields",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-6997d2c661fd108359cc",
+              "file": "contact-form.spec.js",
+              "line": 91,
+              "column": 7
+            },
+            {
+              "title": "should validate partial form submission",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-99a0168f890ece72e67f",
+              "file": "contact-form.spec.js",
+              "line": 104,
+              "column": 7
+            },
+            {
+              "title": "should handle API errors gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-2a4ad278e65f5ed7f183",
+              "file": "contact-form.spec.js",
+              "line": 120,
+              "column": 7
+            },
+            {
+              "title": "should handle different service selections",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-2a4ef0be2eb90a9a10ac",
+              "file": "contact-form.spec.js",
+              "line": 162,
+              "column": 7
+            },
+            {
+              "title": "should handle optional message field",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-30ee1a3407bd999c89af",
+              "file": "contact-form.spec.js",
+              "line": 194,
+              "column": 7
+            },
+            {
+              "title": "should handle long message content",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-057c74c6d83d224a9481",
+              "file": "contact-form.spec.js",
+              "line": 213,
+              "column": 7
+            },
+            {
+              "title": "should be responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-65249450cfd30d65b7dc",
+              "file": "contact-form.spec.js",
+              "line": 235,
+              "column": 7
+            },
+            {
+              "title": "should show social media links",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "97203e29c2f9ea68820f-112c154938ef2eb75d44",
+              "file": "contact-form.spec.js",
+              "line": 265,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "hero.spec.js",
+      "file": "hero.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Hero Section",
+          "file": "hero.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load hero section without console errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f01c8a7bcbfd9a6caea5-448650cd63b7fdbf4d99",
+              "file": "hero.spec.js",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "should display hero content correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f01c8a7bcbfd9a6caea5-d654ac114099e07fb123",
+              "file": "hero.spec.js",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should handle video loading properly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f01c8a7bcbfd9a6caea5-49ca99982a2d830a0c7b",
+              "file": "hero.spec.js",
+              "line": 31,
+              "column": 7
+            },
+            {
+              "title": "should show fallback when video fails to load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f01c8a7bcbfd9a6caea5-66423d466d55fd531ad6",
+              "file": "hero.spec.js",
+              "line": 62,
+              "column": 7
+            },
+            {
+              "title": "CTA button should navigate to services section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f01c8a7bcbfd9a6caea5-4e561acd5f9690c081e4",
+              "file": "hero.spec.js",
+              "line": 84,
+              "column": 7
+            },
+            {
+              "title": "should be responsive on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f01c8a7bcbfd9a6caea5-215107f488fec4781c9c",
+              "file": "hero.spec.js",
+              "line": 100,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "main-user-flow.spec.js",
+      "file": "main-user-flow.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Main User Flow",
+          "file": "main-user-flow.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "complete user journey: hero -> chat -> contact form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "54ed0760d48af13eb54e-1af82dcd5d9a4c80805d",
+              "file": "main-user-flow.spec.js",
+              "line": 63,
+              "column": 7
+            },
+            {
+              "title": "user flow with API failures",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "54ed0760d48af13eb54e-9eb960bd507f4486e9d1",
+              "file": "main-user-flow.spec.js",
+              "line": 119,
+              "column": 7
+            },
+            {
+              "title": "mobile user flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "54ed0760d48af13eb54e-a4ce641cc73b46f7e187",
+              "file": "main-user-flow.spec.js",
+              "line": 173,
+              "column": 7
+            },
+            {
+              "title": "accessibility and keyboard navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "54ed0760d48af13eb54e-39142d7b49518aa42d2c",
+              "file": "main-user-flow.spec.js",
+              "line": 214,
+              "column": 7
+            },
+            {
+              "title": "performance and loading states",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "54ed0760d48af13eb54e-5db6ec2f116d28b6f07b",
+              "file": "main-user-flow.spec.js",
+              "line": 263,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 3 maximum allowed failures.\u001b[39m"
+    }
+  ],
+  "stats": {
+    "startTime": "2025-10-28T13:11:08.507Z",
+    "duration": 51960.747,
+    "expected": 1,
+    "skipped": 25,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
