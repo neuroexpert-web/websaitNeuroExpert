@@ -18,7 +18,7 @@ function App() {
     <div className="App bg-[#0b0f17] min-h-screen relative">
       <Toaster position="top-center" />
       
-      {/* Global Video Background (for sections after Hero) */}
+      {/* Global Video Background (unified seamless background for entire site) */}
       <GlobalVideoBackground />
       
       {/* Content above video background */}
@@ -27,7 +27,7 @@ function App() {
         <StickyCTA />
         
         <main>
-          {/* 1. Hero с видео */}
+          {/* 1. Hero */}
           <Hero />
           
           {/* 2. Карточки услуг с AI консультация */}
