@@ -11,42 +11,49 @@ import ContactForm from "./components/ContactForm";
 import AIChat from "./components/AIChat";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
-import GlobalVideoBackground from "./components/GlobalVideoBackground";
 
 function App() {
   return (
     <div className="App bg-[#0b0f17] min-h-screen relative">
       <Toaster position="top-center" />
+
+      <video
+        autoPlay
+        muted
+        playsInline
+        loop
+        preload="auto"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          objectFit: 'cover',
+          zIndex: 0
+        }}
+        src="/background.webm"
+      />
       
-      {/* Global Video Background (for sections after Hero) */}
-      <GlobalVideoBackground />
-      
-      {/* Content above video background */}
       <div className="relative z-10">
         <Header />
         <StickyCTA />
         
         <main>
-          {/* 1. Hero с видео */}
           <Hero />
           
-          {/* 2. Карточки услуг с AI консультация */}
           <ServiceCards />
           
-          {/* 3. Портфолио/Кейсы */}
           <section id="portfolio">
             <Portfolio />
           </section>
           
-          {/* 4. Почему мы */}
           <Advantages />
           
-          {/* 5. Кто мы */}
           <section id="team">
             <Team />
           </section>
           
-          {/* 6. Форма обратной связи */}
           <ContactForm />
         </main>
         
