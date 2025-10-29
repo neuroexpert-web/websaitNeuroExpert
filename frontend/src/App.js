@@ -11,15 +11,14 @@ import ContactForm from "./components/ContactForm";
 import AIChat from "./components/AIChat";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
-import GlobalVideoBackground from "./components/GlobalVideoBackground";
+import VideoBackground from "./components/VideoBackground";
 
 function App() {
   return (
     <div className="App bg-[#0b0f17] min-h-screen relative">
       <Toaster position="top-center" />
       
-      {/* Global Video Background (for sections after Hero) */}
-      <GlobalVideoBackground />
+      <VideoBackground />
       
       {/* Content above video background */}
       <div className="relative z-10">
