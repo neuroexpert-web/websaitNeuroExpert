@@ -71,6 +71,31 @@ const VideoBackground = ({ onVideoLoad }) => {
     }, 3000);
   }, []);
 
+  const attemptAutoplay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoadVideo || videoError || !isIntersecting) {
+      return;
+    }
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('muted', '');
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    if (video.readyState === 0) {
+      video.load();
+    }
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch((error) => {
+        console.error('Autoplay error:', error);
+      });
+    }
+  }, [isIntersecting, shouldLoadVideo, videoError]);
+
   // Intersection Observer for lazy loading
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -108,29 +133,42 @@ const VideoBackground = ({ onVideoLoad }) => {
 
   // Attempt to play video when ready
   useEffect(() => {
-    if (videoRef.current && isIntersecting && shouldLoadVideo && !videoError) {
-      const video = videoRef.current;
-      
-      const attemptPlay = async () => {
-        try {
-          // Start loading the video
-          if (video.readyState === 0) {
-            video.load();
-          }
-          
-          // Try to play
-          await video.play();
-        } catch (error) {
-          console.warn('Autoplay prevented, showing fallback:', error);
-          setVideoError(true);
-        }
-      };
-
-      // Wait a bit for the video to be ready
-      const timer = setTimeout(attemptPlay, 100);
-      return () => clearTimeout(timer);
+    if (!isIntersecting || !shouldLoadVideo || videoError) {
+      return;
     }
-  }, [isIntersecting, shouldLoadVideo, videoError]);
+
+    const timer = setTimeout(() => {
+      attemptAutoplay();
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [attemptAutoplay, isIntersecting, shouldLoadVideo, videoError]);
+
+  // Ensure playback once media data is available
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !isIntersecting || !shouldLoadVideo || videoError) {
+      return;
+    }
+
+    const handleVideoReady = () => {
+      attemptAutoplay();
+    };
+
+    video.addEventListener('loadeddata', handleVideoReady);
+    video.addEventListener('canplay', handleVideoReady);
+    video.addEventListener('canplaythrough', handleVideoReady);
+
+    if (video.readyState >= 3) {
+      attemptAutoplay();
+    }
+
+    return () => {
+      video.removeEventListener('loadeddata', handleVideoReady);
+      video.removeEventListener('canplay', handleVideoReady);
+      video.removeEventListener('canplaythrough', handleVideoReady);
+    };
+  }, [attemptAutoplay, isIntersecting, shouldLoadVideo, videoError]);
 
   // Fallback gradient background
   const renderFallback = () => (
@@ -237,7 +275,7 @@ const VideoBackground = ({ onVideoLoad }) => {
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
         crossOrigin="anonymous"
         poster="/video-poster.svg"
         onLoadedData={handleVideoLoad}
