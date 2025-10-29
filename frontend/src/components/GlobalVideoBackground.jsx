@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const GlobalVideoBackground = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef(null);
 
   // Don't load video on very slow connections
   const shouldLoadVideo = () => {
@@ -21,7 +22,48 @@ const GlobalVideoBackground = () => {
     setVideoError(true);
   };
 
-  if (!shouldLoadVideo() || videoError) {
+  const canLoadVideo = shouldLoadVideo();
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !canLoadVideo || videoError) {
+      return;
+    }
+
+    const ensurePlayback = () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.setAttribute('muted', '');
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+
+      if (video.readyState === 0) {
+        video.load();
+      }
+
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch((err) => {
+          console.error('Autoplay error:', err);
+        });
+      }
+    };
+
+    video.addEventListener('loadeddata', ensurePlayback);
+    video.addEventListener('canplay', ensurePlayback);
+    video.addEventListener('canplaythrough', ensurePlayback);
+
+    ensurePlayback();
+
+    return () => {
+      video.removeEventListener('loadeddata', ensurePlayback);
+      video.removeEventListener('canplay', ensurePlayback);
+      video.removeEventListener('canplaythrough', ensurePlayback);
+    };
+  }, [canLoadVideo, videoError]);
+
+  if (!canLoadVideo || videoError) {
     // Premium animated gradient background - agency quality
     return (
       <div className="fixed inset-0 w-full h-full overflow-hidden z-0">
@@ -119,16 +161,19 @@ const GlobalVideoBackground = () => {
       {/* Optimized Cloudinary Video Background */}
       <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#0b0f17] z-0">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
+          poster="/video-poster.svg"
           onLoadedData={() => setVideoLoaded(true)}
           onError={handleVideoError}
           style={{
             transform: 'scale(1.05)',
-            objectPosition: 'center center'
+            objectPosition: 'center center',
+            opacity: videoLoaded ? 0.8 : 0
           }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? 'opacity-80' : 'opacity-0'
